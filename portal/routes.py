@@ -7,10 +7,11 @@ from notmuch import Database, Query
 from bottle import Bottle, request, response, \
                    abort, redirect, \
                    view, TEMPLATE_PATH, \
+                   template, \
                    static_file
 
 from .mail import hierarchy, subhierarchy
-from .article import possibilities as article_possibilities, parse as article_parse
+from .article import article as _article
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -84,10 +85,4 @@ TOPDIRS = set(os.listdir(ARTICLE_DIR))
 
 @app.route('/<endpoint:path>')
 def article(endpoint):
-    possibilities = article_possibilities(ARTICLE_DIR, endpoint)
-    if len(possibilities) == 1:
-        return template('article', article_parse(endpoint, possibilities[0]))
-    elif len(possibilities) == 0:
-        return static_file(endpoint, root = ARTICLE_DIR)
-    elif len(possibilities) > 1:
-        abort(500)
+    return _article(abort, static_file, template, ARTICLE_DIR, endpoint)
