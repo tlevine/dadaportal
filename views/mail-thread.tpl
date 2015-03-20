@@ -34,7 +34,7 @@
         % for thread in threads:
           <ul>
           % for message in thread:
-          % include('subthread.tpl', message = message)
+          % include('mail-subthread.tpl', message = message)
           % end
           </ul>
         % end

@@ -11,6 +11,6 @@
 </li>
 <ul>
   % for reply in message['replies']:
-  % include('subthread.tpl', message = reply)
+  % include('mail-subthread.tpl', message = reply)
   % end
 </ul>
