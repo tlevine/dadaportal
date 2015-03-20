@@ -1,0 +1,7 @@
+[submodule "articles"]
+	path = articles
+	url = ../thomaslevine.com/.git
+	branch = dada-portal
+[submodule "static"]
+	path = static
+	url = ../dada-static
