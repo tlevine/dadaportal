@@ -7,9 +7,12 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/+/">Search</a></li>
         <li><a href="/+/date:yesterday../">Recent</a></li>
       </ul>
+      <form action="/+" method="get">
+        <input name="q" type="text" />
+        <input value="Search" type="submit" />
+      </form>
     </nav>
     {{!base}}
   </body>

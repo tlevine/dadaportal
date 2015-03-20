@@ -74,6 +74,8 @@ def reify(article_dir, endpoint):
                 h1s = html.xpath('//h1')
                 if len(h1s) > 0 and 'title' not in data:
                     data['title'] = h1s[0].text_content()
+            if 'title' not in data:
+                data['title'] = None
             return data
     elif len(possibilities) > 1:
         raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')

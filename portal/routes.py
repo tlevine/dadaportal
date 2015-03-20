@@ -109,3 +109,10 @@ def article(endpoint):
         return template('article', result)
     else:
         return static_file(endpoint, root = article_dir)
+
+@app.route('/+')
+def search():
+    if 'q' not in request.params:
+        redirect('/+')
+    q = request.params.get('q') # query
+    p = request.params.get('p', 1) # page
