@@ -1,4 +1,5 @@
 import os, re, io
+from functools import lru_cache
 import yaml, markdown, docutils.parsers
 
 def get_possibilities(article_dir, endpoint):
@@ -10,6 +11,8 @@ def get_possibilities(article_dir, endpoint):
             if x.startswith(identifier)]
 
 SEPARATOR = re.compile(r'^-+$')
+
+@lru_cache()
 def parse(filename):
     formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
     with open(filename) as body_fp:
@@ -29,11 +32,27 @@ def parse(filename):
 def md(fp):
     return markdown.markdown(fp.read())
 
+def read(fp):
+    return fp.read()
+
 FORMATS = {
     'mdwn': md,
     'md': md,
+    'rst': read,
+    'txt': read,
+    'html': read,
 }
 EXTENSION = re.compile(r'^.*\.([a-z]+)$')
+
+def reify(article_dir, endpoint):
+    possibilities = get_possibilities(article_dir, endpoint)
+    if len(possibilities) == 1:
+        m = re.match(EXTENSION, possibilities[0])
+        if m and m.group(1) in FORMATS:
+            return parse(possibilities[0])
+    elif len(possibilities) > 1:
+        return {'body': 'Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n'}
+    raise ValueError('Could not reify "%s"' % endpoint)
 
 def article(abort, static_file, template, article_dir, endpoint):
     m = re.match(EXTENSION, endpoint)

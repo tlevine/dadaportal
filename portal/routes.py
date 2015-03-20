@@ -1,5 +1,5 @@
 import os
-# from functools import lru_cache
+from functools import partial
 
 from unidecode import unidecode
 from lxml.html.clean import clean_html
@@ -11,7 +11,7 @@ from bottle import Bottle, request, response, \
                    static_file
 
 from .mail import hierarchy, subhierarchy
-from .article import article as _article
+from .article import article as _article, reify
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -82,6 +82,12 @@ def source(filename):
 
 ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 TOPDIRS = set(os.listdir(ARTICLE_DIR))
+
+@app.route('/!')
+def article_index():
+    endpoints = ('!/' + x for x in os.listdir(os.path.join(ARTICLE_DIR, '!')))
+    articles = list(map(partial(reify, ARTICLE_DIR), endpoints))
+    return template('exclaim-index', articles = articles)
 
 @app.route('/<endpoint:path>')
 def article(endpoint):
