@@ -8,7 +8,8 @@ from bottle import Bottle, request, response, \
                    view, TEMPLATE_PATH, \
                    static_file
 
-from .queries import hierarchy, subhierarchy
+from .mail import hierarchy, subhierarchy
+from .article import article_possibilities
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -18,17 +19,6 @@ app = Bottle()
 @view('index')
 def home():
     return {}
-
-@app.route('/style.css')
-def css():
-    return static_file('style.css', root = PORTAL_DIR)
-
-
-@app.route('/<endpoint:path>')
-
-@app.route('/source/<filename:path>')
-def static(filename):
-    return static_file(filename, root = os.path.join(PORTAL_DIR, 'static'))
 
 @app.get('/@/<querystr:path>/')
 @view('thread')
@@ -84,3 +74,17 @@ def attachment(querystr, n):
                 return clean_html(payload)
             else:
                 return payload
+
+@app.route('/<endpoint:path>')
+def article(endpoint):
+    possibilities = article_possibilities(endpoint)
+    if len(possibilities) == 1:
+        return _render(possibilities[0])
+    elif len(possibilities) > 1:
+        abort(500)
+    else:
+        abort(404)
+
+@app.route('/source/<filename:path>')
+def static(filename):
+    return static_file(filename, root = os.path.join(PORTAL_DIR, 'static'))

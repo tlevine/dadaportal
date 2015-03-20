@@ -1,16 +1,10 @@
 import os, re
 
-def article(endpoint):
+def article_possibilities(endpoint):
     partial_directory, identifier = os.path.split(endpoint)
     directory = os.path.join(PORTAL_DIR, partial_directory)
-    possibilities = [os.path.join(directory, x) for x in os.listdir(directory) \
-                     if _matches(identifier, x)]
-    if len(possibilities) == 1:
-        return _render(possibilities[0])
-    elif len(possibilities) > 1:
-        abort(500)
-    else:
-        abort(404)
+    return [os.path.join(directory, x) for x in os.listdir(directory) \
+            if _matches(identifier, x)]
 
 FORMATS = {
     'mdwn': markdown.markdown,
