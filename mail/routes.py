@@ -11,19 +11,6 @@ from bottle import Bottle, request, response, \
 
 from .queries import hierarchy, subhierarchy
 
-EJNUG_DIR = os.path.split(__file__)[0]
-TEMPLATE_PATH.append(os.path.join(EJNUG_DIR, 'views'))
-app = Bottle()
-
-@app.route('/')
-@view('home')
-def home():
-    return {}
-
-@app.route('/style.css')
-def css():
-    return static_file('style.css', root = EJNUG_DIR)
-
 @app.get('/!/<querystr:path>/')
 @view('thread')
 def search(querystr):
@@ -78,12 +65,3 @@ def attachment(querystr, n):
                 return clean_html(payload)
             else:
                 return payload
-
-@app.route('/!')
-@app.route('/!/')
-def exclaim():
-    redirect('/')
-
-@app.route('/!/<querystr:path>')
-def slash(querystr):
-    redirect('/!/' + querystr.rstrip('/') + '/')
