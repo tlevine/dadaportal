@@ -1,6 +1,8 @@
 import os, re, io
 import yaml, markdown, docutils.parsers
 
+import lxml.html
+
 def get_possibilities(article_dir, endpoint):
     if os.path.isdir(os.path.join(article_dir, endpoint)):
         return get_possibilities(article_dir, os.path.join(endpoint, 'index'))
@@ -57,6 +59,10 @@ def reify(article_dir, endpoint):
         if m and m.group(1) in FORMATS:
             data = parse(possibilities[0])
             data['endpoint'] = endpoint
+            html = lxml.html.fromstring(data['body'])
+            h1s = html.xpath('//h1')
+            if len(h1s) > 0 and 'title' not in data:
+                data['title'] = h1s[0].text_content()
             return data
     elif len(possibilities) > 1:
         raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')
