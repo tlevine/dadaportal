@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+from urllib.parse import urljoin
 
 from unidecode import unidecode
 from lxml.html.clean import clean_html
@@ -11,8 +12,11 @@ from bottle import Bottle, request, response, \
 
 from .queries import hierarchy, subhierarchy
 
+app = Bottle()
+TEMPLATE_PATH.append(('/home/tlevine/git/dada-portal/views'))
+
 @app.get('/!/<querystr:path>/')
-@view('thread')
+@view('mail-thread')
 def search(querystr):
     db = Database()
     query = Query(db, querystr)
@@ -38,18 +42,18 @@ def search(querystr):
         'threads': list(hierarchy(query)),
     }
 
-@app.get('/!/<querystr:path>/<n:int>')
+@app.get('/!/<querystr:path>/<n:int>', name = 'attachment')
 def attachment(querystr, n):
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() != 1:
-        redirect('/!/%s/' % querystr)
+        redirect(urljoin(app.get_url('mail'), querystr))
     else:
         message = next(iter(query.search_messages()))
         parts = message.get_message_parts()
         i = n - 1
         if i >= len(parts):
-            redirect('/!/%s/' % querystr)
+            redirect(urljoin(app.get_url('mail'), querystr))
         else:
             part = parts[i]
             content_type = part.get_content_type()

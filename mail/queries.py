@@ -37,7 +37,7 @@ def subhierarchy(message):
 ''' % message.get_message_id())
     }
     if not to.endswith('@thomaslevine.com'):
-        mailto['cc']: 'Thomas Levine <_@thomaslevine.com>'
+        mailto['cc'] = 'Thomas Levine <_@thomaslevine.com>'
 
     d = datetime.datetime.fromtimestamp(message.get_date())
     return {
