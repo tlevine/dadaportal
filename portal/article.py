@@ -11,8 +11,6 @@ def get_possibilities(article_dir, endpoint):
 
 SEPARATOR = re.compile(r'^-+$')
 def parse(filename):
-    print(filename)
-    print(re.match(EXTENSION, filename).group(1))
     formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
     with open(filename) as body_fp:
         head_fp = io.StringIO()
