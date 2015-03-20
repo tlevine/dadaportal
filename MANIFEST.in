@@ -1,2 +1,2 @@
-include ejnug/style.css
-recursive-include ejnug/views *
+recursive-include views *
+recursive-include static *
