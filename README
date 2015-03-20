@@ -34,6 +34,14 @@ Source code is easy to display. ``/source`` is a directory listing of
 the top-level of the repository, and directories recursively list their
 contents.
 
+The following markup languages for articles are supported.
+
+* Restructured Text
+* Markdown
+* Hypertext Markup Language
+
+Public and semi-public articles are a git submodule.
+
 Maybe features
 ------------------
 I want some sort of search. Omega seems the simplest, but I couldn't get
@@ -45,4 +53,5 @@ Not features
 I don't do forms in here; I run LimeSurvey and put forms there.
 
 People can't edit my site anymore, as they could with Branchable.
-Nobody used it anyway.
+But nobody used it anyway. If people really want it, I can put the
+articles submodule up somewhere.
