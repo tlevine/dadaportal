@@ -55,7 +55,9 @@ def reify(article_dir, endpoint):
     if len(possibilities) == 1:
         m = re.match(EXTENSION, possibilities[0])
         if m and m.group(1) in FORMATS:
-            return parse(possibilities[0])
+            data = parse(possibilities[0])
+            data['endpoint'] = endpoint
+            return data
     elif len(possibilities) > 1:
         raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')
 

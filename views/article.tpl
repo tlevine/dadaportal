@@ -5,6 +5,7 @@
     <span>tags</span>
   </header>
   <hr/>
+  {{!body}}
 </article>
 
 <div id="pagination">
