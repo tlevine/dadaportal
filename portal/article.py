@@ -6,6 +6,9 @@ def article_possibilities(endpoint):
     return [os.path.join(directory, x) for x in os.listdir(directory) \
             if _matches(identifier, x)]
 
+def render(filename):
+    extension = re.match(EXTENSION, filename).group(1)
+
 FORMATS = {
     'mdwn': markdown.markdown,
     'md': markdown.markdown,

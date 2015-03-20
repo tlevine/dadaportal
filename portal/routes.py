@@ -9,7 +9,7 @@ from bottle import Bottle, request, response, \
                    static_file
 
 from .mail import hierarchy, subhierarchy
-from .article import article_possibilities
+from .article import article_possibilities, render
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -63,7 +63,6 @@ def attachment(querystr, n):
             part = parts[i]
             content_type = part.get_content_type()
             response.content_type = content_type
-         #  response.charset = part.get_content_charset()
 
             fn = part.get_filename()
             if fn != None:
@@ -79,12 +78,12 @@ def attachment(querystr, n):
 def article(endpoint):
     possibilities = article_possibilities(endpoint)
     if len(possibilities) == 1:
-        return _render(possibilities[0])
+        return render(possibilities[0])
     elif len(possibilities) > 1:
         abort(500)
-    else:
-        abort(404)
+    elif len(possibilities) == 0:
+        return static_file(endpoint, root = os.path.join(PORTAL_DIR, 'static'))
 
 @app.route('/source/<filename:path>')
-def static(filename):
-    return static_file(filename, root = os.path.join(PORTAL_DIR, 'static'))
+def source(filename):
+    return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
