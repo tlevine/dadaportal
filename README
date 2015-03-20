@@ -30,6 +30,10 @@ to match different logs after the fact.
 
 My schedule gets rendered to HTML (with pal) and hosted.
 
+Source code is easy to display. ``/source`` is a directory listing of
+the top-level of the repository, and directories recursively list their
+contents.
+
 Maybe features
 ------------------
 I want some sort of search. Omega seems the simplest, but I couldn't get
