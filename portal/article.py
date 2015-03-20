@@ -1,4 +1,4 @@
-import os, functools, re
+import os, re
 
 def article(endpoint):
     partial_directory, identifier = os.path.split(endpoint)
