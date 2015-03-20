@@ -1,7 +1,7 @@
 import os, re, io
 import yaml, markdown, docutils.parsers
 
-import lxml.html
+import lxml.html, lxml.etree
 
 def get_possibilities(article_dir, endpoint):
     if os.path.isdir(os.path.join(article_dir, endpoint)):
@@ -23,11 +23,18 @@ def parse(filename):
                 break
             else:
                 head_fp.write(line)
+        else:
+            # If there was no dashed line,
+            head_fp.truncate(0)
+            body_fp.seek(0)
         data = yaml.load(head_fp)
         if not type(data) == dict:
             data = {}
         data['body'] = formatter(body_fp)
     return data
+
+def rst(fp):
+    return docutils.examples.html_body(fp.read())
 
 def md(fp):
     return markdown.markdown(fp.read())
@@ -38,7 +45,7 @@ def read(fp):
 FORMATS = {
     'mdwn': md,
     'md': md,
-    'rst': read,
+    'rst': rst,
     'txt': read,
     'html': read,
 }
@@ -59,10 +66,14 @@ def reify(article_dir, endpoint):
         if m and m.group(1) in FORMATS:
             data = parse(possibilities[0])
             data['endpoint'] = endpoint
-            html = lxml.html.fromstring(data['body'])
-            h1s = html.xpath('//h1')
-            if len(h1s) > 0 and 'title' not in data:
-                data['title'] = h1s[0].text_content()
+            try:
+                html = lxml.html.fromstring(data['body'])
+            except lxml.etree.XMLSyntaxError:
+                pass
+            else:
+                h1s = html.xpath('//h1')
+                if len(h1s) > 0 and 'title' not in data:
+                    data['title'] = h1s[0].text_content()
             return data
     elif len(possibilities) > 1:
         raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')
