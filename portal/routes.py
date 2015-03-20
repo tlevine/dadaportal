@@ -1,4 +1,5 @@
 import os
+# from functools import lru_cache
 
 from unidecode import unidecode
 from lxml.html.clean import clean_html
@@ -9,7 +10,7 @@ from bottle import Bottle, request, response, \
                    static_file
 
 from .mail import hierarchy, subhierarchy
-from .article import article_possibilities, render
+from .article import possibilities as article_possibilities, parse as article_parse
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -74,16 +75,19 @@ def attachment(querystr, n):
             else:
                 return payload
 
-@app.route('/<endpoint:path>')
-def article(endpoint):
-    possibilities = article_possibilities(endpoint)
-    if len(possibilities) == 1:
-        return render(possibilities[0])
-    elif len(possibilities) > 1:
-        abort(500)
-    elif len(possibilities) == 0:
-        return static_file(endpoint, root = os.path.join(PORTAL_DIR, 'static'))
-
 @app.route('/source/<filename:path>')
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
+
+ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
+TOPDIRS = set(os.listdir(ARTICLE_DIR))
+
+@app.route('/<endpoint:path>')
+def article(endpoint):
+    possibilities = article_possibilities(ARTICLE_DIR, endpoint)
+    if len(possibilities) == 1:
+        return template('article', article_parse(endpoint, possibilities[0]))
+    elif len(possibilities) == 0:
+        return static_file(endpoint, root = ARTICLE_DIR)
+    elif len(possibilities) > 1:
+        abort(500)

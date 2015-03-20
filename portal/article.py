@@ -1,17 +1,29 @@
-import os, re
+import os, re, io
 
-def article_possibilities(endpoint):
+def possibilities(article_dir, endpoint):
     partial_directory, identifier = os.path.split(endpoint)
-    directory = os.path.join(PORTAL_DIR, partial_directory)
+    directory = os.path.join(article_dir, partial_directory)
     return [os.path.join(directory, x) for x in os.listdir(directory) \
             if _matches(identifier, x)]
 
-def render(filename):
-    extension = re.match(EXTENSION, filename).group(1)
+SEPARATOR = re.compile(r'^-+$')
+def parse(filename):
+    formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
+    with open(filename) as body_fp:
+        head_fp = io.StringIO()
+        for line in fp:
+            if re.match(SEPARATOR, line):
+                head_fp.seek(0)
+                break
+            else:
+                head_fp.write(line)
+        head = yaml.load(head_fp)
+        body = formatter(body_fp)
+    return {'head': head, 'body': body}
 
 FORMATS = {
-    'mdwn': markdown.markdown,
-    'md': markdown.markdown,
+    'mdwn': markdown.markdownFromFile,
+    'md': markdown.markdownFromFile,
 }
 EXTENSION = re.compile(r'^.*\.[a-z]+$')
 
