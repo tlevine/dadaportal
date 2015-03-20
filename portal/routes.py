@@ -10,8 +10,7 @@ from bottle import Bottle, request, response, \
 
 from .queries import hierarchy, subhierarchy
 
-PORTAL_DIR = os.path.split(__file__)[0]
-REPOSITORY_DIR = os.path.split(PORTAL_DIR)
+PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
 app = Bottle()
 
@@ -24,9 +23,12 @@ def home():
 def css():
     return static_file('style.css', root = PORTAL_DIR)
 
+
+@app.route('/<endpoint:path>')
+
 @app.route('/source/<filename:path>')
 def static(filename):
-    return static_file(filename, root = REPOSITORY_DIR)
+    return static_file(filename, root = os.path.join(PORTAL_DIR, 'static'))
 
 @app.get('/@/<querystr:path>/')
 @view('thread')
