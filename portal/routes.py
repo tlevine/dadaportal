@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 
 from unidecode import unidecode
@@ -11,7 +10,25 @@ from bottle import Bottle, request, response, \
 
 from .queries import hierarchy, subhierarchy
 
-@app.get('/!/<querystr:path>/')
+PORTAL_DIR = os.path.split(__file__)[0]
+REPOSITORY_DIR = os.path.split(PORTAL_DIR)
+TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
+app = Bottle()
+
+@app.route('/')
+@view('index')
+def home():
+    return {}
+
+@app.route('/style.css')
+def css():
+    return static_file('style.css', root = PORTAL_DIR)
+
+@app.route('/source/<filename:path>')
+def static(filename):
+    return static_file(filename, root = REPOSITORY_DIR)
+
+@app.get('/@/<querystr:path>/')
 @view('thread')
 def search(querystr):
     db = Database()
@@ -38,18 +55,18 @@ def search(querystr):
         'threads': list(hierarchy(query)),
     }
 
-@app.get('/!/<querystr:path>/<n:int>')
+@app.get('/@/<querystr:path>/<n:int>')
 def attachment(querystr, n):
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() != 1:
-        redirect('/!/%s/' % querystr)
+        redirect('/@/%s/' % querystr)
     else:
         message = next(iter(query.search_messages()))
         parts = message.get_message_parts()
         i = n - 1
         if i >= len(parts):
-            redirect('/!/%s/' % querystr)
+            redirect('/@/%s/' % querystr)
         else:
             part = parts[i]
             content_type = part.get_content_type()
@@ -65,12 +82,3 @@ def attachment(querystr, n):
                 return clean_html(payload)
             else:
                 return payload
-
-@app.route('/')
-@view('index')
-def home():
-    return {}
-
-@app.route('/style.css')
-def css():
-    return static_file('style.css', root = EJNUG_DIR)
