@@ -1,5 +1,5 @@
 <ul>
   % for article in articles:
-  % # include('public-article.tpl', article = article)
+  % include('article-box.tpl', article = article)
   % end
 </ul>

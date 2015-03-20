@@ -83,10 +83,14 @@ def source(filename):
 ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 TOPDIRS = set(os.listdir(ARTICLE_DIR))
 
+articles_cache = {}
 @app.route('/!')
 def article_index():
     endpoints = ('!/' + x for x in os.listdir(os.path.join(ARTICLE_DIR, '!')))
-    articles = list(map(partial(reify, ARTICLE_DIR), endpoints))
+    for endpoint in endpoints:
+        if endpoint not in articles_cache:
+            articles_cache[endpoint] = reify(ARTICLE_DIR, endpoint)
+    articles = [v for k,v in sorted(articles_cache.items())]
     return template('exclaim-index', articles = articles)
 
 @app.route('/<endpoint:path>')

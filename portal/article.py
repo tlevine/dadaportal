@@ -1,5 +1,4 @@
 import os, re, io
-from functools import lru_cache
 import yaml, markdown, docutils.parsers
 
 def get_possibilities(article_dir, endpoint):
@@ -8,11 +7,10 @@ def get_possibilities(article_dir, endpoint):
     partial_directory, identifier = os.path.split(endpoint)
     directory = os.path.join(article_dir, partial_directory)
     return [os.path.join(directory, x) for x in os.listdir(directory) \
-            if x.startswith(identifier)]
+            if _is_possible(x, identifier)]
 
 SEPARATOR = re.compile(r'^-+$')
 
-@lru_cache()
 def parse(filename):
     formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
     with open(filename) as body_fp:
@@ -44,6 +42,14 @@ FORMATS = {
 }
 EXTENSION = re.compile(r'^.*\.([a-z]+)$')
 
+def _is_possible(x, identifier):
+    if not x.startswith(identifier):
+        return False
+    m = re.match(EXTENSION, x)
+    if not (m and m.group(1) in FORMATS):
+        return False
+    return True
+
 def reify(article_dir, endpoint):
     possibilities = get_possibilities(article_dir, endpoint)
     if len(possibilities) == 1:
@@ -51,18 +57,15 @@ def reify(article_dir, endpoint):
         if m and m.group(1) in FORMATS:
             return parse(possibilities[0])
     elif len(possibilities) > 1:
-        return {'body': 'Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n'}
-    raise ValueError('Could not reify "%s"' % endpoint)
+        raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')
 
 def article(abort, static_file, template, article_dir, endpoint):
     m = re.match(EXTENSION, endpoint)
     if m and m.group(1) not in FORMATS:
         return static_file(endpoint, root = article_dir)
 
-    possibilities = get_possibilities(article_dir, endpoint)
-    if len(possibilities) == 1:
-        return template('article', parse(possibilities[0]))
-    elif len(possibilities) == 0:
+    result = reify(article_dir, endpoint)
+    if result != None:
+        return template('article', result)
+    else:
         return static_file(endpoint, root = article_dir)
-    elif len(possibilities) > 1:
-        abort(500)
