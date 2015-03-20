@@ -11,7 +11,7 @@ from bottle import Bottle, request, response, \
                    static_file
 
 from .mail import hierarchy, subhierarchy
-from .article import article as _article, reify
+from .article import reify, is_static as article_is_static
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
@@ -95,4 +95,14 @@ def article_index():
 
 @app.route('/<endpoint:path>')
 def article(endpoint):
-    return _article(abort, static_file, template, ARTICLE_DIR, endpoint)
+    if article_is_static(endpoint):
+        return static_file(endpoint, root = article_dir)
+
+    if endpoint not in articles_cache:
+        articles_cache[endpoint] = reify(ARTICLE_DIR, endpoint)
+    result = articles_cache[endpoint]
+
+    if result != None:
+        return template('article', result)
+    else:
+        return static_file(endpoint, root = article_dir)

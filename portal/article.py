@@ -1,5 +1,5 @@
 import os, re, io
-import yaml, markdown, docutils.parsers
+import yaml, markdown, docutils.examples
 
 import lxml.html, lxml.etree
 
@@ -78,13 +78,6 @@ def reify(article_dir, endpoint):
     elif len(possibilities) > 1:
         raise ValueError('Multiple possibilites:\n* ' + '* \n'.join(possibilities) + '\n')
 
-def article(abort, static_file, template, article_dir, endpoint):
+def is_static(endpoint):
     m = re.match(EXTENSION, endpoint)
-    if m and m.group(1) not in FORMATS:
-        return static_file(endpoint, root = article_dir)
-
-    result = reify(article_dir, endpoint)
-    if result != None:
-        return template('article', result)
-    else:
-        return static_file(endpoint, root = article_dir)
+    return m and m.group(1) not in FORMATS
