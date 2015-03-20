@@ -7,7 +7,8 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/!/date:yesterday../">Recent</a></li>
+        <li><a href="/+/">Search</a></li>
+        <li><a href="/+/date:yesterday../">Recent</a></li>
       </ul>
     </nav>
     {{!base}}

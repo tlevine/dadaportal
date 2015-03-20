@@ -4,11 +4,10 @@ from functools import partial
 from unidecode import unidecode
 from lxml.html.clean import clean_html
 from notmuch import Database, Query
-from bottle import Bottle, request, response, \
-                   abort, redirect, \
-                   view, TEMPLATE_PATH, \
-                   template, \
-                   static_file
+from bottle import (
+    Bottle, request, response, abort, redirect, view, TEMPLATE_PATH,
+    template, static_file,
+)
 
 from .mail import hierarchy, subhierarchy
 from .article import reify, is_static as article_is_static
@@ -16,6 +15,10 @@ from .article import reify, is_static as article_is_static
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
 app = Bottle()
+
+@app.hook('before_request')
+def strip_path():
+    request.environ['PATH_INFO'] = request.environ['PATH_INFO'].rstrip('/')
 
 @app.route('/')
 @view('index')
@@ -90,7 +93,7 @@ def article_index():
     for endpoint in endpoints:
         if endpoint not in articles_cache:
             articles_cache[endpoint] = reify(ARTICLE_DIR, endpoint)
-    articles = [v for k,v in sorted(articles_cache.items())]
+    articles = [v for k,v in sorted(articles_cache.items()) if v != None]
     return template('exclaim-index', articles = articles)
 
 @app.route('/<endpoint:path>')

@@ -1,5 +1,5 @@
 <ul>
   % for article in articles:
-  % include('article-box.tpl', article = article)
+  <li><a href="{{article['endpoint']}}">{{article['endpoint']}}</a></li>
   % end
 </ul>
