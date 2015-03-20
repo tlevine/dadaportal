@@ -1,38 +1,44 @@
-Ejnug
+Dada Portal
 ===========
-Publishing emails publically
+Door to the dada
 
-Installing
------------------
-Installing this package is easy. ::
+There were several things that I wanted to do with static websites but
+couldn't. Here I finally take the plunge and add them dynamically.
 
-    pip install ejnug
+Features
+----------------
+Headers on the website include
 
-(It works in Python 2.7 and 3.4.)
+* Home
+* Search
+* Recent (mail and other)
 
-This doesn't set up the notmuch database, so you have to do that yourself.
-You might use offlineimap to acquire your emails in a maildir, and then you
-can configure notmuch to index that maildir.
+Most data are stored in ordinary files with a YAML header and other
+body, as I did when I used Nanoc.
 
-I acquire the emails with offlineimap on one computer and then send the
-emails in the "Public" category to another computer over rsync. ::
+Things can be categorized and otherwise related. These get stored in
+a relational database or something, just because it would take a while
+to load these from files.
 
-    #!/bin/sh
-    for temp in hot cold; do
-      maildir=~/safe/maildir/$temp/
-      for account in $(ls "$maildir"); do
-        rsync -Pr "$maildir/$account/Public/" "nsa:ejnug/$account"
-      done
-    done
+I expose my public emails with an adapted version of ejnug. My "home"
+computer gets the emails over imap and then sends the contents of the
+"Public" mailboxes to my "nsa" computer over rsync, which indexes them
+in notmuch. The dada portal hosts the notmuch-indexed emails.
 
-This doesn't install properly because the stuff in ``MANIFEST.in`` doesn't
-get copied. But it does when I install locally with ``pip install .``. Huh?
+I do my own tracking so I don't need to use Piwik and so I don't have
+to match different logs after the fact.
 
-Running
----------------------
-Run this as the user that has the notmuch database configured. ::
+My schedule gets rendered to HTML (with pal) and hosted.
 
-    ejnug
+Maybe features
+------------------
+I want some sort of search. Omega seems the simplest, but I couldn't get
+it working. Maybe I just add everything to notmuch. Actually, *that* is
+the simplest.
 
-This will create a web server on http://127.0.0.1:8081, and you can create
-a proxy to that from Nginx or whatever if you want a prettier name.
+Not features
+----------------
+I don't do forms in here; I run LimeSurvey and put forms there.
+
+People can't edit my site anymore, as they could with Branchable.
+Nobody used it anyway.
