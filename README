@@ -45,6 +45,9 @@ Public and semi-public articles are a git submodule.
 Articles are automatically converted into
 `big <https://github.com/tmcw/big>`_ presentations.
 
+Homepage displays the most popular articles, maybe grouped in some
+interesting way, or maybe not if that's easier.
+
 Maybe features
 ------------------
 I want some sort of search. Omega seems the simplest, but I couldn't get
