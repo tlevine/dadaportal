@@ -33,6 +33,8 @@ def search(request, querystr):
         'body': body,
         'threads': list(hierarchy(query)),
     }
+    if body != None:
+        params['message'] = params['threads'][0][0]
     return render(request, 'mail-thread.html', params)
 
 def attachment(request, querystr, n):
