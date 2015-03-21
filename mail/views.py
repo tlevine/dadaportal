@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
 
-# Template is 'mail-thread'
 def search(request, querystr):
     db = Database()
     query = Query(db, querystr)
+
     if query.count_messages() == 1:
         message = next(iter(query.search_messages()))
         title = message.get_header('subject')
@@ -19,41 +20,47 @@ def search(request, querystr):
         parts = []
         body = None
 
-    return {
+    params = {
         'q': querystr,
         'title': title,
         'parts': parts,
         'body': body,
         'threads': list(hierarchy(query)),
     }
+    return render(request, 'mail-thread.html', params)
 
 def attachment(request, querystr, n):
     db = Database()
     query = Query(db, '(not from:%s) and %s' % (ARTICLE_NOTMUCH_FROM, querystr))
+
     if query.count_messages() != 1:
-        redirect('/@/%s/' % querystr)
-    else:
-        message = next(iter(query.search_messages()))
-        parts = message.get_message_parts()
-        i = n - 1
-        if i >= len(parts):
-            abort(404)
-        else:
-            part = parts[i]
-            content_type = part.get_content_type()
-            response.content_type = content_type
+        return HttpResponseRedirect('/@/%s/' % querystr)
 
-            fn = part.get_filename()
-            if fn != None:
-                response.headers['content-disposition'] = 'filename="%s";' % unidecode(fn).replace('"', '')
+    message = next(iter(query.search_messages()))
+    parts = message.get_message_parts()
+    i = n - 1
+    if i >= len(parts):
+        return HttpResponseRedirect('/@/%s/' % querystr)
 
-            payload = message.get_part(n)
-            if 'html' in content_type.lower():
-                return clean_html(payload)
-            else:
-                return payload
+    part = parts[i]
+
+    # Things related to content type
+    content_type = part.get_content_type()
+    payload = message.get_part(n)
+    if 'html' in content_type.lower():
+        payload = clean_html(payload)
+
+    # Start constructing the response
+    response = HttpResponse(content = payload, mimetype = content_type)
+
+    # Content disposition
+    fn = part.get_filename()
+    if fn != None:
+        response['content-disposition'] = 'filename="%s";' % unidecode(fn).replace('"', '')
+
+    return response
 
 # @app.get('/@/<querystr:path>')
 def search_redir(querystr):
     'Must come after all the other mail routes'
-    redirect('/@/%s/' % querystr)
+    return HttpResponseRedirect('/@/%s/' % querystr)
