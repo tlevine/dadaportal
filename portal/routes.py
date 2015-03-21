@@ -109,7 +109,6 @@ def static(fn):
     return static_file(fn, root = os.path.join(PORTAL_DIR, 'static'))
 
 @app.route('/<endpoint:path>/')
-@app.route('/<endpoint:path>')
 def article(endpoint):
     endpoint = endpoint.lstrip('./') # Prevent ancestors from being accessed
     if not article_is_static(endpoint):
@@ -119,6 +118,14 @@ def article(endpoint):
     else:
         return static_file(endpoint, root = ARTICLE_DIR)
     abort(404)
+
+@app.route('/<endpoint:path>')
+def article_static(endpoint):
+    if os.path.isfile(os.path.join(ARTICLE_DIR, endpoint.lstrip('/.'))):
+        return static_file(endpoint, root = ARTICLE_DIR)
+    else:
+        redirect('/%s/' % endpoint)
+
 
 @app.error(404)
 def error404(e):
