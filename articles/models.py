@@ -1,4 +1,5 @@
 import time, json
+from urllib.parse import urljoin
 
 from django.db.models import Max
 from django.db import models
@@ -17,11 +18,14 @@ class ArticleCache(models.Model):
     headjson = models.TextField() # JSON
     body = models.TextField() # HTML
 
+    def get_absolute_url(self):
+        return urljoin('/', self.endpoint)
+
     def head(self):
         return json.loads(self.headjson)
 
     def __str__(self):
-        return self.endpoint
+        return self.head().get('title', self.endpoint)
 
     @classmethod
     def sync(Klass, article_dir):

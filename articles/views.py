@@ -17,7 +17,7 @@ def article_dynamic(request, endpoint):
         return static_file(endpoint, root = ARTICLE_DIR)
     abort(404)
 
-@app.route('/<endpoint:path>')
+#@app.route('/<endpoint:path>')
 def article_static(endpoint):
     x = endpoint.lstrip('/.')
     if os.path.isfile(os.path.join(ARTICLE_DIR, x)):
