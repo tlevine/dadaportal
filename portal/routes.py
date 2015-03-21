@@ -9,12 +9,13 @@ from bottle import (
 )
 
 from .mail import hierarchy, subhierarchy
-from .model import many_articles
+from .model import many_articles, one_article
 from .article import is_static as article_is_static
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
 ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
+ARTICLE_NOTMUCH_FROM = 'replace-this-with-a-random-thing-for-security-reasons'
 app = Bottle()
 
 @app.hook('before_request')
@@ -96,19 +97,41 @@ def source(filename):
 
 @app.route('/<endpoint:path>')
 def article(endpoint):
-    if article_is_static(endpoint):
-        return static_file(endpoint, root = article_dir)
-
-    result = one_article(endpoint)
-
-    if result != None:
-        return template('article', result)
+    endpoint = endpoint.lstrip('./') # Prevent ancestors from being accessed
+    if not article_is_static(endpoint):
+        result = one_article(ARTICLE_DIR, endpoint)
+        if result != None:
+            return template('article', result)
     else:
-        return static_file(endpoint, root = article_dir)
+        return static_file(endpoint, root = ARTICLE_DIR)
 
 @app.route('/+')
 def search():
     if 'q' not in request.params:
-        redirect('/+')
+        return template('search', results = None)
     q = request.params.get('q') # query
     p = request.params.get('p', 1) # page
+
+    start = (p - 1) * 100
+    end = p * 100
+    results = []
+    db = Database()
+    query = Query(db, q)
+    for i, m in enumerate(query.search_messages()):
+        if i < start:
+            pass
+        elif i >= end:
+            break
+        else:
+            if ARTICLE_NOTMUCH_FROM == m.get_header('from'):
+                href = m.get_header('to')
+            else:
+                href = '/@/id:%s' % m.get_message_id()
+            subject = m.get_header('subject')
+            if subject.strip() == '':
+                subject = '(no subject)'
+            results.append({
+                'href': href,
+                'title': subject,
+            })
+    return template('search', results = results)
