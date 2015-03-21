@@ -39,28 +39,6 @@ def mail_index():
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
 
-@app.route('/<endpoint:path>/')
-def article(endpoint):
-    endpoint = endpoint.lstrip('./') # Prevent ancestors from being accessed
-    if not article_is_static(endpoint):
-        result = Article.one(ARTICLE_DIR, endpoint)
-        if result != None:
-            return template('article', result)
-    else:
-        return static_file(endpoint, root = ARTICLE_DIR)
-    abort(404)
-
-@app.route('/<endpoint:path>')
-def article_static(endpoint):
-    x = endpoint.lstrip('/.')
-    if os.path.isfile(os.path.join(ARTICLE_DIR, x)):
-        return static_file(endpoint, root = ARTICLE_DIR)
-    elif os.path.isfile(os.path.join(STATIC_DIR, x)):
-        # For backwards compatibility
-        return static_file(endpoint, root = STATIC_DIR)
-    else:
-        redirect('/%s/' % endpoint)
-
 # Transition to this so I can host the static files with Apache directly.
 @app.route('/static/<fn:path>/')
 @app.route('/static/<fn:path>')
