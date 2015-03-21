@@ -1,9 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
-@app.get('/@/<querystr:path>/')
-@view('mail-thread')
-def search(querystr):
+# Template is 'mail-thread'
+def search(request, querystr):
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() == 1:
@@ -29,8 +27,7 @@ def search(querystr):
         'threads': list(hierarchy(query)),
     }
 
-@app.get('/@/<querystr:path>/<n:int>')
-def attachment(querystr, n):
+def attachment(request, querystr, n):
     db = Database()
     query = Query(db, '(not from:%s) and %s' % (ARTICLE_NOTMUCH_FROM, querystr))
     if query.count_messages() != 1:
@@ -56,8 +53,7 @@ def attachment(querystr, n):
             else:
                 return payload
 
-@app.get('/@/<querystr:path>')
+# @app.get('/@/<querystr:path>')
 def search_redir(querystr):
     'Must come after all the other mail routes'
     redirect('/@/%s/' % querystr)
-
