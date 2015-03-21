@@ -1,5 +1,4 @@
-import os
-from functools import partial
+import os, re
 
 from unidecode import unidecode
 from lxml.html.clean import clean_html
@@ -25,9 +24,13 @@ def strip_path():
 def home():
     return {}
 
-@app.get('/@/<querystr:path>/')
+RECENT = '/@/date:2D..'
+EMPTY_QUERY = re.compile(r'^\s*$')
+@app.get('/@/<querystr:path>')
 @view('thread')
 def search(querystr):
+    if re.match(EMPTY_QUERY, querystr):
+        redirect(RECENT)
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() == 1:
@@ -54,6 +57,8 @@ def search(querystr):
 
 @app.get('/@/<querystr:path>/<n:int>')
 def attachment(querystr, n):
+    if re.match(EMPTY_QUERY, querystr):
+        redirect(RECENT)
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() != 1:
