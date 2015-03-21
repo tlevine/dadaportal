@@ -1,47 +1,60 @@
 {% extends 'base.html' %}
-{% if body != None %}
-{% message = threads[0][0] %}
+{% if message %}
 <div class="heading">
-  <h3>{{message['subject']}}</h3>
-  <p>From <a href="/@/{{message['from']}}">{{message['from']}}</a></p>
-  <p>To <a href="/@/{{message['to']}}">{{message['to']}}</a></p>
+  <h3>{{message.subject}}</h3>
+  <p>From <a href="/@/{{message.from}}">{{message.from}}</a></p>
+  <p>To <a href="/@/{{message.to}}">{{message.to}}</a></p>
   <p>
-    {{message['weekday']}},
-    <a href="/@/date:{{message['notmuchmonth']}}..{{message['notmuchmonth']}}">{{message['month']}}</a>
-    <a href="/@/date:{{message['notmuchday']}}..{{message['notmuchday']}}">{{message['day']}}</a>,
-    {{message['year']}},
-    at {{message['time']}}
+    {{message.weekday}},
+    <a href="/@/date:{{message.notmuchmonth}}..{{message.notmuchmonth}}">{{message.month}}</a>
+    <a href="/@/date:{{message.notmuchday}}..{{message.notmuchday}}">{{message.day}}</a>,
+    {{message.year}},
+    at {{message.time}}
   </p>
   <br/>
-  <p><a href="{{message['mailto']}}" target="_blank">Reply to this message</a></p>
+  <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
 </div>
 <article class="body">{{body}}</article>
 <div class="attachments">
   <h3>Attachments</h3>
   <ol>
-  % for n, description in parts:
+  {% for n, description in parts %}
     <li><a href="{{n}}">{{description}}</a></li>
-  % end
+  {% end %}
   </ol>
 </div>
 % end
 
 <div class="threads">
-  % if body != None:
+  {% if message %}
   <h3>Thread</h3>
-  % end
+  {% end %}
   <ul>
-    % for thread in threads:
-      <ul>
-      % for message in thread:
-      % include('mail-subthread.tpl', message = message)
-      % end
-      </ul>
-    % end
+    {% for thread in threads %}
+    <ul>
+    {% for message in thread %}
+    include('mail-subthread.tpl', message = message)
+    <li>
+      <a href="/@/id:{{message.message_id}}">
+        {% if message.is_match %}<strong>{% endif %}
+          {{message.subject}}
+        {% if message.is_match %}</strong>{% endif %}
+      </a>
+    </li>
+    <ul>
+      {% for reply in message.replies %}
+      include('mail-subthread.tpl', message = reply)
+      {% endfor %}
+    </ul>
+
+
+    {% endfor %}
+    </ul>
+    {% endfor %}
   </ul>
-  % if len(threads) == 0:
+  {% if threads|length == 0 %}
   <em>No emails match "{{q}}".</em>
-  % elif len(threads) == 100:
+  {% elif threads|length == 100 %}
   <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
-  % end
+  {% endif %}
 </div>
