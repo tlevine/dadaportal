@@ -9,7 +9,7 @@ from bottle import (
 )
 
 from .mail import hierarchy, subhierarchy
-from .model import many_articles, one_article
+from .model import Article
 from .article import is_static as article_is_static
 
 PORTAL_DIR = os.path.abspath(os.path.split(os.path.split(__file__)[0])[0])
@@ -108,7 +108,7 @@ def source(filename):
 def article(endpoint):
     endpoint = endpoint.lstrip('./') # Prevent ancestors from being accessed
     if not article_is_static(endpoint):
-        result = one_article(ARTICLE_DIR, endpoint)
+        result = Article.one(ARTICLE_DIR, endpoint)
         if result != None:
             return template('article', result)
     else:
