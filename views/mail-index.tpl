@@ -15,10 +15,10 @@
 </p>
 <h2>Inconveniences</h2>
 <p>
-  Here are two things I don't like about the present library
-  <a href="https://pypi.python.org/pypi/ejnug">ejnug</a>,
-  which I'm calling inside the
-  <a href="https://pypi.python.org/pypi/dada-portal">dada-portal</a>.
+  Here are two things I don't like about the present setup in my
+  <a href="https://pypi.python.org/pypi/dada-portal">dada-portal</a>,
+  which is adapted from
+  <a href="https://pypi.python.org/pypi/ejnug">ejnug</a>.
 </p>
 <p>
   First, although I have made some effort to hide email addresses,

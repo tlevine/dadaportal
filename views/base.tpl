@@ -7,7 +7,7 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/+/date:yesterday../">Recent</a></li>
+        <li><a href="/+?q=date:yesterday..">Recent</a></li>
       </ul>
       <form action="/+" method="get">
         <input name="q" type="text" value="{{get('q', '')}}" />

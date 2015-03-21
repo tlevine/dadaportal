@@ -39,7 +39,9 @@
       </ul>
     % end
   </ul>
-  % if len(threads) == 100:
+  % if len(threads) == 0:
+  <em>No emails match "{{q}}".</em>
+  % elif len(threads) == 100:
   <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
   % end
 </div>

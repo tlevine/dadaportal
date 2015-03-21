@@ -24,16 +24,20 @@ def strip_path():
 
 @app.route('/')
 @view('index')
-def home():
+def index():
     return {}
 
-RECENT = '/@/date:2D..'
+@app.route('/@')
+@view('mail-index')
+def mail_index():
+    return {}
+
 EMPTY_QUERY = re.compile(r'^\s*$')
 @app.get('/@/<querystr:path>')
 @view('mail-thread')
 def search(querystr):
     if re.match(EMPTY_QUERY, querystr):
-        redirect(RECENT)
+        redirect('/@')
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() == 1:
@@ -52,6 +56,7 @@ def search(querystr):
         body = None
 
     return {
+        'q': querystr,
         'title': title,
         'parts': parts,
         'body': body,
@@ -61,9 +66,9 @@ def search(querystr):
 @app.get('/@/<querystr:path>/<n:int>')
 def attachment(querystr, n):
     if re.match(EMPTY_QUERY, querystr):
-        redirect(RECENT)
+        redirect('/@')
     db = Database()
-    query = Query(db, querystr)
+    query = Query(db, '(not from:%s) and %s' % (ARTICLE_NOTMUCH_FROM, querystr))
     if query.count_messages() != 1:
         redirect('/@/%s/' % querystr)
     else:
@@ -71,7 +76,7 @@ def attachment(querystr, n):
         parts = message.get_message_parts()
         i = n - 1
         if i >= len(parts):
-            redirect('/@/%s/' % querystr)
+            abort(404)
         else:
             part = parts[i]
             content_type = part.get_content_type()
