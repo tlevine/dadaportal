@@ -4,7 +4,7 @@
     <img alt="Tom's hat" src="img/pink_hat_icon-200.png" />
     <a rel="me" href="">thomas levine</a>
     <a rel="me" href="mailto:_@thomaslevine.com">_@thomaslevine.com</a>
-    <blockquote><code>pip install <a href="http://pypi.python.org/pypi/tlevine">tlevine</a> && tlevine</code></blockquote>
+    <blockquote><code>pip install <a href="https://pypi.python.org/pypi/tlevine">tlevine</a> && tlevine</code></blockquote>
     <p>Below are some things I've done, grouped rather arbitrarily into boxes of two to five things. <!--Go <a href="!/jobs">here</a> if you want to hire some computer/dada work.--></p>
   </div>
 </div>
