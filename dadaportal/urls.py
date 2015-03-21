@@ -7,12 +7,15 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-#   url(r'^\+/', include('search.urls')),
-#   url(r'^@/', include('mail.urls')),
+
+    url(r'^\+', RedirectView.as_view(url='/+/'))
+    url(r'^\+/', 'search.views.search'),
+
+    url(r'^@/', include('mail.urls')),
+
     url(r'^!/', include('articles.urls')),
 
     # Static
    #url(r'^static/',
    #url(r'^img/.+', RedirectView.as_view(url='/static/img/')
-   #url(r'^!/[^/]/.+', 
 )
