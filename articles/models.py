@@ -3,6 +3,8 @@ import time, json
 from django.db import models
 from django.utils import timezone
 
+from .reify import reify
+
 class StickyNote(models.Model):
     '''
     Small things to remember
