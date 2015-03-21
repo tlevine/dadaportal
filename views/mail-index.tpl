@@ -11,7 +11,7 @@
 <p>
   It also turns out that this public email system is also a pretty convenient
   way to put any old file on the internet; just send it as an
-  <a href="/!/id:20140915182359.GA28330@tlevine_vm/">attachment</a>.
+  <a href="/@/id:20140915182359.GA28330@tlevine_vm">attachment</a>.
 </p>
 <h2>Inconveniences</h2>
 <p>

@@ -6,10 +6,10 @@ except ImportError:
 
 def hierarchy(query):
     for i, thread in enumerate(query.search_threads()):
-        yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
         if i >= 100:
             # Stop after 100 threads
             break
+        yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
 
 def subhierarchy(message):
     '''

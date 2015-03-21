@@ -30,7 +30,7 @@ def home():
 RECENT = '/@/date:2D..'
 EMPTY_QUERY = re.compile(r'^\s*$')
 @app.get('/@/<querystr:path>')
-@view('thread')
+@view('mail-thread')
 def search(querystr):
     if re.match(EMPTY_QUERY, querystr):
         redirect(RECENT)
@@ -47,7 +47,7 @@ def search(querystr):
             parts = []
             body = 'There was an encoding problem with this message.'
     else:
-        title = 'Results for "%s"' % querystr
+        title = '"%s" emails' % querystr
         parts = []
         body = None
 
@@ -108,7 +108,7 @@ def article(endpoint):
 @app.route('/+')
 def search():
     if 'q' not in request.params:
-        return template('search', results = None)
+        return template('search', results = None, title = 'Search')
     q = request.params.get('q') # query
     p = request.params.get('p', 1) # page
 
@@ -134,4 +134,5 @@ def search():
                 'href': href,
                 'title': subject,
             })
-    return template('search', results = results)
+    return template('search', results = results, q = q,
+                    title = 'Results for "%s" % q')

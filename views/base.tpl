@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>{{title}}</title>
+    <title>Dada Portal | {{get('title', 'Thomas Levine')}}</title>
     <link rel="stylesheet" href="/style.css" type="text/css" />
   </head>
   <body>
@@ -10,7 +10,7 @@
         <li><a href="/+/date:yesterday../">Recent</a></li>
       </ul>
       <form action="/+" method="get">
-        <input name="q" type="text" />
+        <input name="q" type="text" value="{{get('q', '')}}" />
         <input value="Search" type="submit" />
       </form>
     </nav>

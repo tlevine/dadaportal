@@ -1,4 +1,4 @@
-% rebase('base.tpl', title = 'Search')
+% rebase('base.tpl', title = title)
 % if results == None:
 <form class="centered-search-bar" action="/+" method="get">
   <input name="q" type="text" />
