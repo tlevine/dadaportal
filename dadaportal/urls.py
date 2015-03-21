@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 #   url(r'^\+/', include('search.urls')),
 #   url(r'^@/', include('mail.urls')),
-#   url(r'!/[^/]+/', 'article.views.article'),
+    url(r'^!/', include('articles.urls')),
 
     # Static
    #url(r'^static/',
