@@ -1,4 +1,5 @@
-% rebase('base.tpl', title = "Tom's public emails")
+{% extends 'base.html' %}
+{% block base %}
 <h1>Tom makes some emails public</h1>
 <p>
   It's a lot easier for me to find things if they're on the public internet,
@@ -35,3 +36,4 @@
   which are the most interesting. If I just expose an RSS feed of the recent
   messages, we can use ordinary RSS readers for this.
 </p>
+{% endblock %}

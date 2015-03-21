@@ -1,6 +1,6 @@
-% rebase('base.tpl', title = title)
-% if body != None:
-% message = threads[0][0]
+{% extends 'base.html' %}
+{% if body != None %}
+{% message = threads[0][0] %}
 <div class="heading">
   <h3>{{message['subject']}}</h3>
   <p>From <a href="/@/{{message['from']}}">{{message['from']}}</a></p>

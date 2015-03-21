@@ -1,4 +1,5 @@
-% rebase('base.tpl', title = title)
+{% extends 'base.html' %}
+{% block base %}
 <article>
   {{!body}}
 </article>
@@ -9,3 +10,4 @@
     = if @item[:other_source] then link_to('Other source', @item[:other_source])
     = link_to('Discuss', @item[:tweet_link] || 'https://twitter.com/thomaslevine')
 </div>
+{% endblock %}
