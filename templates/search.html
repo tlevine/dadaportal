@@ -11,9 +11,9 @@
 </p>
 {% elif results|length > 0 %}
 <ul class="results">
-  % for result in results:
+  {% for result in results %}
   <li><a href="{{result.href}}">{{result.title}}</a></li>
-  % end
+  {% endfor %}
 </ul>
 {% if results|length == 100 %}
 <em>Only the first 100 results are displayed; refine your search to see more results.</em>

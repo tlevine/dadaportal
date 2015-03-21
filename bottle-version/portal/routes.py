@@ -2,7 +2,6 @@ import os, re
 
 from unidecode import unidecode
 from lxml.html.clean import clean_html
-from notmuch import Database, Query
 from bottle import (
     Bottle, request, response, abort, redirect, view, TEMPLATE_PATH,
     template, static_file,

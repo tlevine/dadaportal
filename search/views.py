@@ -1,3 +1,6 @@
+from notmuch import Database, Query
+
+from django.conf import settings
 from django.shortcuts import render
 
 def search(request):
@@ -18,7 +21,7 @@ def search(request):
         elif i >= end:
             break
         else:
-            if ARTICLE_NOTMUCH_FROM == m.get_header('from'):
+            if settings.NOTMUCH_SECRET == m.get_header('from'):
                 href = m.get_header('to')
             else:
                 href = '/@/id:%s' % m.get_message_id()
@@ -29,5 +32,9 @@ def search(request):
                 'href': href,
                 'title': subject,
             })
-    return render(response, 'search.html', results = results, q = q,
-                  title = 'Results for "%s" % q')
+    params = {
+        'results': results,
+        'q': q,
+        'title': 'Results for "%s"' % q,
+    }
+    return render(request, 'search.html', params)

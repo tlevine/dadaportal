@@ -88,3 +88,5 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
