@@ -9,7 +9,7 @@ from bottle import (
 )
 
 from .mail import hierarchy, subhierarchy
-from .model import sorted_articles
+from .model import many_articles
 from .article import is_static as article_is_static
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
@@ -92,7 +92,7 @@ def source(filename):
 
 @app.route('/!')
 def article_index():
-    return template('exclaim-index', articles = sorted_articles(ARTICLE_DIR, '!'))
+    return template('exclaim-index', articles = many_articles(ARTICLE_DIR, '!'))
 
 @app.route('/<endpoint:path>')
 def article(endpoint):

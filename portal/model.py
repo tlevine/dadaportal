@@ -9,10 +9,10 @@ def one_article(article_dir, endpoint):
         cache[endpoint] = reify(article_dir, endpoint)
     return cache[endpoint]
 
-def sorted_articles(article_dir, topdir = '!'):
+def many_articles(article_dir, topdir = '!'):
     endpoints = (os.path.join(topdir, x) for x in os.listdir(os.path.join(article_dir, topdir)))
-    return [one_article(article_dir, endpoint) for endpoint in sorted(endpoints)]
+    return (one_article(article_dir, endpoint) for endpoint in sorted(endpoints))
 
 def all_articles(article_dir):
     for topdir in os.listdir(article_dir):
-        yield from sorted_articles(os.path.join(article_dir, topdir))
+        yield from many_articles(os.path.join(article_dir, topdir))
