@@ -1,13 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
-
-@app.route('/+/')
-@app.route('/+')
-def search():
+def search(request):
     if 'q' not in request.params:
-        return template('search', results = None, title = 'Search',
-                        error404 = response.status == 404)
+        params = {'results': None, title = 'Search'}
+        return render(request, 'search.html', params)
     q = request.params.get('q') # query
     p = request.params.get('p', 1) # page
 
@@ -33,5 +29,5 @@ def search():
                 'href': href,
                 'title': subject,
             })
-    return template('search', results = results, q = q,
-                    title = 'Results for "%s" % q')
+    return render(response, 'search.html', results = results, q = q,
+                  title = 'Results for "%s" % q')
