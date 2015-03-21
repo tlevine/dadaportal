@@ -27,10 +27,12 @@ def parse(filename):
             # If there was no dashed line,
             head_fp.truncate(0)
             body_fp.seek(0)
-        data = yaml.load(head_fp)
-        if not type(data) == dict:
-            data = {}
-        data['body'] = formatter(body_fp)
+        data = {
+            'head': yaml.load(head_fp),
+            'body': formatter(body_fp),
+        }
+        if type(data['head']) != dict:
+            data['head'] = {}
     return data
 
 def rst(fp):
