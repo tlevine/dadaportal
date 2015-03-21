@@ -1,16 +1,14 @@
 <li>
-  <a href="/@/id:{{message['message_id']}}">
-    % if message['is_match']:
-    <strong>
-    % end
-      {{message['subject']}}
-    % if message['is_match']:
-    </strong>
-    % end
+  <a href="/@/id:{{message.message_id}}">
+    {% if message.is_match %}<strong>{% endif %}
+      {{message.subject}}
+    {% if message.is_match %}</strong>{% endif %}
   </a>
 </li>
 <ul>
-  % for reply in message['replies']:
-  % include('mail-subthread.tpl', message = reply)
-  % end
+  {% for reply in message.replies %}
+  {% with message=reply name_hack='mail-subthread.html' %}
+  {% include name_hack %}
+  {% endwith %}
+  {% endfor %}
 </ul>

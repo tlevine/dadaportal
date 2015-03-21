@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% if message %}
 <div class="heading">
   <h3>{{message.subject}}</h3>
@@ -20,34 +21,21 @@
   <ol>
   {% for n, description in parts %}
     <li><a href="{{n}}">{{description}}</a></li>
-  {% end %}
+  {% endfor %}
   </ol>
 </div>
-% end
+{% endif %}
 
 <div class="threads">
   {% if message %}
   <h3>Thread</h3>
-  {% end %}
+  {% endif %}
   <ul>
     {% for thread in threads %}
+    aoeu
     <ul>
     {% for message in thread %}
-    include('mail-subthread.tpl', message = message)
-    <li>
-      <a href="/@/id:{{message.message_id}}">
-        {% if message.is_match %}<strong>{% endif %}
-          {{message.subject}}
-        {% if message.is_match %}</strong>{% endif %}
-      </a>
-    </li>
-    <ul>
-      {% for reply in message.replies %}
-      include('mail-subthread.tpl', message = reply)
-      {% endfor %}
-    </ul>
-
-
+      {% include 'mail-subthread.html' %}
     {% endfor %}
     </ul>
     {% endfor %}

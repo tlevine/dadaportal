@@ -7,9 +7,9 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/+?q=date:yesterday..">News</a></li>
+        <li><a href="/+/?q=date:yesterday..">News</a></li>
       </ul>
-      <form action="/+" method="get">
+      <form action="/+/" method="get">
         <input name="q" type="text" value="{{q|default:''}}" />
         <input value="Search" type="submit" />
       </form>
