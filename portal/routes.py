@@ -18,9 +18,9 @@ ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 ARTICLE_NOTMUCH_FROM = 'replace-this-with-a-random-thing-for-security-reasons'
 app = Bottle()
 
-@app.hook('before_request')
-def strip_path():
-    request.environ['PATH_INFO'] = request.environ['PATH_INFO'].rstrip('/')
+#@app.hook('before_request')
+#def strip_path():
+#    request.environ['PATH_INFO'] = request.environ['PATH_INFO'].rstrip('/')
 
 @app.route('/')
 @view('index')
@@ -28,12 +28,13 @@ def index():
     return {}
 
 @app.route('/@')
+@app.route('/@/')
 @view('mail-index')
 def mail_index():
     return {}
 
 EMPTY_QUERY = re.compile(r'^\s*$')
-@app.get('/@/<querystr:path>')
+@app.get('/@/<querystr:path>/')
 @view('mail-thread')
 def search(querystr):
     if re.match(EMPTY_QUERY, querystr):
@@ -92,6 +93,12 @@ def attachment(querystr, n):
             else:
                 return payload
 
+@app.get('/@/<querystr:path>')
+def search_redir(querystr):
+    'Must come after all the other mail routes'
+    redirect('/@/%s/' % querystr)
+
+@app.route('/source/<filename:path>/')
 @app.route('/source/<filename:path>')
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
@@ -100,6 +107,7 @@ def source(filename):
 #def article_index():
 #    return template('exclaim-index', articles = many_articles(ARTICLE_DIR, '!'))
 
+@app.route('/<endpoint:path>/')
 @app.route('/<endpoint:path>')
 def article(endpoint):
     endpoint = endpoint.lstrip('./') # Prevent ancestors from being accessed
@@ -109,11 +117,19 @@ def article(endpoint):
             return template('article', result)
     else:
         return static_file(endpoint, root = ARTICLE_DIR)
+    abort(404)
 
+@app.error(404)
+def error404(e):
+    return template('search', results = None, title = 'Page not found',
+                    error404 = True)
+
+@app.route('/+/')
 @app.route('/+')
 def search():
     if 'q' not in request.params:
-        return template('search', results = None, title = 'Search')
+        return template('search', results = None, title = 'Search',
+                        error404 = response.status == 404)
     q = request.params.get('q') # query
     p = request.params.get('p', 1) # page
 

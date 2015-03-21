@@ -1,9 +1,13 @@
 % rebase('base.tpl', title = title)
 % if results == None:
-<form class="centered-search-bar" action="/+" method="get">
-  <input name="q" type="text" />
-  <input value="Search" type="submit" />
-</form>
+<p>
+  % if get('error404', False):
+  That page has moved; try searching.
+  % else:
+  Search the dada.
+  % end
+  Search bar is at the top-right of the screen.
+</p>
 % elif len(results) > 0:
 <ul class="results">
   % for result in results:
