@@ -1,12 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-EMPTY_QUERY = re.compile(r'^\s*$')
 @app.get('/@/<querystr:path>/')
 @view('mail-thread')
 def search(querystr):
-    if re.match(EMPTY_QUERY, querystr):
-        redirect('/@')
     db = Database()
     query = Query(db, querystr)
     if query.count_messages() == 1:
@@ -34,8 +31,6 @@ def search(querystr):
 
 @app.get('/@/<querystr:path>/<n:int>')
 def attachment(querystr, n):
-    if re.match(EMPTY_QUERY, querystr):
-        redirect('/@')
     db = Database()
     query = Query(db, '(not from:%s) and %s' % (ARTICLE_NOTMUCH_FROM, querystr))
     if query.count_messages() != 1:
