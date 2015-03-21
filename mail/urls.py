@@ -11,6 +11,6 @@ urlpatterns = patterns('',
   # url(r'^[^/]+$', RedirectView.as_view(url='')),
 
     # The actual message/thread
-    url(r'^[^/]+/$', search),
-    url(r'^[^/]+/[0-9]+$', attachment),
+    url(r'^([^/]+)/$', search),
+    url(r'^([^/]+)/([0-9]+)$', attachment),
 )

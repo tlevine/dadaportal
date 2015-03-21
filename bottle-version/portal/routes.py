@@ -7,7 +7,6 @@ from bottle import (
     template, static_file,
 )
 
-from .mail import hierarchy, subhierarchy
 from .model import Article
 from .article import is_static as article_is_static
 

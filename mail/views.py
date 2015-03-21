@@ -1,5 +1,11 @@
+from notmuch import Database, Query
+from unidecode import unidecode
+from lxml.html.clean import clean_html
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+
+from .queries import hierarchy, subhierarchy
 
 def search(request, querystr):
     db = Database()
@@ -38,7 +44,7 @@ def attachment(request, querystr, n):
 
     message = next(iter(query.search_messages()))
     parts = message.get_message_parts()
-    i = n - 1
+    i = int(n) - 1
     if i >= len(parts):
         return HttpResponseRedirect('/@/%s/' % querystr)
 
