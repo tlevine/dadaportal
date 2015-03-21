@@ -121,9 +121,29 @@ def article_static(endpoint):
     if os.path.isfile(os.path.join(ARTICLE_DIR, x)):
         return static_file(endpoint, root = ARTICLE_DIR)
     elif os.path.isfile(os.path.join(STATIC_DIR, x)):
+        # For backwards compatibility
         return static_file(endpoint, root = STATIC_DIR)
     else:
         redirect('/%s/' % endpoint)
+
+# Transition to this so I can host the static files with Apache directly.
+@app.route('/static/<fn:path>/')
+@app.route('/static/<fn:path>')
+def static(fn):
+    return static_file(fn, root = STATIC_DIR)
+@app.route('/img/<fn:path>/')
+@app.route('/img/<fn:path>')
+def static(fn):
+    return static_file(fn, root = os.path.join(STATIC_DIR, 'img'))
+@app.route('/css/<fn:path>/')
+@app.route('/css/<fn:path>')
+def static(fn):
+    return static_file(fn, root = os.path.join(STATIC_DIR, 'css'))
+@app.route('/js/<fn:path>/')
+@app.route('/js/<fn:path>')
+def static(fn):
+    return static_file(fn, root = os.path.join(STATIC_DIR, 'js'))
+
 
 
 @app.error(404)
