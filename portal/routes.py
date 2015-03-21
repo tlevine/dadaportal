@@ -9,11 +9,12 @@ from bottle import (
 )
 
 from .mail import hierarchy, subhierarchy
-from .models import get_article
-from .article import reify, is_static as article_is_static
+from .model import sorted_articles
+from .article import is_static as article_is_static
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
+ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 app = Bottle()
 
 @app.hook('before_request')
@@ -89,9 +90,6 @@ def attachment(querystr, n):
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
 
-ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
-TOPDIRS = set(os.listdir(ARTICLE_DIR))
-
 @app.route('/!')
 def article_index():
     return template('exclaim-index', articles = sorted_articles(ARTICLE_DIR, '!'))
@@ -101,9 +99,7 @@ def article(endpoint):
     if article_is_static(endpoint):
         return static_file(endpoint, root = article_dir)
 
-    if endpoint not in articles_cache:
-        articles_cache[endpoint] = reify(ARTICLE_DIR, endpoint)
-    result = articles_cache[endpoint]
+    result = one_article(endpoint)
 
     if result != None:
         return template('article', result)

@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import sys
+sys.path.insert(0, '.')
+
+from portal.model import sorted_articles
+from portal.routes import ARTICLE_DIR
+
+for article in sorted_articles(ARTICLE_DIR):
+    print(article)

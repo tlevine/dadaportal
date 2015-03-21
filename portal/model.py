@@ -1,3 +1,7 @@
+import os
+
+from .article import reify
+
 cache = {}
 
 def one_article(article_dir, endpoint):
@@ -5,10 +9,9 @@ def one_article(article_dir, endpoint):
         cache[endpoint] = reify(article_dir, endpoint)
     return cache[endpoint]
 
-def sorted_alticles(article_dir, topdir = '!'):
+def sorted_articles(article_dir, topdir = '!'):
     endpoints = (os.path.join(topdir, x) for x in os.listdir(os.path.join(article_dir, topdir)))
-    articles_notsorted = (get_article(article_dir, endpoint) for endpoint in endpoints)
-    return [v for k,v in sorted(articles_notsorted.items()) if v != None]
+    return [one_article(article_dir, endpoint) for endpoint in sorted(endpoints)]
 
 def all_articles(article_dir):
     for topdir in os.listdir(article_dir):
