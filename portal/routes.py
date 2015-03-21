@@ -9,6 +9,7 @@ from bottle import (
 )
 
 from .mail import hierarchy, subhierarchy
+from .models import get_article
 from .article import reify, is_static as article_is_static
 
 PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
@@ -91,15 +92,9 @@ def source(filename):
 ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 TOPDIRS = set(os.listdir(ARTICLE_DIR))
 
-articles_cache = {}
 @app.route('/!')
 def article_index():
-    endpoints = ('!/' + x for x in os.listdir(os.path.join(ARTICLE_DIR, '!')))
-    for endpoint in endpoints:
-        if endpoint not in articles_cache:
-            articles_cache[endpoint] = reify(ARTICLE_DIR, endpoint)
-    articles = [v for k,v in sorted(articles_cache.items()) if v != None]
-    return template('exclaim-index', articles = articles)
+    return template('exclaim-index', articles = sorted_articles(ARTICLE_DIR, '!'))
 
 @app.route('/<endpoint:path>')
 def article(endpoint):
