@@ -1,21 +1,19 @@
 from django.shortcuts import render
+from django.http import Http404
 
 from .models import ArticleCache
 
 # Create your views here.
 #@app.route('/<endpoint:path>/')
-def article_dynamic(request, endpoint):
-    a = ArticleCache.objects.get(endpoint = endpoint)
-
-
-
-    if not article_is_static(endpoint):
-        result = Article.one(ARTICLE_DIR, endpoint)
-        if result != None:
-            return template('article', result)
+def article_dynamic(request, slug):
+    try:
+        a = ArticleCache.objects.get(endpoint = '!/' + slug)
+    except ArticleCache.DoesNotExist:
+        raise Http404('No such article')
     else:
-        return static_file(endpoint, root = ARTICLE_DIR)
-    abort(404)
+        params = a.head()
+        params['body'] = a.body
+        return render(request, 'article.html', params)
 
 #@app.route('/<endpoint:path>')
 def article_static(endpoint):
