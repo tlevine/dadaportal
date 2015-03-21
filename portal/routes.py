@@ -90,9 +90,9 @@ def attachment(querystr, n):
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
 
-@app.route('/!')
-def article_index():
-    return template('exclaim-index', articles = many_articles(ARTICLE_DIR, '!'))
+#@app.route('/!')
+#def article_index():
+#    return template('exclaim-index', articles = many_articles(ARTICLE_DIR, '!'))
 
 @app.route('/<endpoint:path>')
 def article(endpoint):

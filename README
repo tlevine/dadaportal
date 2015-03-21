@@ -42,6 +42,9 @@ The following markup languages for articles are supported.
 
 Public and semi-public articles are a git submodule.
 
+Articles are automatically converted into
+`big <https://github.com/tmcw/big>`_ presentations.
+
 Maybe features
 ------------------
 I want some sort of search. Omega seems the simplest, but I couldn't get
