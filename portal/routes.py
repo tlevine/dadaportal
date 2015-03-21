@@ -12,7 +12,7 @@ from .mail import hierarchy, subhierarchy
 from .model import many_articles, one_article
 from .article import is_static as article_is_static
 
-PORTAL_DIR = os.path.split(os.path.split(__file__)[0])[0]
+PORTAL_DIR = os.path.abspath(os.path.split(os.path.split(__file__)[0])[0])
 TEMPLATE_PATH.append(os.path.join(PORTAL_DIR, 'views'))
 ARTICLE_DIR = os.path.join(PORTAL_DIR, 'articles')
 ARTICLE_NOTMUCH_FROM = 'replace-this-with-a-random-thing-for-security-reasons'
@@ -103,9 +103,10 @@ def search_redir(querystr):
 def source(filename):
     return static_file(filename, root = os.path.join(PORTAL_DIR, 'articles'))
 
-#@app.route('/!')
-#def article_index():
-#    return template('exclaim-index', articles = many_articles(ARTICLE_DIR, '!'))
+@app.route('/static/<fn:path>/')
+@app.route('/static/<fn:path>')
+def static(fn):
+    return static_file(fn, root = os.path.join(PORTAL_DIR, 'static'))
 
 @app.route('/<endpoint:path>/')
 @app.route('/<endpoint:path>')
