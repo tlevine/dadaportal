@@ -8,7 +8,7 @@ class StickyNote(models.Model):
     Small things to remember
     '''
     key = models.TextField(primary_key = True)
-    value = model.TextField()
+    value = models.TextField()
 
 class ArticleCache(models.Model):
     '''
@@ -18,7 +18,7 @@ class ArticleCache(models.Model):
     '''
     endpoint = models.TextField(primary_key = True)
     headjson = models.TextField() # JSON
-    body = model.TextField() # HTML
+    body = models.TextField() # HTML
 
     def head(self):
         return json.loads(self.headjson)
