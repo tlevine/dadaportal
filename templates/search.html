@@ -1,22 +1,24 @@
-% rebase('base.tpl', title = title)
-% if results == None:
+{% extends 'base.html' %}
+{% block base %}
+{% if results == None %}
 <p>
-  % if get('error404', False):
+  {% if error404 %}
   That page has moved; try searching.
-  % else:
+  {% else %}
   Search the dada.
-  % end
+  {% endif %}
   Search bar is at the top-right of the screen.
 </p>
-% elif len(results) > 0:
+{% elif results|length > 0 %}
 <ul class="results">
   % for result in results:
-  <li><a href="{{result['href']}}">{{result['title']}}</a></li>
+  <li><a href="{{result.href}}">{{result.title}}</a></li>
   % end
 </ul>
-% if len(results) == 100:
+{% if results|length == 100 %}
 <em>Only the first 100 results are displayed; refine your search to see more results.</em>
-% end
-% else:
+{% endif %}
+{% else %}
 <em class="results">No results</em>
-% end
+{% endif %}
+{% endblock %}

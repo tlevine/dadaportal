@@ -9,8 +9,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^\+', RedirectView.as_view(url='/+/')),
-    url(r'^\+/', 'search.views.search'),
+    url(r'^\+$', RedirectView.as_view(url='/+/')),
+    url(r'^\+/$', 'search.views.search'),
 
     url(r'^@/', include('mail.urls')),
 

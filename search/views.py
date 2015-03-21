@@ -1,11 +1,11 @@
 from django.shortcuts import render
 
 def search(request):
-    if 'q' not in request.params:
-        params = {'results': None, title: 'Search'}
+    if 'q' not in request.GET:
+        params = {'results': None, 'title': 'Search'}
         return render(request, 'search.html', params)
-    q = request.params.get('q') # query
-    p = request.params.get('p', 1) # page
+    q = request.GET.get('q') # query
+    p = request.GET.get('p', 1) # page
 
     start = (p - 1) * 100
     end = p * 100
