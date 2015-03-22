@@ -1,4 +1,4 @@
-{% extends 'base.tpl' %}
+{% extends 'base.html' %}
 {% block base %}
 <div id="head" class="justify">
   <div id="callingcard" class="small card">
@@ -10,18 +10,18 @@
   </div>
 </div>
 <div id="popular" class="justify">
-  % for article in popular:
+  {% for article in popular %}
   <div class="popular small card">
-    % if article['image'] == None:
-    <h2><a href="{{article['endpoint']}}">{{article['title']}}</a></h2>
-    <p>{{article['description']}}</p>
-    % else
-    <a href="{{article['endpoint']}}" title="{{article['title']}}">
-      <img src="{{article['image']}}" alt="{{article['title']}}" />
+    {% if article.image %}
+    <a href="{{article.endpoint}}" title="{{article.title}}">
+      <img src="{{article.image}}" alt="{{article.title}}" />
     </a>
-    % end
+    {% else %}
+    <h2><a href="{{article.endpoint}}">{{article.title}}</a></h2>
+    <p>{{article.description}}</p>
+    {% endif %}
   </div>
-  % end
+  {% endfor %}
 </div>
 <div id="foot" class="justify">
   <div id="profiles" class="big card">
