@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'articles',
     'search',
     'mail',
+    'tracking',
 )
 
 MIDDLEWARE_CLASSES = (

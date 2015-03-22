@@ -1,4 +1,2 @@
-from django.shortcuts import render
-
-def index(request):
-    return render(request, 'index.html')
+from django.views.generic import TemplateView
+index = TemplateView.as_view(template_name = 'index.html')
