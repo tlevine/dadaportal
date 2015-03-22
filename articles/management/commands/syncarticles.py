@@ -8,6 +8,8 @@ class Command(BaseCommand):
     help = 'Loads articles from files in the %s directory' % settings.ARTICLES_DIR
 
     def handle(self, *args, **options):
-        for i, endpoint in enumerate(ArticleCache.sync()):
+        n = 0
+        for endpoint in ArticleCache.sync():
             self.stdout.write('Updated "%s"' % endpoint)
-        self.stdout.write('Updated %d articles' % i + 1)
+            n += 1
+        self.stdout.write('Updated %d articles' % n)

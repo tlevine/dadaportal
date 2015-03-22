@@ -1,4 +1,4 @@
-import time, json
+import time, json, os, datetime
 from urllib.parse import urljoin
 
 from django.conf import settings
@@ -30,7 +30,7 @@ class ArticleCache(models.Model):
 
     @classmethod
     def sync(Klass, subdir = ()):
-        threshold = Klass.objects.all().aggregate(Max('modified'))
+        threshold = Klass.objects.all().aggregate(Max('modified')).get('modified__max', 0)
         parent = os.path.join(settings.ARTICLES_DIR, *subdir)
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
