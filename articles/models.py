@@ -1,4 +1,5 @@
 import time, json, os, datetime, logging
+import shutil
 import subprocess
 from urllib.parse import urljoin
 
@@ -66,11 +67,14 @@ class ArticleCache(models.Model):
     @classmethod
     def index(Klass):
         template = get_template('article-notmuch.html')
+        if os.path.isdir(settings.NOTMUCH_DB):
+            for thing in os.listdir(settings.NOTMUCH_DB):
+                os.remove(os.path.join(settings.NOTMUCH_DB, thing))
+            subprocess.Popen(['notmuch', 'new']).wait()
         for article in Klass.objects.all():
             fn = os.path.join(settings.NOTMUCH_DB, article.endpoint.replace('/', '---'))
             dn = os.path.dirname(fn)
-            if not os.path.isdir(dn):
-                os.makedirs(dn)
+            os.makedirs(dn, exist_ok = True)
             with open(fn, 'w') as fp:
                 d = article.head()
                 d.update({
@@ -80,4 +84,4 @@ class ArticleCache(models.Model):
                     'notmuch_secret': settings.NOTMUCH_SECRET,
                 })
                 fp.write(template.render(Context(d)))
-        subprocess.Popen(['notmuch', 'new'])
+        subprocess.Popen(['notmuch', 'new']).wait()

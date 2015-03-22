@@ -16,7 +16,7 @@ def hierarchy(query):
                 break
             yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
     except NullPointerError:
-        subprocess.Popen(['notmuch', 'new'])
+        subprocess.Popen(['notmuch', 'new']).wait()
         # And just truncate the request silently.
 
 def subhierarchy(message):
