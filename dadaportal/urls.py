@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^!/', include('articles.urls')),
     url(r'^source/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.ARTICLES_DIR, 'show_indexes': True}),
+
+    url(r'^track$', 'tracking.views.track_xhr'),
 )
