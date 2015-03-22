@@ -1,4 +1,5 @@
-#https://docs.djangoproject.com/en/dev/topics/http/sessions/
+import datetime
+
 from django.db import models
 
 class Hit(models.Model):
@@ -6,22 +7,18 @@ class Hit(models.Model):
 
     # Populated on the first request
     id = models.BigIntegerField(primary_key = True)
-    session = models.Field(null = False)
-    datetime = models.Field(s.DateTime, null = False)
-    ip_address = models.Field(null = False)
-    user_agent = models.Field(s.String, null = False)
-    referrer = models.Field(s.String, null = False) # blank if none
+    session = models.BigIntegerField(null = False)
+    datetime = models.DateTimeField(null = False, default = datetime.datetime.now)
+    endpoint = models.TextField(null = False)
+    ip_address = models.IPAddressField(null = False)
+    user_agent = models.TextField(null = False)
+    referrer = models.URLField(null = False)
 
     # Populated on the subsequent XHR, updated every few seconds
-    screen_width = models.Field(s.Integer, null = True)
-    screen_height = models.Field(s.Integer, null = True)
-    seconds_on_page = models.Field(s.Integer, null = True)
-
-    def insert_primary():
-        pass
-
-    def insert_js():
-        pass
+    fresh = models.BooleanField(null = False, default = True)
+    screen_width = models.Field(null = True)
+    screen_height = models.Field(null = True)
+    seconds_on_page = models.Field(null = True)
 
 class ArticleHitCounts(models.Model):
     '''
