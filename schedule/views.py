@@ -2,8 +2,16 @@ import subprocess
 
 from django.shortcuts import render
 
-def schedule(request):
-    p = subprocess.Popen('pal -c 1 --html'.split(),
+def pal(command):
+    p = subprocess.Popen(command.split(),
             stdout = subprocess.PIPE)
     p.wait()
-    return render(request, 'schedule.html', {'schedule': p.stdout.read().decode('utf-8')})
+    return p.stdout.read().decode('utf-8')
+
+def day(request):
+    html = '<pre>%s</pre>' % pal('pal --nocolor -r 2')
+    return render(request, 'schedule.html', {'schedule': html})
+
+def month(request):
+    return render(request, 'schedule.html', {'schedule': pal('pal -c 1 --html')})
+
