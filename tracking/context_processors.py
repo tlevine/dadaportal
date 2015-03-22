@@ -1,9 +1,5 @@
-from random import getrandbits
-
 from .models import Hit
-
-def rand():
-    return getrandbits(62)
+from .util import rand
 
 def tracking(request):
     '''

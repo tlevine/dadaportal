@@ -1,5 +1,5 @@
 from .models import Hit
-from .context_processors import rand
+from .util import rand
 
 class TrackingMiddleware:
     def process_request(self, request):

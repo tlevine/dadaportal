@@ -119,3 +119,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'tracking.context_processors.tracking',
 )
+
+HIT_ID_SIZE = 62
