@@ -18,13 +18,13 @@ class TrackingMiddleware:
         hit_id = rand()
         Hit.objects.create(hit = hit_id,
                            session = request.session['session_id'],
+                           status_code = response.status_code,
                            ip_address = request.META['REMOTE_ADDR'],
                            user_agent = request.META['HTTP_USER_AGENT'],
                            referrer = request.META.get('HTTP_REFERER', ''))
         print(hit_id)
         if hasattr(response, 'context_data'):
             print(response.context_data)
-            response.context_data['hit_id'] = self.hit_id
-  #     response.context_data['hit_id'] = self.hit_id
+            response.context_data['hit_id'] = hit_id
         return response
 
