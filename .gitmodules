@@ -3,5 +3,5 @@
 	url = ../thomaslevine.com/.git
 	branch = dada-portal
 [submodule "static"]
-	path = dadaportal/static
+	path = static
 	url = ../dada-static

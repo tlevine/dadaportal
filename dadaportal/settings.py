@@ -85,6 +85,9 @@ TIME_ZONE = 'UTC' # That's how Tom rolls.
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/tmp/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
