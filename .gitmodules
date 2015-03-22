@@ -1,4 +1,4 @@
 [submodule "articles"]
-	path = bottle-version/articles
+	path = canonical-articles
 	url = ../thomaslevine.com/.git
 	branch = dada-portal
