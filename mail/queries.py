@@ -4,10 +4,11 @@ try:
 except ImportError:
     from urllib import quote
 
+from django.conf import settings
+
 def hierarchy(query):
     for i, thread in enumerate(query.search_threads()):
-        if i >= 100:
-            # Stop after 100 threads
+        if i >= settings.MAX_SEARCH_RESULTS:
             break
         yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
 
@@ -33,11 +34,11 @@ def subhierarchy(message):
         'subject': subject,
         'references': references,
         'in-reply-to': message.get_message_id(),
-        'body': quote('''In reply to: http://mail.thomaslevine.com/!/id:%s/
-''' % message.get_message_id())
+        'body': quote('''In reply to: %s!/id:%s/
+''' % (settings.DOMAIN_NAME, message.get_message_id()))
     }
-    if not to.endswith('@thomaslevine.com'):
-        mailto['cc'] = 'Thomas Levine <_@thomaslevine.com>'
+    if settings.EMAIL_ADDRESS not in to:
+        mailto['cc'] = '%s <%s>' % (settings.NAME, settings.EMAIL_ADDRESS)
 
     d = datetime.datetime.fromtimestamp(message.get_date())
     return {

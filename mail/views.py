@@ -42,7 +42,7 @@ def search(request, querystr):
 
 def attachment(request, querystr, n):
     db = Database()
-    query = Query(db, '(not from:%s) and %s' % (ARTICLE_NOTMUCH_FROM, querystr))
+    query = Query(db, '(not from:%s) and %s' % (settings.NOTMUCH_SECRET, querystr))
 
     if query.count_messages() != 1:
         return HttpResponseRedirect('/@/%s/' % querystr)
