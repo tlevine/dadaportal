@@ -22,13 +22,16 @@ def search(request):
     for i, m in enumerate(query.search_messages()):
         if i >= settings.MAX_SEARCH_RESULTS:
             break
+        subject = m.get_header('subject')
+
         if settings.NOTMUCH_SECRET == m.get_header('from'):
-            href = m.get_header('to')
+            href = '/!/%s/' % m.get_header('to')
+            if subject.strip() == '':
+                subject = m.get_header('to')
         else:
             href = '/@/id:%s' % m.get_message_id()
-        subject = m.get_header('subject')
-        if subject.strip() == '':
-            subject = settings.DEFAULT_SEARCH_RESULT_TITLE
+            if subject.strip() == '':
+                subject = settings.DEFAULT_SEARCH_RESULT_TITLE
         results.append({
             'href': href,
             'title': subject,
