@@ -1,8 +1,8 @@
 (function() {
-  var interval = 5 * 1000 // milliseconds
-  send('{{ csrf_token }}')
+  var interval = 10000 // ten seconds
+  send('{{ csrf_token }}', 0)
 
-  function send(csrfmiddlewaretoken) {
+  function send(csrfmiddlewaretoken, i) {
     var f = new FormData()
     f.append('hit_id', '{{hit_id}}')
     f.append('csrfmiddlewaretoken', csrfmiddlewaretoken)
@@ -21,7 +21,8 @@
 
     function receive() {
       if (r.readyState==4) {
-        setTimeout(function() {send(r.responseText.trim())}, interval)
+        setTimeout(function() {send(r.responseText.trim(), i + 1)},
+                   Math.pow(2, i) * interval)
       }
     }
   }
