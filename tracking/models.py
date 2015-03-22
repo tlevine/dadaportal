@@ -7,10 +7,10 @@ class Hit(models.Model):
 
     # Populated on the first request
     hit = models.BigIntegerField(primary_key = True)
-    session = models.BigIntegerField(null = False)
+    session = models.BigIntegerField(null = False, blank = False)
     datetime_start = models.DateTimeField(null = False, default = datetime.datetime.now)
-    endpoint = models.TextField(null = False)
-    ip_address = models.IPAddressField(null = False)
+    endpoint = models.TextField(null = False, blank = False)
+    ip_address = models.IPAddressField(null = False, blank = False)
     user_agent = models.TextField(null = False)
     referrer = models.URLField(null = False)
 
@@ -22,13 +22,3 @@ class Hit(models.Model):
     scrollMaxY = models.IntegerField(null = True)
     pageXOffset = models.IntegerField(null = True)
     pageYOffset = models.IntegerField(null = True)
-
-class Search(models.Model):
-    '''
-    This table has a row for each article and a column for each of several
-    statistics. It can be generated fully from the contents of the "hit" table.
-    '''
-    hit = models.ForeignKey(Hit, primary_key = True)
-    terms = models.TextField(null = False)
-    email_only = models.BooleanField(null = False)
-    n_results = models.IntegerField(null = False)

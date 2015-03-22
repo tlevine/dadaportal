@@ -1,6 +1,6 @@
 from random import getrandbits
 
-from .models import Hit, Search
+from .models import Hit
 
 def rand():
     return getrandbits(24) # getrandbits(128)
@@ -23,9 +23,3 @@ class TrackingMiddleware:
                            user_agent = request.META['HTTP_USER_AGENT'],
                            referrer = request.META.get('HTTP_REFERER', ''))
         return response
-
-def track_search(request, search_terms:str, email_only:bool, n_results:int):
-    hit_id = track_nonsearch(request)
-    Search.objects.create(hit = hit_id, terms = search_terms,
-                          email_only = email_only, n_results = n_results)
-    return hit_id
