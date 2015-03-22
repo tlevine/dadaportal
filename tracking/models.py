@@ -1,37 +1,11 @@
-import os
+#https://docs.djangoproject.com/en/dev/topics/http/sessions/
+from django.db import models
 
-from sqlalchemy.ext.declarative import declarative_base, declared_attr
-Base = declarative_base()
-import sqlalchemy as s
-
-from .article import reify
-
-cache = {}
-
-class Article:
-    @staticmethod
-    def one(article_dir, endpoint):
-        if endpoint not in cache:
-            cache[endpoint] = reify(article_dir, endpoint)
-        return cache[endpoint]
-
-    @staticmethod
-    def many(article_dir, topdir = '!'):
-        endpoints = (os.path.join(topdir, x) for x in os.listdir(os.path.join(article_dir, topdir)))
-        return (Article.one(article_dir, endpoint) for endpoint in sorted(endpoints))
-
-    @staticmethod
-    def all(article_dir):
-        for topdir in os.listdir(article_dir):
-            yield from Article.many(os.path.join(article_dir, topdir))
-
-# SQL Alchemy?
-class Hit(Base):
+class Hit(models.Model):
     'Hit on a webpage, combining information from the HTML (or other) page and the XHR'
-    __tablename__ = 'hit'
 
     # Populated on the first request
-    id = s.Column(s.BigInteger, primary_key = True)
+    id = models.BigIntegerField(primary_key = True)
     session = s.Column(nullable = False)
     datetime = s.Column(s.DateTime, nullable = False)
     ip_address = s.Column(nullable = False)
