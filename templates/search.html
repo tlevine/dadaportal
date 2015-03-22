@@ -2,11 +2,9 @@
 {% block base %}
 {% if results == None %}
 <p>
-  {% if error404 %}
-  That page has moved; try searching.
-  {% else %}
+  {% block introduction %}
   Search the dada.
-  {% endif %}
+  {% endblock %}
   Search bar is at the top-right of the screen.
 </p>
 {% elif results|length > 0 %}
