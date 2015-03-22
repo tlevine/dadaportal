@@ -10,28 +10,23 @@ def search(request):
     q = request.GET.get('q') # query
     p = request.GET.get('p', 1) # page
 
-    start = (p - 1) * 100
-    end = p * 100
     results = []
     db = Database()
     query = Query(db, q)
     for i, m in enumerate(query.search_messages()):
-        if i < start:
-            pass
-        elif i >= end:
+        if i >= settings.MAX_SEARCH_RESULTS:
             break
+        if settings.NOTMUCH_SECRET == m.get_header('from'):
+            href = m.get_header('to')
         else:
-            if settings.NOTMUCH_SECRET == m.get_header('from'):
-                href = m.get_header('to')
-            else:
-                href = '/@/id:%s' % m.get_message_id()
-            subject = m.get_header('subject')
-            if subject.strip() == '':
-                subject = '(no subject)'
-            results.append({
-                'href': href,
-                'title': subject,
-            })
+            href = '/@/id:%s' % m.get_message_id()
+        subject = m.get_header('subject')
+        if subject.strip() == '':
+            subject = settings.DEFAULT_SEARCH_RESULT_TITLE
+        results.append({
+            'href': href,
+            'title': subject,
+        })
     params = {
         'results': results,
         'q': q,
