@@ -7,6 +7,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from .queries import hierarchy, subhierarchy
 
+def index(request):
+    return render(request, 'mail-index.html')
+
 def search(request, querystr):
     db = Database()
     query = Query(db, querystr)

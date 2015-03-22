@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 
-from .views import search, attachment
+from .views import index, search, attachment
 
 urlpatterns = patterns('',
     # Empty query.
     url(r'^\s+/.*$', RedirectView.as_view(url='/@/')),
+    url(r'^$', index),
 
     # Redirect to one with a slash.
   # url(r'^[^/]+$', RedirectView.as_view(url='')),
