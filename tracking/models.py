@@ -6,7 +6,7 @@ class Hit(models.Model):
     'Hit on a webpage, combining information from the HTML (or other) page and the XHR'
 
     # Populated on the first request
-    id = models.BigIntegerField(primary_key = True)
+    hit = models.BigIntegerField(primary_key = True)
     session = models.BigIntegerField(null = False)
     datetime_start = models.DateTimeField(null = False, default = datetime.datetime.now)
     endpoint = models.TextField(null = False)
