@@ -35,16 +35,18 @@ class ArticleCache(models.Model):
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
             if os.path.isdir(fn):
-                Klass.sync(subdir = subdir + (child,))
+                yield from Klass.sync(subdir = subdir + (child,))
             elif child.startswith('index.'):
                 modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
                 if modified > threshold:
                     data = reify(settings.ARTICLES_DIR, fn)
+                    endpoint = os.path.dirname(os.path.relpath(fn, ARTICLES_DIR))
                     data.update({
                         'modified': modified,
                         'headjson': json.dumps(data['head']),
-                        'endpoint': os.path.dirname(os.path.relpath(fn, ARTICLES_DIR)),
+                        'endpoint': endpoint,
                     })
                     del(data['head'])
                     Klass.objects.create(**data)
+                    yield endpoint
                 break
