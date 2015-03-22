@@ -1,0 +1,7 @@
+<form action="/+/" method="get">
+  <input name="q" type="text" value="{{q|default:''}}" />
+  {% if hide_emails %}
+  <input name="hide_emails" type="hidden" />
+  {% endif %}
+  <input value="Search" type="submit" />
+</form>
