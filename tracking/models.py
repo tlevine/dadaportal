@@ -26,8 +26,6 @@ class ArticleHitCounts(models.Model):
     counts for the past few days. It can be generated fully the contents
     of the "hit" table.
     '''
-    __tablename__ = 'article_statistics'
-
     # With the trailing slash
     endpoint = models.TextField(primary_key = True)
 
@@ -43,8 +41,11 @@ class ArticleHitCounts(models.Model):
     @classmethod
     def shift(Klass):
         'Klass.day_7 is set to Klass.day_6, and so on.'
-        pass
-
+        for i in reversed(range(1, 8)):
+            yesterday = 'day_%d' % i
+            today = 'day_%d' % (i - 1)
+            kwargs = {yesterday: models.F(today)}
+            Klass.objects.all().update(**kwargs)
 
 class Search(models.Model):
     '''
