@@ -16,3 +16,10 @@ for article in many_articles(ARTICLE_DIR):
         os.makedirs(dn)
     with open(fn, 'w') as fp:
         fp.write(template('article-notmuch', article))
+
+@app.route('/@')
+@app.route('/@/')
+@view('mail-index')
+def mail_index():
+    return {}
+
