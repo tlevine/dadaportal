@@ -1,16 +1,23 @@
+import subprocess
 import datetime
 try:
     from urllib.parse import quote
 except ImportError:
     from urllib import quote
 
+from notmuch.message import NullPointerError
+
 from django.conf import settings
 
 def hierarchy(query):
-    for i, thread in enumerate(query.search_threads()):
-        if i >= settings.MAX_SEARCH_RESULTS:
-            break
-        yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
+    try:
+        for i, thread in enumerate(query.search_threads()):
+            if i >= settings.MAX_SEARCH_RESULTS:
+                break
+            yield [subhierarchy(message) for message in thread.get_toplevel_messages()]
+    except NullPointerError:
+        subprocess.Popen(['notmuch', 'new'])
+        # And just truncate the request silently.
 
 def subhierarchy(message):
     '''
@@ -29,28 +36,26 @@ def subhierarchy(message):
     if references != '':
         references = references + '\n'
     references = references + message.get_message_id()
+    if settings.EMAIL_ADDRESS not in to:
+        cc = '%s <%s>' % (settings.NAME, settings.EMAIL_ADDRESS)
+    else:
+        cc = ''
     mailto = {
         'to': to,
+        'cc': cc,
         'subject': subject,
         'references': references,
         'in-reply-to': message.get_message_id(),
         'body': quote('''In reply to: %s!/id:%s/
 ''' % (settings.DOMAIN_NAME, message.get_message_id()))
     }
-    if settings.EMAIL_ADDRESS not in to:
-        mailto['cc'] = '%s <%s>' % (settings.NAME, settings.EMAIL_ADDRESS)
 
     d = datetime.datetime.fromtimestamp(message.get_date())
     return {
         'message_id': message.get_message_id(),
 
-        'weekday': d.strftime('%A'),
-        'notmuchmonth': d.strftime('%Y-%m'),
-        'month': d.strftime('%B'), 
-        'notmuchday': d.strftime('%Y-%m-%d'),
-        'day': d.strftime('%d'), 
-        'notmuchyear': d.strftime('%Y'),
-        'year': d.strftime('%Y'), 
+        'notmuchdate': d.strftime('%Y-%m-%d'),
+        'date': d.strftime('%A, %B %d, %Y'), 
         'time': d.strftime('%H:%M UTC'),
 
         'from': message.get_header('from'),
