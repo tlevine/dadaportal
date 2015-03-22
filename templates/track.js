@@ -16,16 +16,14 @@
 
     var r = new XMLHttpRequest();
     r.open('POST', '/track', true)
-  //r.onreadystatechange = receive
+    r.onreadystatechange = receive
     r.send(f)
 
-    /*
     function receive() {
       if (r.readyState==4) {
-        setTimeout(function() {send(r.responseText)}, interval)
+        setTimeout(function() {send(r.responseText.trim())}, interval)
       }
     }
-    */
   }
 
 })()
