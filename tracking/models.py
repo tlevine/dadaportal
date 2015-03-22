@@ -23,7 +23,7 @@ class Hit(models.Model):
 class ArticleHitCounts(models.Model):
     '''
     This table has a row for each article and hour, and a column for hit
-    counts for the past few days. It can be generated fully the contents
+    counts for the past few days. It can be generated fully from the contents
     of the "hit" table.
     '''
     # With the trailing slash
@@ -52,7 +52,6 @@ class Search(models.Model):
     This table has a row for each article and a column for each of several
     statistics. It can be generated fully from the contents of the "hit" table.
     '''
-    __tablename__ = 'search'
     hit = models.BigIntegerField(primary_key = True)
     terms = models.TextField(null = False)
     email_only = models.BooleanField(null = False)
