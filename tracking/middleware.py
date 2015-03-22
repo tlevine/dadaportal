@@ -3,7 +3,7 @@ from random import getrandbits
 from .models import Hit
 
 def rand():
-    return getrandbits(128)
+    return getrandbits(62)
 
 class TrackingMiddleware:
     '''
@@ -13,6 +13,9 @@ class TrackingMiddleware:
     along in the XHR.
     '''
     def process_template_response(self, request, response):
+        if response.context_data.get('do-not-track', False):
+            return response
+
         if 'session_id' not in request.session:
             request.session['session_id'] = rand()
         hit_id = rand()
@@ -23,3 +26,10 @@ class TrackingMiddleware:
                            user_agent = request.META['HTTP_USER_AGENT'],
                            referrer = request.META.get('HTTP_REFERER', ''))
         return response
+
+def do_not_track(view):
+    'Decorate a view'
+    def wrapper(response, *args, **options):
+        response.context_data['do-not-track'] = True
+        return view(response, *args, **options)
+    return wrapper
