@@ -1,3 +1,4 @@
 class TrackingMiddleware:
     def process_request(self, request):
-        print(dict(request.session))
+        if 'session_id' not in request.session:
+            request.session['session_id'] = random.getrandbits(128)
