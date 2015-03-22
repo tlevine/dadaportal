@@ -1,6 +1,7 @@
 import time, json
 from urllib.parse import urljoin
 
+from django.conf import settings
 from django.db.models import Max
 from django.db import models
 from django.utils import timezone
@@ -28,17 +29,22 @@ class ArticleCache(models.Model):
         return self.head().get('title', self.endpoint)
 
     @classmethod
-    def sync(Klass, article_dir):
+    def sync(Klass, subdir = ()):
         threshold = Klass.objects.all().aggregate(Max('modified'))
-        for topdir in os.listdir(article_dir):
-            endpoints = (os.path.join(topdir, x) for x in os.listdir(os.path.join(article_dir, topdir)))
-            for endpoint in endpoints:
-                fn = os.path.join(article_dir, endpoint) + '/'
+        parent = os.path.join(settings.ARTICLES_DIR, *subdir)
+        for child in os.listdir(parent):
+            fn = os.path.join(parent, child)
+            if os.path.isdir(fn):
+                Klass.sync(subdir = subdir + (child,))
+            elif child.startswith('index.'):
                 modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
                 if modified > threshold:
-                    data = reify(article_dir, endpoint)
-                    data['modified'] = modified
-                    data['headjson'] = json.dumps(data['head'])
+                    data = reify(settings.ARTICLES_DIR, fn)
+                    data.update({
+                        'modified': modified,
+                        'headjson': json.dumps(data['head']),
+                        'endpoint': os.path.dirname(os.path.relpath(fn, ARTICLES_DIR)),
+                    })
                     del(data['head'])
-                    data['endpoint'] = endpoint
                     Klass.objects.create(**data)
+                break

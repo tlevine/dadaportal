@@ -94,3 +94,5 @@ TEMPLATE_DIRS = (
 )
 
 NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
+
+ARTICLES_DIR = os.path.join(BASE_DIR, 'canonical-articles')
