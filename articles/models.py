@@ -1,10 +1,13 @@
 import time, json, os, datetime, logging
+import subprocess
 from urllib.parse import urljoin
 
 from django.conf import settings
 from django.db.models import Max
 from django.db import models
 from django.utils import timezone
+from django.template.loader import get_template
+from django.template import Context
 
 from .reify import reify
 
@@ -24,6 +27,15 @@ class ArticleCache(models.Model):
 
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
+
+    def as_dict(self):
+        d = self.head()
+        d.update({
+            'endpoint': self.endpoint,
+            'modified': self.modified,
+            'body': self.body,
+        })
+        return d
 
     def head(self):
         return json.loads(self.headjson)
@@ -60,3 +72,15 @@ class ArticleCache(models.Model):
                             endpoint = endpoint, modified = modified,
                             headjson = json.dumps(head), body = body)
                         yield endpoint
+
+    @classmethod
+    def index(Klass):
+        template = get_template('article-notmuch.html')
+        for article in Klass.objects.all():
+            fn = os.path.join(settings.NOTMUCH_DB, article.endpoint.replace('/', '---'))
+            dn = os.path.dirname(fn)
+            if not os.path.isdir(dn):
+                os.makedirs(dn)
+            with open(fn, 'w') as fp:
+                fp.write(template.render(Context(article.as_dict())))
+        subprocess.Popen(['notmuch', 'new'])
