@@ -22,3 +22,6 @@ class Hit(models.Model):
     scrollMaxY = models.IntegerField(null = True)
     pageXOffset = models.IntegerField(null = True)
     pageYOffset = models.IntegerField(null = True)
+
+    def __str__(self):
+        return str(self.hit)
