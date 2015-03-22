@@ -15,6 +15,6 @@
       </form>
     </nav>
     {% block base %}{% endblock %}
-    <script>{% include 'track.js' %}</script>
+    {% if hit_id %}<script>{% include 'track.js' %}</script>{% endif %}
   </body>
 </html>
