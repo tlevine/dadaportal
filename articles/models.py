@@ -23,7 +23,7 @@ class ArticleCache(models.Model):
     body = models.TextField() # HTML
 
     def get_absolute_url(self):
-        return urljoin('/', self.endpoint)
+        return '/!/%s/' % self.endpoint
 
     def head(self):
         return json.loads(self.headjson)
