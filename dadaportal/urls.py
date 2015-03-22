@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^\+$', RedirectView.as_view(url='/+/')),
     url(r'^\+/$', 'search.views.search'),
 
+    url(r'^schedule/?$', 'schedule.views.schedule'),
+
     url(r'^@/', include('mail.urls')),
 
     url(r'^!/', include('articles.urls')),
