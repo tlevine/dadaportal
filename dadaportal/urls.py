@@ -11,9 +11,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
 
-    # https://docs.djangoproject.com/en/dev/howto/static-files/#serving-files-uploaded-by-a-user-during-development
-    static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
-
     url(r'^\+$', RedirectView.as_view(url='/+/')),
     url(r'^\+/$', 'search.views.search'),
 
