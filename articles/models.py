@@ -1,4 +1,4 @@
-import time, json, os, datetime
+import time, json, os, datetime, logging
 from urllib.parse import urljoin
 
 from django.conf import settings
@@ -9,6 +9,7 @@ from django.utils import timezone
 from .reify import reify
 
 BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
+logger = logging.getLogger(__name__)
 
 class ArticleCache(models.Model):
     '''
@@ -31,26 +32,31 @@ class ArticleCache(models.Model):
         return self.head().get('title', self.endpoint)
 
     @classmethod
-    def sync(Klass, subdir = ()):
-        threshold = Klass.objects.all().aggregate(Max('modified'))['modified__max']
+    def sync(Klass, subdir = (), threshold = None):
         if threshold == None:
+            threshold = Klass.objects.all().aggregate(Max('modified'))['modified__max']
+        if threshold == None: # (still)
             threshold = BEGINNING_OF_TIME
+
         parent = os.path.join(settings.ARTICLES_DIR, *subdir)
+        indexes = 0
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
             if os.path.isdir(fn):
-                yield from Klass.sync(subdir = subdir + (child,))
+                yield from Klass.sync(subdir = subdir + (child,), threshold = threshold)
             elif child.startswith('index.'):
+                if indexes > 0:
+                    logger.warn('There were multiple index files for %s, so I used only the first one' % parent)
+                    continue
+                indexes += 1
                 modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
                 if modified > threshold:
-                    head, body = reify(settings.ARTICLES_DIR, fn)
                     endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
-                    data = {
-                        'endpoint': endpoint,
-                        'modified': modified,
-                        'headjson': json.dumps(head),
-                        'body': body,
-                    }
-                    Klass.objects.create(**data)
-                    yield endpoint
-                break
+                    head, body = reify(settings.ARTICLES_DIR, fn)
+                    if head == None and body == None:
+                        logger.warn('I could not reify %s, so I skipped it.' % endpoint)
+                    else:
+                        article_cache, already_exists = Klass.objects.get_or_create(
+                            endpoint = endpoint, modified = modified,
+                            headjson = json.dumps(head), body = body)
+                        yield endpoint

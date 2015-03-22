@@ -45,7 +45,7 @@ EXTENSION = re.compile(r'^.*\.([a-z]+)$')
 def reify(article_dir, filename):
     m = re.match(EXTENSION, filename)
     if not (m and m.group(1) in FORMATS):
-        raise ValueError('Could not reify %s' % filename)
+        return None, None
 
     head, body = parse(filename)
     try:
