@@ -19,13 +19,11 @@ def parse(filename):
             # If there was no dashed line,
             head_fp.truncate(0)
             body_fp.seek(0)
-        data = {
-            'head': yaml.load(head_fp),
-            'body': formatter(body_fp),
-        }
-        if type(data['head']) != dict:
-            data['head'] = {}
-    return data
+        head = yaml.load(head_fp)
+        body = formatter(body_fp)
+        if type(head) != dict:
+            head = {}
+    return head, body
 
 def rst(fp):
     return docutils.examples.html_body(fp.read())
@@ -46,16 +44,17 @@ FORMATS = {
 EXTENSION = re.compile(r'^.*\.([a-z]+)$')
 def reify(article_dir, filename):
     m = re.match(EXTENSION, filename)
-    if m and m.group(1) in FORMATS:
-        data = parse(possibilities[0])
-        try:
-            html = lxml.html.fromstring(data['body'])
-        except lxml.etree.XMLSyntaxError:
-            pass
-        else:
-            h1s = html.xpath('//h1')
-            if len(h1s) > 0 and 'title' not in data:
-                data['title'] = h1s[0].text_content()
-        if 'title' not in data:
-            data['title'] = None
-        return data
+    if not (m and m.group(1) in FORMATS):
+        raise ValueError('Could not reify %s' % filename)
+
+    head, body = parse(filename)
+    try:
+        html = lxml.html.fromstring(body)
+    except lxml.etree.XMLSyntaxError:
+        pass
+    else:
+        h1s = html.xpath('//h1')
+        if len(h1s) > 0 and 'title' not in head:
+            head['title'] = h1s[0].text_content()
+
+    return head, body

@@ -8,6 +8,8 @@ from django.utils import timezone
 
 from .reify import reify
 
+BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
+
 class ArticleCache(models.Model):
     '''
     The canonical version of the article is stored in a file, but the
@@ -30,7 +32,9 @@ class ArticleCache(models.Model):
 
     @classmethod
     def sync(Klass, subdir = ()):
-        threshold = Klass.objects.all().aggregate(Max('modified')).get('modified__max', 0)
+        threshold = Klass.objects.all().aggregate(Max('modified'))['modified__max']
+        if threshold == None:
+            threshold = BEGINNING_OF_TIME
         parent = os.path.join(settings.ARTICLES_DIR, *subdir)
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
@@ -39,14 +43,14 @@ class ArticleCache(models.Model):
             elif child.startswith('index.'):
                 modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
                 if modified > threshold:
-                    data = reify(settings.ARTICLES_DIR, fn)
-                    endpoint = os.path.dirname(os.path.relpath(fn, ARTICLES_DIR))
-                    data.update({
-                        'modified': modified,
-                        'headjson': json.dumps(data['head']),
+                    head, body = reify(settings.ARTICLES_DIR, fn)
+                    endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
+                    data = {
                         'endpoint': endpoint,
-                    })
-                    del(data['head'])
+                        'modified': modified,
+                        'headjson': json.dumps(head),
+                        'body': body,
+                    }
                     Klass.objects.create(**data)
                     yield endpoint
                 break
