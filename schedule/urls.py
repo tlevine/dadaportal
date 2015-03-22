@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
 
-from .views import day, month
+from .views import index, day, month
 
 urlpatterns = patterns('',
-    url(r'^$', day),
+    url(r'^$', index),
+    url(r'day/?$', day),
     url(r'month/?$', month),
 )

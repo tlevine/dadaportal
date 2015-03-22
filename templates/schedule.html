@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block base %}
+<h1>Tom's schedule</h1>
+{% if schedule %}
 {{schedule|safe}}
+{% else %}
+<ul>
+  <li><a href="day">Today's schedule</a></li>
+  <li><a href="month">This month's schedule</a></li>
+</ul>
+{% endif %}
 {% endblock %}
