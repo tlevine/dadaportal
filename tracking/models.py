@@ -15,9 +15,13 @@ class Hit(models.Model):
     referrer = models.URLField(null = False)
 
     # Populated on the subsequent XHR, updated every few seconds
-    screen_width = models.IntegerField(null = True)
-    screen_height = models.IntegerField(null = True)
     datetime_end = models.DateTimeField(null = True)
+    availWidth = models.IntegerField(null = True)
+    availHeight = models.IntegerField(null = True)
+    scrollMaxX = models.IntegerField(null = True)
+    scrollMaxY = models.IntegerField(null = True)
+    pageXOffset = models.IntegerField(null = True)
+    pageYOffset = models.IntegerField(null = True)
 
 class Search(models.Model):
     '''

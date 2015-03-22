@@ -1,17 +1,17 @@
 import logging, datetime
 
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.template.context_processors import csrf
 
 from .models import Hit
 
 logger = logging.getLogger(__name__)
 
-@csrf_exempt
 def track_xhr(request):
     '''
     Finish the tracking after the XHR.
     '''
+    print(8)
     if 'hit_id' not in request.POST:
         return HttpResponse(status = 403)
     hit_id = request.POST['hit_id']
@@ -21,6 +21,8 @@ def track_xhr(request):
         logger.warn('Hit "%d" was missing.' % hit_id)
         return HttpResponse(status = 403)
 
+    print(8)
+    print(csrf(request))
     for field in ['availWidth', 'availHeight']:
         setattr(hit, field, request.POST.get(field))
     for field in ['scrollMaxX', 'scrollMaxY', 'pageXOffset', 'pageYOffset']:
@@ -35,4 +37,5 @@ def track_xhr(request):
 
     hit.datetime_end = datetime.datetime.now()
     hit.save()
-    return HttpResponse(status=204)
+    print(csrf(request))
+   #return HttpResponse(csrf(request))

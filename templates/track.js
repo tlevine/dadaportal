@@ -9,10 +9,10 @@
 
     f.append('availWidth', window.screen.availWidth)
     f.append('availHeight', window.screen.availHeight)
-    f.append('scrollMaxX', window.screen.scrollMaxX)
-    f.append('scrollMaxY', window.screen.scrollMaxY)
-    f.append('pageXOffset', window.screen.pageXOffset)
-    f.append('pageYOffset', window.screen.pageYOffset)
+    f.append('scrollMaxX', window.scrollMaxX)
+    f.append('scrollMaxY', window.scrollMaxY)
+    f.append('pageXOffset', window.pageXOffset)
+    f.append('pageYOffset', window.pageYOffset)
 
     var r = new XMLHttpRequest();
     r.open('POST', '/track', true)
@@ -21,7 +21,8 @@
 
     function receive() {
       if (r.readyState==4) {
-        setTimeout(function() {send(r.responseText)}, interval)
+          console.log(r.responseText)
+//      setTimeout(function() {send(r.responseText)}, interval)
       }
     }
   }
