@@ -3,16 +3,19 @@
 {% if message %}
 <div class="heading">
   <h3>{{message.subject}}</h3>
-  <p>From <a href="/@/{{message.from}}">{{message.from}}</a></p>
-  <p>To <a href="/@/{{message.to}}">{{message.to}}</a></p>
-  <p>
-    <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
-    at {{message.time}}
-  </p>
+  <dl>
+    <dt>From</dt><dd>{{message.from}}</dd>
+    <dt>To</dt><dd>{{message.to}}</dd>
+    <dt>Date</dt>
+    <dd>
+      <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
+      at {{message.time}}
+    </dt>
+  </dl>
   <br/>
-  <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
 </div>
-<article class="body">{{body}}</article>
+<article class="body"><pre>{{body}}</pre></article>
+<p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
 <div class="attachments">
   <h3>Attachments</h3>
   <ol>

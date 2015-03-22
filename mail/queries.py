@@ -1,3 +1,4 @@
+import re
 import subprocess
 import datetime
 try:
@@ -58,11 +59,14 @@ def subhierarchy(message):
         'date': d.strftime('%A, %B %d, %Y'), 
         'time': d.strftime('%H:%M UTC'),
 
-        'from': message.get_header('from'),
-        'to': message.get_header('to'),
+        'from': _redact(message.get_header('from')),
+        'to': _redact(message.get_header('to')),
         'mailto': 'mailto:%(to)s?cc=%(cc)s&subject=%(subject)s&references=%(references)s&in-reply-to=%(in-reply-to)s&body=%(body)s' % mailto,
         'subject': message.get_header('subject'),
         'is_match': message.is_match(),
         'replies': [subhierarchy(reply) for reply in message.get_replies()]
     }
 
+
+def _redact(address):
+    return re.sub(r'@[^, >]+', '@...', address)
