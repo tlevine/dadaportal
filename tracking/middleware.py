@@ -3,7 +3,7 @@ from random import getrandbits
 from .models import Hit
 
 def rand():
-    return getrandbits(24) # getrandbits(128)
+    return getrandbits(128)
 
 class TrackingMiddleware:
     '''
