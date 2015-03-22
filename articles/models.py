@@ -27,15 +27,6 @@ class ArticleCache(models.Model):
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
 
-    def as_dict(self):
-        d = self.head()
-        d.update({
-            'endpoint': self.endpoint,
-            'modified': self.modified,
-            'body': self.body,
-        })
-        return d
-
     def head(self):
         return json.loads(self.headjson)
 
@@ -81,5 +72,12 @@ class ArticleCache(models.Model):
             if not os.path.isdir(dn):
                 os.makedirs(dn)
             with open(fn, 'w') as fp:
-                fp.write(template.render(Context(article.as_dict())))
+                d = article.head()
+                d.update({
+                    'endpoint': article.endpoint,
+                    'modified': article.modified.ctime(),
+                    'body': article.body,
+                    'notmuch_secret': settings.NOTMUCH_SECRET,
+                })
+                fp.write(template.render(Context(d)))
         subprocess.Popen(['notmuch', 'new'])
