@@ -10,9 +10,15 @@ def search(request):
     q = request.GET.get('q') # query
     p = request.GET.get('p', 1) # page
 
-    results = []
+    hide_emails = 'hide_emails' in request.GET
+    if hide_emails:
+        querystr = 'from:"%s" and %s' % (settings.NOTMUCH_SECRET, q)
+    else:
+        querystr = q
     db = Database()
-    query = Query(db, q)
+    query = Query(db, querystr)
+
+    results = []
     for i, m in enumerate(query.search_messages()):
         if i >= settings.MAX_SEARCH_RESULTS:
             break
@@ -29,6 +35,7 @@ def search(request):
         })
     params = {
         'results': results,
+        'hide_emails': hide_emails,
         'q': q,
         'title': 'Results for "%s"' % q,
     }

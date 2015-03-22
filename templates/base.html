@@ -7,10 +7,13 @@
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/+/?q=date:yesterday..">News</a></li>
+        <li><a href="/+/?q=date:1W..">News</a></li>
       </ul>
       <form action="/+/" method="get">
         <input name="q" type="text" value="{{q|default:''}}" />
+        {% if hide_emails %}
+        <input name="hide_emails" type="hidden" />
+        {% endif %}
         <input value="Search" type="submit" />
       </form>
     </nav>

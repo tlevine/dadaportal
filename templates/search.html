@@ -7,16 +7,31 @@
   {% endblock %}
   Search bar is at the top-right of the screen.
 </p>
-{% elif results|length > 0 %}
+{% else %}
+<form action="/+/" method="get">
+  <input name="q" type="hidden" value="{{q|default:''}}" />
+  {% if hide_emails %}
+  <input value="Search emails too" type="submit" />
+  {% else %}
+  <input name="hide_emails" type="hidden" />
+  <input value="Don't search emails" type="submit" />
+  {% endif %}
+</form>
+{% endif %}
+
+{% if results|length > 0 %}
 <ul class="results">
   {% for result in results %}
   <li><a href="{{result.href}}">{{result.title}}</a></li>
   {% endfor %}
 </ul>
+{% endif %}
+
 {% if results|length == 100 %}
 <em>Only the first 100 results are displayed; refine your search to see more results.</em>
 {% endif %}
-{% else %}
+
+{% if results|length == 0 %}
 <em class="results">No results</em>
 {% endif %}
 {% endblock %}
