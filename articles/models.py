@@ -11,7 +11,6 @@ from django.template import Context
 
 from .reify import reify
 
-BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 logger = logging.getLogger(__name__)
 
 class ArticleCache(models.Model):
@@ -48,7 +47,7 @@ class ArticleCache(models.Model):
         if threshold == None:
             threshold = Klass.objects.all().aggregate(Max('modified'))['modified__max']
         if threshold == None: # (still)
-            threshold = BEGINNING_OF_TIME
+            threshold = settings.BEGINNING_OF_TIME
 
         parent = os.path.join(settings.ARTICLES_DIR, *subdir)
         indexes = 0

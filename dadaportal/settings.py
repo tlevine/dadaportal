@@ -8,6 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
+import datetime
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -124,3 +126,5 @@ HIT_ID_SIZE = 62
 
 DEFAULT_SEARCH_RESULT_TITLE = '(no subject)'
 MAX_SEARCH_RESULTS = 100
+
+BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
