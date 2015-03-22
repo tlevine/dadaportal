@@ -14,7 +14,8 @@ class Hit(models.Model):
     user_agent = models.TextField(null = False)
     referrer = models.URLField(null = False)
 
-    status_code = models.SmallIntegerField(null = False)
+    # Populated after the response (maybe during the XHR if that's easier)
+    status_code = models.SmallIntegerField(null = True)
 
     # Populated on the subsequent XHR, updated every few seconds
     datetime_end = models.DateTimeField(null = True)
