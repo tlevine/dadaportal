@@ -2,6 +2,9 @@ from random import getrandbits
 
 from .models import Hit, Search
 
+def rand():
+    return getrandbits(24) # getrandbits(128)
+
 class TrackingMiddleware:
     '''
     Begin the tracking on the fundamental (probably HTML) page load.
@@ -11,8 +14,8 @@ class TrackingMiddleware:
     '''
     def process_template_response(self, request, response):
         if 'session_id' not in request.session:
-            request.session['session_id'] = getrandbits(128)
-        hit_id = getrandbits(128)
+            request.session['session_id'] = rand()
+        hit_id = rand()
         response.context_data['hit_id'] = hit_id
         Hit.objects.create(hit = hit_id,
                            session = request.session['session_id'],
