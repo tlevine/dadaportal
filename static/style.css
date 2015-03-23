@@ -98,6 +98,11 @@ nav .search-form {
 }
 
 /* Article styles */
+article {
+  width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
 article img {
   width: 100%;
 }
@@ -105,11 +110,9 @@ article ul {
   margin-top: 0.5em;
   margin-left: 2em;
 }
-article {
-  width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-}
+article dt { float: left; width: 90px; }
+article dt:after { content: ': '; }
+article dd { margin-left: 90px; }
 
 /* Colors and other matching styles */
 a, h1, h2, h3, h4, h5, h6 {

@@ -2,11 +2,12 @@
 {% block base %}
 <article>
 {% if results == None %}
-<p>
-  {% block introduction %}
-  Search the dada.
-  {% endblock %}
-  Search bar is at the top-right of the screen.
+{% block introduction %}
+<img src="/static/search-arrow.png"
+     alt="Search bar is at the top-right of the screen." />
+{% endblock %}
+<p style="text-align: center;">
+  Search Tom's published articles and published mail.
 </p>
 {% else %}
 <form action="/+/" method="get">
