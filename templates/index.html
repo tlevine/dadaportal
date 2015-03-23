@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block top_search %}{% endblock %}
+
+{% block bodytag %}
+<body id="index-main" style="background-image: url(static/background-images/2014-12-11.jpg);">
+{% endblock %}
+
 {% block base %}
-<div id="index-main" style="background-image: url(static/background-images/2014-12-11.jpg);">
-  <div class="search">
-    <h1>Thomas Levine's Dada Portal</h1>
-    {% include 'search-form.html' %}
-  </div>
+<div class="search">
+  <h1>Thomas Levine's Dada Portal</h1>
+  {% include 'search-form.html' %}
 </div>
 {% endblock %}

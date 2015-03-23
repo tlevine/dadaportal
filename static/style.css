@@ -5,9 +5,15 @@ body {
   width: 100%;
   height: 100%;
   text-align: inherit;
+  position: relative;
 }
-nav#pageinfo, html, body, .page { margin: 0; padding: 0; border-style: none; }
-.pageheader {background-color: #444;}
+nav, html, body, input,
+ul, li,
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  border-style: none;
+}
 
 a {
   text-decoration: none;
@@ -18,21 +24,7 @@ a:hover {
   text-decoration: underline;
 }
 
-#content img,
-#content video {
-  max-width: 80%;
-  max-height: 440px;
-  background-color: white;
-}
-#content img.wide,
-#content video.wide {
-  max-height: none;
-  max-width: 880px;
-  width: 80%;
-}
-
-.w300 { width: 300px;}
-h1, h2, h3, h4, h5, h6 {
+article h1, article h2, article h3, article h4, article h5, article h6 {
   page-break-after: avoid;
   color: #fe57a1;
   margin-top: 0.5em;
@@ -47,34 +39,6 @@ p {
   margin-bottom: 0;
 }
 
-@media screen {
-  h5, h6 { display: inline-block; }
-  h5 + p, h6 + p { display: inline; }
-  
-  /* http://stackoverflow.com/a/535390/407226 */
-  body{counter-reset: section}
-  h2{counter-reset: sub-section}
-  h3{counter-reset: composite}
-  h4{counter-reset: detail}
-  
-  h2:before{
-    counter-increment: section;
-    content: counter(section) " ";
-  }
-  h3:before{
-    counter-increment: sub-section;
-    content: counter(section) "." counter(sub-section) " ";
-  }
-  h4:before{
-    counter-increment: composite;
-    content: counter(section) "." counter(sub-section) "." counter(composite) " ";
-  }
-  h5:before{
-    counter-increment: detail;
-    content: counter(section) "." counter(sub-section) "." counter(composite) "." counter(detail) " ";
-  }
-}
-
 pre, blockquote, .line-block {
   background-color: #555;
   padding: 0.5em;
@@ -82,11 +46,6 @@ pre, blockquote, .line-block {
 }
 blockquote > p {
   margin: 0;
-}
-
-.pagefooter {
-    border-top: 1px solid #fe57a1;
-    margin-top: 2em;
 }
 
 col { width: auto; }
@@ -99,57 +58,51 @@ table {
 td { border: none; }
 table tr:first-child th, table tr:first-child td { border-bottom: solid 1px; }
 
-#index-main {
-  width: 100%;
-  height: 90%;
+nav {
+  height: 70px;
 }
-#navigation {
-  height: 10%;
+nav ul {
+  display: inline-block;
 }
-#navigation ul {
-  margin: 0;
-  padding: 0;
-}
-#navigation li {
+nav li {
   display: inline-block;
   margin-top: 0.75em;
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
-
-.search-form, .search-form input {
-  margin: 0;
-  padding: 0;
+nav .search-form {
+  display: inline-block;
+  float: right;
 }
+
 .search-form input {
   border: solid 1px grey;
 }
 .search-form {
-  width: 420px;
+  width: 500px;
 }
 .search-form input[type=text] {
-  width: 346px;
+  width: 426px;
 }
 .search-form input[type=submit] {
   width: 70px;
 }
 .search-form, .search-form input {
-  height: 35px;
+  height: 40px;
 }
-#index-main {
-  position: relative;
-}
+
 #index-main .search {
   background-color: white;
-  height: 72px;
+  width: 500px;
+  height: 80px;
   position: absolute;
   top: 20%;
   right: 20%;
 }
 #index-main .search h1 {
-  height: 35px;
-  margin: 0;
-  padding: 0;
+  text-align: center;
+  color: #fe57a1;
+  height: 40px;
 }
 
 @media print {
