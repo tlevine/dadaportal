@@ -65,3 +65,31 @@ Useful parts of templates
     } catch( err ) {}
     </script><noscript><p><img src="http://piwik.thomaslevine.com/piwik.php?idsite=2" style="border:0" alt="Piwik tracking image" /></p></noscript>
     <!-- End Piwik Tracking Code -->
+
+
+
+
+
+
+Old parameters
+
+
+    // Colors =============================== //
+    $article-text: #BBB
+    $article-background: #111
+    $page-background: #666
+    $block-background: #333
+
+    // The main color
+    $pink: #fe57a1
+
+    // Sizes ================================ //
+    // Side of a square
+    //$square: 28px
+    $square: 42px
+
+    // Cards
+    $calling-card-long: 12 * $square
+    $calling-card-short: 6 * $square
+    $topic-card-width: 4
+
