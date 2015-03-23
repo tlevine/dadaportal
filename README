@@ -44,6 +44,8 @@ computer gets the emails over imap and then sends the contents of the
 "Public" mailboxes to my "nsa" computer over rsync, which indexes them
 in notmuch. The dada portal hosts the notmuch-indexed emails.
 
+Articles are indexed with notmuch and thus searched along with the emails.
+
 I do my own tracking so I don't need to use Piwik and so I don't have
 to match different logs after the fact.
 
@@ -67,11 +69,29 @@ Articles are automatically converted into
 Homepage displays the most popular articles, maybe grouped in some
 interesting way, or maybe not if that's easier.
 
-Maybe features
-------------------
-I want some sort of search. Omega seems the simplest, but I couldn't get
-it working. Maybe I just add everything to notmuch. Actually, *that* is
-the simplest.
+There's a management command for installing. It handles the following,
+either by generating and copying configuration files or by telling you
+to install, configure, &c. a particular thing.
+
+* Create a user on the web server (nsa).
+* Install a crontab to send public emails from the email server (home)
+    to nsa.
+* Set up the database on nsa.
+* Install, configure and enable the Apache site on nsa.
+* Install dependencies on nsa
+
+  * Python libraries
+  * pal
+  * notmuch
+
+There's also a management command for deploying. It does the following,
+using rsync for all file transfers.
+
+* Run tests.
+* Copy canonical articles to nsa.
+* Cache and index the articles on nsa.
+* Copy ``pal.conf`` and pal calendar files to nsa.
+* Generate static files on nsa.
 
 Not features
 ----------------
