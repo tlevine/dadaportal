@@ -2,32 +2,38 @@
 {% block base %}
 {% if message %}
 <article>
-<section class="heading">
-  <h3>{{message.subject}}</h3>
-  <dl>
-    <dt>From</dt><dd>{{message.from}}</dd>
-    <dt>To</dt><dd>{{message.to}}</dd>
-    <dt>Date</dt>
-    <dd>
-      <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
-      at {{message.time}}
-    </dt>
-  </dl>
-  <br/>
-</section>
-<article class="body"><pre>{{body}}</pre></article>
-<p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
-<section class="attachments">
-  <h3>Attachments</h3>
-  <ol>
-  {% for n, description in parts %}
-    <li><a href="{{n}}">{{description}}</a></li>
-  {% endfor %}
-  </ol>
-</section>
+  <div class="message">
+    <section class="heading">
+      <h3>{{message.subject}}</h3>
+      <dl>
+        <dt>From</dt><dd>{{message.from}}</dd>
+        <dt>To</dt><dd>{{message.to}}</dd>
+        <dt>Date</dt>
+        <dd>
+          <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
+          at {{message.time}}
+        </dt>
+      </dl>
+      <br/>
+    </section>
+    <section class="body">
+      <pre>{{body}}</pre>
+    </section>
+    <section class="attachments">
+      <h3>Attachments</h3>
+      <ol>
+      {% for n, description in parts %}
+        <li><a href="{{n}}">{{description}}</a></li>
+      {% endfor %}
+      </ol>
+    </section>
+    <section class="reply">
+      <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
+    </section>
+  </div>
 {% endif %}
 
-<section class="threads">
+<section class="thread">
   {% if message %}
   <h3>Thread</h3>
   {% endif %}

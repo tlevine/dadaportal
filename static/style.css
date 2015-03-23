@@ -137,7 +137,7 @@ body {
   position: relative;
 }
 nav, html, body, input,
-ul, li,
+ul, ol, li,
 form,
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -228,13 +228,26 @@ article {
 article img {
   width: 100%;
 }
-article ul {
+article ul, article ol {
   margin-top: 0.5em;
-  margin-left: 2em;
+  margin-left: 1.5em;
 }
 article dt { float: left; width: 90px; }
 article dt:after { content: ': '; }
 article dd { margin-left: 90px; }
+
+/* Mail styles */
+section.thread > ul ul {
+  margin-left: 1em;
+  margin-top: 0;
+}
+section.thread > ul {
+  margin-left: 0;
+}
+section.reply {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
 
 /* Search form */
 .search-form input[type=text] {
@@ -253,7 +266,7 @@ body {
   color: #888;
   background-color: #111;
 }
-nav {
+.message /* (mail) */, nav {
   border-bottom: solid 1px #666;
 }
 .search-form input {
