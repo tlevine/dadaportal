@@ -1,7 +1,7 @@
+/* Base formatting */
 body {
-  color: white;
-  font: normal 100% 'Nimbus Sans', Helvetica, Arial, sans-serif;
-  background-color: #111;
+  font: normal 18px 'Nimbus Sans', Helvetica, Arial, sans-serif;
+  line-height: 24px;
   width: 100%;
   height: 100%;
   text-align: inherit;
@@ -14,10 +14,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   border-style: none;
 }
-
 a, h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
-  color: #fe57a1;
   page-break-after: avoid;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -34,7 +32,6 @@ p {
   margin-bottom: 0;
 }
 pre, blockquote, .line-block /* rst class */ {
-  background-color: #555;
   padding: 0.5em;
   margin: 1em;
 }
@@ -42,6 +39,7 @@ blockquote > p {
   margin: 0;
 }
 
+/* Tables */
 col { width: auto; }
 table {
   border-left: none;
@@ -52,9 +50,7 @@ table {
 td { border: none; }
 table tr:first-child th, table tr:first-child td { border-bottom: solid 1px; }
 
-nav {
-  height: 70px;
-}
+/* Nav bar */
 nav ul {
   display: inline-block;
 }
@@ -69,38 +65,69 @@ nav .search-form {
   float: right;
 }
 
-.search-form input {
-  border: solid 1px grey;
-}
-.search-form {
-  width: 500px;
-}
+/* Search form */
 .search-form input[type=text] {
-  width: 426px;
+  padding-left: 8px;
+  width: 395px; /* should be 396, but I left room for a fudge factor */
 }
 .search-form input[type=submit] {
-  width: 70px;
-}
-.search-form, .search-form input {
-  height: 40px;
+  width: 72px;
 }
 
+/* Root page */
 #index-main .search {
-  background-color: white;
-  width: 500px;
-  height: 80px;
+  height: 96px;
   position: absolute;
   top: 20%;
   right: 20%;
 }
 #index-main .search h1 {
   text-align: center;
-  height: 40px;
-  margin: 0;
+  height: 36px;
+  margin-top: 16px;
+  margin-bottom: 4px;
 }
 
+/* Article styles */
 article ul {
+  margin-top: 0.5em;
   margin-left: 2em;
+}
+article {
+  width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Colors and other matching styles */
+a, h1, h2, h3, h4, h5, h6 {
+  color: #fe57a1;
+}
+body {
+  color: #888;
+  background-color: #111;
+}
+#index-main .search {
+  color: #111;
+}
+nav {
+  border-bottom: solid 1px #666;
+}
+.search-form input {
+  border: solid 1px #666;
+}
+pre, blockquote, .line-block /* rst class */ {
+  color: #BBB;
+  background-color: #333;
+}
+#index-main .search {
+  background-color: white;
+}
+nav, .search-form, .search-form input {
+  height: 40px;
+}
+.search-form, #index-main .search {
+  width: 480px;
 }
 
 @media print {
