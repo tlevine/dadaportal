@@ -9,8 +9,19 @@ Running
 --------------
 Check it out.
 
-Do stuff. ::
+Edit things in ``canonical-articles``. Update like so. ::
 
+    ./manage.py syncarticles
+
+Index them for the search engine like this. ::
+
+    ./manage.py indexarticles
+
+Other stuff. ::
+
+    ./manage.py makemigrations
+    ./manage.py migrate
+    ./manage.py syncdb
     ./manage.py collectstatic
 
 Features
