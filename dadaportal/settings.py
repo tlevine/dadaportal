@@ -131,3 +131,5 @@ BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 DOMAIN_NAME = 'http://thomaslevine.com/'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
+
+WEB_USER = 'www-data'
