@@ -1,56 +1,53 @@
 {% extends 'base.html' %}
 {% block base %}
-{% if message %}
 <article>
-  <div class="message">
-    <section class="heading">
-      <h3>{{message.subject}}</h3>
-      <dl>
-        <dt>From</dt><dd>{{message.from}}</dd>
-        <dt>To</dt><dd>{{message.to}}</dd>
-        <dt>Date</dt>
-        <dd>
-          <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
-          at {{message.time}}
-        </dt>
-      </dl>
-      <br/>
-    </section>
-    <section class="body">
-      <pre>{{body}}</pre>
-    </section>
-    <section class="attachments">
-      <h3>Attachments</h3>
-      <ol>
-      {% for n, description in parts %}
-        <li><a href="{{n}}">{{description}}</a></li>
-      {% endfor %}
-      </ol>
-    </section>
-    <section class="reply">
-      <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
-    </section>
-  </div>
-{% endif %}
-
-<section class="thread">
   {% if message %}
-  <h3>Thread</h3>
+  <section class="heading">
+    <h3>{{message.subject}}</h3>
+    <dl>
+      <dt>From</dt><dd>{{message.from}}</dd>
+      <dt>To</dt><dd>{{message.to}}</dd>
+      <dt>Date</dt>
+      <dd>
+        <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
+        at {{message.time}}
+      </dt>
+    </dl>
+    <br/>
+  </section>
+  <section class="body">
+    <pre>{{body}}</pre>
+  </section>
+  <section class="attachments">
+    <h3>Attachments</h3>
+    <ol>
+    {% for n, description in parts %}
+      <li><a href="{{n}}">{{description}}</a></li>
+    {% endfor %}
+    </ol>
+  </section>
+  <section class="reply">
+    <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
+  </section>
   {% endif %}
-  <ul>
-    {% for thread in threads %}
+  <section class="thread">
+    {% if message %}
+    <h3>Thread</h3>
+    {% endif %}
     <ul>
-    {% for message in thread %}
-      {% include 'mail-subthread.html' %}
-    {% endfor %}
+      {% for thread in threads %}
+      <ul>
+      {% for message in thread %}
+        {% include 'mail-subthread.html' %}
+      {% endfor %}
+      </ul>
+      {% endfor %}
     </ul>
-    {% endfor %}
-  </ul>
-  {% if threads|length == 0 %}
-  <em>No emails match "{{q}}".</em>
-  {% elif threads|length == 100 %}
-  <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
-  {% endif %}
-</section>
+    {% if threads|length == 0 %}
+    <em>No emails match "{{q}}".</em>
+    {% elif threads|length == 100 %}
+    <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
+    {% endif %}
+  </section>
 </article>
 {% endblock %}

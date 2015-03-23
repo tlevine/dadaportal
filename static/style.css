@@ -244,9 +244,12 @@ section.thread > ul ul {
 section.thread > ul {
   margin-left: 0;
 }
-section.reply {
+section.reply p {
   text-align: center;
-  margin-bottom: 0.5em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 section.reply strong {
   text-decoration: none;
@@ -269,7 +272,7 @@ body {
   color: #888;
   background-color: #111;
 }
-.message /* (mail) */, nav {
+nav {
   border-bottom: solid 1px #666;
 }
 .search-form input {
@@ -277,6 +280,9 @@ body {
 }
 pre, blockquote, .line-block /* rst class */ {
   color: #BBB;
+  background-color: #333;
+}
+section.reply p {
   background-color: #333;
 }
 #index-main .search {
