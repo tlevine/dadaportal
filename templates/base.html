@@ -4,14 +4,16 @@
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
   </head>
   {% block bodytag %}<body>{% endblock %}
-    <nav id="navigation">
+    <nav>
+      {% block navlinks %}
       <ul>
-        {% block homelink %}<li><a href="/">Home</a></li>{% endblock %}
+        <li><a href="/">Home</a></li>
         {% comment %}
         <li><a href="/schedule/">Schedule</a></li>
         <li><a href="/!/about/">About</a></li>
         {% endcomment %}
       </ul>
+      {% endblock %}
       {% block top_search %}
       {% include 'search-form.html' %}
       {% endblock %}
