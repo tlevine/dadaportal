@@ -81,8 +81,8 @@ nav .search-form {
 #index-main .search {
   height: 120px;
   position: absolute;
-  top: 20%;
-  right: 20%;
+  top: 0;
+  right: 0;
 }
 #index-main .search h1 {
   text-align: center;
@@ -153,6 +153,10 @@ nav, .search-form input {
   }
 }
 @media screen and (min-width: 540px) {
+  #index-main .search {
+    top: 20%;
+    right: 20%;
+  }
   article {
     width: 520px;
   }
