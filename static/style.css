@@ -651,6 +651,59 @@ table {
 td { border: none; }
 table tr:first-child th, table tr:first-child td { border-bottom: solid 1px; }
 
+#index-main {
+  width: 100%;
+  height: 90%;
+}
+#navigation {
+  height: 10%;
+}
+#navigation ul {
+  margin: 0;
+  padding: 0;
+}
+#navigation li {
+  display: inline-block;
+  margin-top: 0.75em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.search-form, .search-form input {
+  margin: 0;
+  padding: 0;
+}
+.search-form input {
+  border: solid 1px grey;
+}
+.search-form {
+  width: 420px;
+}
+.search-form input[type=text] {
+  width: 346px;
+}
+.search-form input[type=submit] {
+  width: 70px;
+}
+.search-form, .search-form input {
+  height: 35px;
+}
+#index-main {
+  position: relative;
+}
+#index-main .search {
+  background-color: white;
+  height: 72px;
+  position: absolute;
+  top: 20%;
+  right: 20%;
+}
+#index-main .search h1 {
+  height: 35px;
+  margin: 0;
+  padding: 0;
+}
+
 @media print {
   .pageheader, .pagefooter { display: none; }
   .webonly { display: none; }
