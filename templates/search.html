@@ -10,15 +10,14 @@
   Search Tom's published articles and published mail.
 </p>
 {% else %}
-<form action="/+/" method="get">
-  <input name="q" type="hidden" value="{{q|default:''}}" />
+<p>
+  Here are the matches for "<strong>{{q}}</strong>" among
   {% if hide_emails %}
-  <input value="Search emails too" type="submit" />
+  articles, only. You can <a href="/+/?q={{q}}">include mails too</a>.
   {% else %}
-  <input name="hide_emails" type="hidden" />
-  <input value="Don't search emails" type="submit" />
+  articles and emails. You can <a href="/+/?q={{q}}&amp;hide_emails=">hide the mails</a>.
   {% endif %}
-</form>
+</p>
 {% endif %}
 
 {% if results|length > 0 %}

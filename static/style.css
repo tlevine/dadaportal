@@ -138,6 +138,8 @@ pre, blockquote, .line-block /* rst class */ {
 #index-main .search {
   background-color: white;
 }
+strong { color: white; font-weight: normal; }
+
 nav, .search-form input {
   height: 42px;
 }
