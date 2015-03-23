@@ -130,14 +130,14 @@
 /* Base formatting */
 body {
   font: 400 18px Junction, serif;
-  line-height: 24px;
+  line-height: 125%;
   width: 100%;
   height: 100%;
   text-align: inherit;
   position: relative;
 }
 nav, html, body, input,
-ul, ol, li,
+ul, ol, li, dl,
 form,
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -147,18 +147,16 @@ h1, h2, h3, h4, h5, h6 {
 a, h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   page-break-after: avoid;
-  margin-top: 0.5em;
   margin-bottom: 0;
   font-weight: inherit;
 }
 a:hover {
   text-decoration: underline;
 }
-h1, h2 { font-size: 2em; font-weight: bold; }
-h3 { font-size: 1.5em; font-weight: bold; }
+h1, h2 { font-size: 1.5em; font-weight: bold; }
+h3 { font-size: 1em; font-weight: bold; }
 h4 { font-size: 1em; font-weight: bold; }
 p {
-  margin-top: 0.5em;
   margin-bottom: 0;
 }
 pre {
@@ -228,8 +226,7 @@ article {
 article img {
   width: 100%;
 }
-article ul, article ol {
-  margin-top: 0.5em;
+article ul, article ol, article dl {
   margin-left: 1.5em;
 }
 article dt { float: left; width: 90px; }
@@ -248,9 +245,10 @@ section.thread li {
   margin-top: 0.25em;
 }
 section.thread > ul > ul > ul > ul > ul > ul > ul > ul > ul > ul li a {
+  /* Change this to be a thing that just prevents breaking within the text. */
   display: block; /* Don't try wrapping after this deep. */
 }
-section.reply p {
+article h1, section.reply p {
   text-align: center;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
@@ -270,7 +268,7 @@ section.reply strong {
   width: 72px;
 }
 
-/* Colors and other matching styles */
+/* Matching colors */
 a, h1, h2, h3, h4, h5, h6 {
   color: #fe57a1;
 }
@@ -296,11 +294,16 @@ section.reply p {
 }
 strong { color: white; font-weight: normal; }
 
+/* Matching sizes */
 nav, .search-form input {
   height: 42px;
 }
 .search-form, #index-main .search {
   width: 340px;
+}
+p, h1, h2, h3, h4, h5, h6,
+article ul, article ol, article dl {
+  margin-top: 0.5em;
 }
 
 /* Responsive widths */

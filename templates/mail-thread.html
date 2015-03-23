@@ -2,8 +2,8 @@
 {% block base %}
 <article>
   {% if message %}
-  <section class="heading">
-    <h3>{{message.subject}}</h3>
+  <section class="message">
+    <h1>{{message.subject}}</h1>
     <dl>
       <dt>From</dt><dd>{{message.from}}</dd>
       <dt>To</dt><dd>{{message.to}}</dd>
@@ -13,9 +13,6 @@
         at {{message.time}}
       </dt>
     </dl>
-    <br/>
-  </section>
-  <section class="body">
     <pre>{{body}}</pre>
   </section>
   <section class="attachments">
