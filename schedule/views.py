@@ -12,7 +12,8 @@ def pal(command):
 index = TemplateView.as_view(template_name = 'schedule.html')
 
 def day(request):
-    html = '<pre>%s</pre>' % pal('pal --nocolor -r 2')
+    text = pal('pal --mail --nocolor -r 2').partition('\n\n')[2]
+    html = '<pre>%s</pre>' % text
     return render(request, 'schedule.html', {'schedule': html})
 
 def month(request):
