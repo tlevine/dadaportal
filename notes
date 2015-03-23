@@ -1,4 +1,11 @@
-http://stackoverflow.com/questions/8687927/django-static-static-url-static-root
+Things to do eventually
+
+* http://stackoverflow.com/questions/8687927/django-static-static-url-static-root
+* URL-encode slashes (http://localhost:8000/@/id:osmlab/to-fix-backend/issues/11/85005016@github.com)
+* Make group of words not wrap.
+
+  * Switch spaces for &nbsp; in Django templates?
+  * CSS?
 
 
 Useful parts of templates
