@@ -1,17 +1,17 @@
 @font-face {
   font-family: 'Blackout';
-  font-style: two_am;
-  src: url(/static/fonts/blackout/blackout_two_am-webfont.eot) format('woff');
+  font-weight: 600;
+  src: url(/static/fonts/blackout/blackout_two_am-webfont.woff) format('woff');
 }
 @font-face {
   font-family: 'Blackout';
-  font-style: midnight;
-  src: url(/static/fonts/blackout/blackout_midnight-webfont.eot) format('woff');
+  font-weight: 500;
+  src: url(/static/fonts/blackout/blackout_midnight-webfont.woff) format('woff');
 }
 @font-face {
   font-family: 'Blackout';
-  font-style: sunrise;
-  src: url(/static/fonts/blackout/blackout_sunrise-webfont.eot) format('woff');
+  font-weight: 400;
+  src: url(/static/fonts/blackout/blackout_sunrise-webfont.woff) format('woff');
 }
 
 @font-face {
@@ -129,7 +129,7 @@
 
 /* Base formatting */
 body {
-  font: normal 18px Blackout, serif;
+  font: 400 18px Blackout, serif;
   line-height: 24px;
   width: 100%;
   height: 100%;
