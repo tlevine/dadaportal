@@ -248,6 +248,9 @@ section.reply {
   text-align: center;
   margin-bottom: 0.5em;
 }
+section.reply strong {
+  text-decoration: none;
+}
 
 /* Search form */
 .search-form input[type=text] {
