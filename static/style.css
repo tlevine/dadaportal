@@ -69,15 +69,6 @@ nav .search-form {
   float: right;
 }
 
-/* Search form */
-.search-form input[type=text] {
-  padding-left: 8px; /* Doesn't affect width */
-  width: 403px; /* should be 404, but I left room for the fudge factor */
-}
-.search-form input[type=submit] {
-  width: 72px;
-}
-
 /* Root page */
 #index-main .search ul {
   text-align: center;
@@ -102,7 +93,6 @@ nav .search-form {
 
 /* Article styles */
 article {
-  width: 720px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -116,6 +106,15 @@ article ul {
 article dt { float: left; width: 90px; }
 article dt:after { content: ': '; }
 article dd { margin-left: 90px; }
+
+/* Search form */
+.search-form input[type=text] {
+  padding-left: 8px; /* Doesn't affect width */
+  width: 263px; /* should be 264, but I left room for the fudge factor */
+}
+.search-form input[type=submit] {
+  width: 72px;
+}
 
 /* Colors and other matching styles */
 a, h1, h2, h3, h4, h5, h6 {
@@ -144,15 +143,38 @@ nav, .search-form input {
   height: 42px;
 }
 .search-form, #index-main .search {
-  width: 480px;
+  width: 340px;
 }
+
+/* Responsive widths */
+@media screen {
+  article {
+    width: 340px;
+  }
+}
+@media screen and (min-width: 540px) {
+  article {
+    width: 520px;
+  }
+  .search-form, #index-main .search {
+    width: 400px;
+  }
+  .search-form input[type=text] {
+    width: 323px; /* should be 324, but I left room for the fudge factor */
+  }
+}
+@media screen and (min-width: 720px) {
+  article { width: 700px; }
+  .search-form, #index-main .search {
+    width: 480px;
+  }
+  .search-form input[type=text] {
+    width: 403px; /* should be 404, but I left room for the fudge factor */
+  }
+}
+
 
 @media print {
-  .pageheader, .pagefooter { display: none; }
-  .webonly { display: none; }
+  nav, footer { display: none; }
   a, p, h1, h2, h3, h4, h5 { color: black !important; }
 }
-
-@media screen { #content { width: 340px; margin-left: auto; margin-right: auto; } }
-@media screen and (min-width: 540px) { #content { width: 520px; } }
-@media screen and (min-width: 720px) { #content { width: 700px; } }
