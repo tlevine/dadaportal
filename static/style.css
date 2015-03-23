@@ -1,23 +1,129 @@
 @font-face {
+  font-family: 'Blackout';
+  font-style: two_am;
+  src: url(/static/fonts/blackout/blackout_two_am-webfont.eot) format('woff');
+}
+@font-face {
+  font-family: 'Blackout';
+  font-style: midnight;
+  src: url(/static/fonts/blackout/blackout_midnight-webfont.eot) format('woff');
+}
+@font-face {
+  font-family: 'Blackout';
+  font-style: sunrise;
+  src: url(/static/fonts/blackout/blackout_sunrise-webfont.eot) format('woff');
+}
+
+@font-face {
+  font-family: 'Fanwood';
+  font-style: normal;
+  font-weight: normal;
+  src: url(/static/fonts/fanwood/fanwood-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood';
+  font-style: italic;
+  font-weight: normal;
+  src: url(/static/fonts/fanwood/fanwood-italic-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood Text';
+  font-style: normal;
+  font-weight: text;
+  src: url(/static/fonts/fanwood/_textfanwood-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood Text';
+  font-style: italic;
+  font-weight: text;
+  src: url(/static/fonts/fanwood/fanwood_text-italic-webfont.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-bold.woff) format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-regular.woff) format('woff');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-light.woff) format('woff');
+    font-weight: light;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    src: url(/static/fonts/linden-hill/LindenHill-webfont.woff) format('woff');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Linden Hill';
+    src: url(/static/fonts/linden-hill/LindenHill-Italic-webfont.woff) format('woff');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-black.woff) format('woff');
+    font-style: normal;
+    font-weight: black;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-inline-regular.woff) format('woff');
+    font-style: normal;
+    font-weight: inline;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-inline-italic.woff) format('woff');
+    font-style: italic;
+    font-weight: inline;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-bold.woff) format('woff');
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-dashed.woff) format('woff');
+    font-style: normal;
+    font-weight: dashed;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-regular.woff) format('woff');
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Ostrich Sans';
+    src: url(/static/fonts/ostrich-sans/ostrich-sans-light.woff) format('woff');
+    font-style: normal;
+    font-weight: light;
+}
+
+@font-face {
   font-family: 'Sorts Mill Goudy';
   font-style: normal;
-  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.woff) format('woff'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.eot) format('eot'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.ttf) format('ttf'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.svg) format('svg');
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.woff) format('woff');
 }
 @font-face {
   font-family: 'Sorts Mill Goudy';
   font-style: italic;
-  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.woff) format('woff'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.eot) format('eot'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.ttf) format('ttf'),
-       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.svg) format('svg');
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.woff) format('woff');
 }
 
 /* Base formatting */
 body {
-  font: normal 18px 'Sorts Mill Goudy', serif;
+  font: normal 18px 'Junction', serif;
   line-height: 24px;
   width: 100%;
   height: 100%;
