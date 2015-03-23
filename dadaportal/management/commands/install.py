@@ -28,6 +28,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         raise CommandError('This should be run on the web server.')
 
+        direction('''Install dependencies on nsa.
+  * Python libraries
+  * pal
+  * notmuch
+''')
 
         # Create a user with the appropriate home directory and group.
         sh('sudo createuser %s' % settings.WEB_USER)
@@ -36,10 +41,5 @@ class Command(BaseCommand):
 Install this crontab to send public emails from the email server (home)
 to nsa; you must copy it to the computer that contains your emails.''')
 
-* Set up the database on nsa.
-* Install, configure and enable the Apache site on nsa.
-* Install dependencies on nsa
-
-  * Python libraries
-  * pal
-  * notmuch
+        direction('Set up the database on nsa.')
+        direction('Install, configure and enable the Apache site on nsa.')
