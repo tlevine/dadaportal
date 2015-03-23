@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 
-from .views import index, search, attachment
+from .views import search, attachment
 
 urlpatterns = patterns('',
     # Empty query.
