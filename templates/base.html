@@ -15,9 +15,7 @@
       {% include 'search-form.html' %}
       {% endblock %}
     </nav>
-    <article>
-      {% block base %}{% endblock %}
-    </article>
+    {% block base %}{% endblock %}
     {% if hit_id %}<script>{% include 'track.js' %}</script>{% endif %}
   </body>
 </html>

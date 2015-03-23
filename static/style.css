@@ -9,6 +9,7 @@ body {
 }
 nav, html, body, input,
 ul, li,
+form,
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
@@ -67,16 +68,24 @@ nav .search-form {
 
 /* Search form */
 .search-form input[type=text] {
-  padding-left: 8px;
-  width: 395px; /* should be 396, but I left room for a fudge factor */
+  padding-left: 8px; /* Doesn't affect width */
+  width: 403px; /* should be 404, but I left room for the fudge factor */
 }
 .search-form input[type=submit] {
   width: 72px;
 }
 
 /* Root page */
+#index-main .search ul {
+  text-align: center;
+
+}
+#index-main .search li {
+  display: inline;
+  font-size: 16px;
+}
 #index-main .search {
-  height: 96px;
+  height: 120px;
   position: absolute;
   top: 20%;
   right: 20%;
@@ -89,6 +98,9 @@ nav .search-form {
 }
 
 /* Article styles */
+article img {
+  width: 100%;
+}
 article ul {
   margin-top: 0.5em;
   margin-left: 2em;
@@ -123,8 +135,8 @@ pre, blockquote, .line-block /* rst class */ {
 #index-main .search {
   background-color: white;
 }
-nav, .search-form, .search-form input {
-  height: 40px;
+nav, .search-form input {
+  height: 42px;
 }
 .search-form, #index-main .search {
   width: 480px;
