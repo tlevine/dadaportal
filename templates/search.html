@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block base %}
+<article>
 {% if results == None %}
 <p>
   {% block introduction %}
@@ -34,4 +35,5 @@
 {% if results|length == 0 %}
 <em class="results">No results</em>
 {% endif %}
+</article>
 {% endblock %}

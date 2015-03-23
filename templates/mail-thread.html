@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block base %}
 {% if message %}
-<div class="heading">
+<article>
+<section class="heading">
   <h3>{{message.subject}}</h3>
   <dl>
     <dt>From</dt><dd>{{message.from}}</dd>
@@ -13,20 +14,20 @@
     </dt>
   </dl>
   <br/>
-</div>
+</section>
 <article class="body"><pre>{{body}}</pre></article>
 <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
-<div class="attachments">
+<section class="attachments">
   <h3>Attachments</h3>
   <ol>
   {% for n, description in parts %}
     <li><a href="{{n}}">{{description}}</a></li>
   {% endfor %}
   </ol>
-</div>
+</section>
 {% endif %}
 
-<div class="threads">
+<section class="threads">
   {% if message %}
   <h3>Thread</h3>
   {% endif %}
@@ -44,5 +45,6 @@
   {% elif threads|length == 100 %}
   <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
   {% endif %}
-</div>
+</section>
+</article>
 {% endblock %}

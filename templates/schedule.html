@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block base %}
+<article>
 <h1>Tom's schedule</h1>
 {% if schedule %}
 {{schedule|safe}}
@@ -9,4 +10,5 @@
   <li><a href="month">This month's schedule</a></li>
 </ul>
 {% endif %}
+</article>
 {% endblock %}
