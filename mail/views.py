@@ -1,9 +1,12 @@
+import re
+
 from notmuch import Database, Query
 from unidecode import unidecode
 from lxml.html.clean import clean_html
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 
 from .queries import hierarchy, subhierarchy
 
@@ -41,6 +44,8 @@ def search(request, querystr):
     return render(request, 'mail-thread.html', params)
 
 def attachment(request, querystr, n):
+    n = int(n)
+
     db = Database()
     query = Query(db, '(not from:%s) and %s' % (settings.NOTMUCH_SECRET, querystr))
 
@@ -49,7 +54,7 @@ def attachment(request, querystr, n):
 
     message = next(iter(query.search_messages()))
     parts = message.get_message_parts()
-    i = int(n) - 1
+    i = n - 1
     if i >= len(parts):
         return HttpResponseRedirect('/@/%s/' % querystr)
 
@@ -62,13 +67,27 @@ def attachment(request, querystr, n):
         payload = clean_html(payload)
 
     # Start constructing the response
-    response = HttpResponse(content = payload, mimetype = content_type)
+    response = HttpResponse(content = payload, content_type = content_type)
 
     # Content disposition
     fn = part.get_filename()
-    if fn != None:
-        response['content-disposition'] = 'filename="%s";' % unidecode(fn).replace('"', '')
 
+    # Force download on HTML if running it here could be unsafe.
+    for ml in ['html', 'xml', 'svg']:
+        if ml in content_type.lower():
+            content_disposition_left = 'attachment; '
+            break
+    else:
+        content_disposition_left = ''
+
+    # Set the file name.
+    if fn == None:
+        args = (message.get_message_id(), n)
+        content_disposition_right = 'filename="%s-part-%d.html";' % args
+    else:
+        content_disposition_right = 'filename="%s";' % unidecode(fn).replace('"', '')
+
+    response['content-disposition'] = content_disposition_left + content_disposition_right
     return response
 
 # @app.get('/@/<querystr:path>')
