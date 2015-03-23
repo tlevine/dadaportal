@@ -1,6 +1,23 @@
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  font-style: normal;
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.woff) format('woff'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.eot) format('eot'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.ttf) format('ttf'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.svg) format('svg');
+}
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  font-style: italic;
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.woff) format('woff'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.eot) format('eot'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.ttf) format('ttf'),
+       url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.svg) format('svg');
+}
+
 /* Base formatting */
 body {
-  font: normal 18px 'Nimbus Sans', Helvetica, Arial, sans-serif;
+  font: normal 18px 'Sorts Mill Goudy', serif;
   line-height: 24px;
   width: 100%;
   height: 100%;
