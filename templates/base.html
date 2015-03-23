@@ -6,9 +6,11 @@
   {% block bodytag %}<body>{% endblock %}
     <nav id="navigation">
       <ul>
-        <li><a href="/">Home</a></li>
+        {% block homelink %}<li><a href="/">Home</a></li>{% endblock %}
+        {% comment %}
         <li><a href="/schedule/">Schedule</a></li>
         <li><a href="/!/about/">About</a></li>
+        {% endcomment %}
       </ul>
       {% block top_search %}
       {% include 'search-form.html' %}
