@@ -15,18 +15,15 @@ h1, h2, h3, h4, h5, h6 {
   border-style: none;
 }
 
-a {
+a, h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   color: #fe57a1;
 }
-
 a:hover {
   text-decoration: underline;
 }
-
 article h1, article h2, article h3, article h4, article h5, article h6 {
   page-break-after: avoid;
-  color: #fe57a1;
   margin-top: 0.5em;
   margin-bottom: 0;
   font-weight: inherit;
@@ -38,8 +35,7 @@ p {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
-
-pre, blockquote, .line-block {
+pre, blockquote, .line-block /* rst class */ {
   background-color: #555;
   padding: 0.5em;
   margin: 1em;
@@ -101,7 +97,6 @@ nav .search-form {
 }
 #index-main .search h1 {
   text-align: center;
-  color: #fe57a1;
   height: 40px;
 }
 
