@@ -7,6 +7,8 @@ Things to do eventually
   * Switch spaces for &nbsp; in Django templates?
   * CSS?
 
+* Smart quotes for emails, or just choose a typeface with reasonable dumb quotes
+
 
 Useful parts of templates
 
