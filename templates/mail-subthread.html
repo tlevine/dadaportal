@@ -1,7 +1,10 @@
 <li>
-  {% if not message.is_match %}<a href="/@/id:{{message.message_id}}">{% endif %}
-      {{message.subject}}
+  {% if not message.is_match %}
+  <a href="/@/id:{{message.message_id}}" title="{{message.subject}}">
+  {% endif %}
+    {{ message.from }}
   {% if not message.is_match %}</a>{% endif %}
+  ({{message.date}})
   </a>
 </li>
 <ul>

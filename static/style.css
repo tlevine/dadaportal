@@ -244,6 +244,12 @@ section.thread > ul ul {
 section.thread > ul {
   margin-left: 0;
 }
+section.thread li {
+  margin-top: 0.25em;
+}
+section.thread > ul > ul > ul > ul > ul > ul > ul > ul > ul > ul li a {
+  display: block; /* Don't try wrapping after this deep. */
+}
 section.reply p {
   text-align: center;
   margin-top: 0.25em;
