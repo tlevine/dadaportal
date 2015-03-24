@@ -26,32 +26,39 @@ Other stuff. ::
 
 Features
 ----------------
-Headers on the website include
 
-* Home
-* Search
-* Recent (mail and other)
-
-Most data are stored in ordinary files with a YAML header and other
+Data sources
+-------------------------------
+Articles are stored in ordinary files with a YAML header and other
 body, as I did when I used Nanoc.
+Maybe things can be categorized and otherwise related.
 
-Things can be categorized and otherwise related. These get stored in
-a relational database or something, just because it would take a while
-to load these from files.
+Stuff get cached in a relational database because it would take a while
+to load everything from files and because this way I can use Django's ORM.
 
 I expose my public emails with an adapted version of ejnug. My "home"
 computer gets the emails over imap and then sends the contents of the
-"Public" mailboxes to my "nsa" computer over rsync, which indexes them
-in notmuch. The dada portal hosts the notmuch-indexed emails.
+"Public" mailboxes to my "nsa" computer over rsync
 
-Articles are indexed with notmuch and thus searched along with the emails.
+Searching
+-------------------
+Notmuch indexes emails on nsa, and the dada portal hosts the
+notmuch-indexed emails. Articles are converted into an email representation
+so they can be indexed with notmuch and thus searched along with the emails.
 
+Tracking
+--------------------
 I do my own tracking so I don't need to use Piwik and so I don't have
 to match different logs after the fact.
 
+Schedule
+--------------------
 My schedule gets rendered to HTML (with pal) and hosted.
 
-Source code is easy to display. ``/source`` is a directory listing of
+More about articles
+------------------------
+Source code for the articles is easy to display.
+``/source`` is a directory listing of
 the top-level of the repository, and directories recursively list their
 contents.
 
@@ -69,6 +76,8 @@ Articles are automatically converted into
 Homepage displays the most popular articles, maybe grouped in some
 interesting way, or maybe not if that's easier.
 
+Management commands for installing and deploying
+----------------------------------------------------
 There's a management command for installing. It handles the following,
 either by generating and copying configuration files or by telling you
 to install, configure, &c. a particular thing.
@@ -97,6 +106,6 @@ Not features
 ----------------
 I don't do forms in here; I run LimeSurvey and put forms there.
 
-People can't edit my site anymore, as they could with Branchable.
-But nobody used it anyway. If people really want it, I can put the
+People can't edit my site wiki-style as they could with Branchable.
+But nobody used that anyway. If people really want it, I can put the
 articles submodule up somewhere.
