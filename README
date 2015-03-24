@@ -9,13 +9,25 @@ Running
 --------------
 Check it out.
 
-Edit things in ``canonical-articles``. Update like so. ::
+    git clone nsa:/lockers/tlevine_vol/jail/small.dada.pink/dadaportal.git
+
+Install on the server. (This is the only one you run on the server.)
+
+    # Hmm does this really need to be a management command?
+    ./manage.py install
+
+Edit things in ``canonical-articles``. Update the cache for your local
+computer like so. ::
 
     ./manage.py syncarticles
 
 Index them for the search engine like this. ::
 
     ./manage.py indexarticles
+
+Deploy stuff from your laptop to the server. ::
+
+    ./manage.py deploy
 
 Other stuff. ::
 
