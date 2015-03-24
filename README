@@ -5,17 +5,24 @@ Door to the dada
 There were several things that I wanted to do with static websites but
 couldn't. Here I finally take the plunge and add them dynamically.
 
-Running
+Installation
 --------------
 Check it out.
 
     git clone nsa:/lockers/tlevine_vol/jail/small.dada.pink/dadaportal.git
 
-Install on the server. (This is the only one you run on the server.)
+Install dependencies and set up the server. Unfortunately, this is documented
+only [`templates/install.md'](templates/install.md), which can only be rendered
+after you have installed dependencies.
 
-    # Hmm does this really need to be a management command?
-    ./manage.py install
+Turn it on.
 
+    ./manage.py runserver
+
+Follow [these directions](http://localhost:8000/docs/) to install on the server.
+
+Usage
+-----------
 Edit things in ``canonical-articles``. Update the cache for your local
 computer like so. ::
 
@@ -35,9 +42,6 @@ Other stuff. ::
     ./manage.py migrate
     ./manage.py syncdb
     ./manage.py collectstatic
-
-Features
-----------------
 
 Data sources
 -------------------------------
