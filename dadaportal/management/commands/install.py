@@ -17,15 +17,11 @@ class Command(BaseCommand):
             requirements = [line.strip() for line in fp]
         
         
-        direction('''
-Install this crontab to send public emails from the email server (home)
-to nsa; you must copy it to the computer that contains your emails.''')
-
         direction('Set up the database on nsa.')
         direction('Install, configure and enable the Apache site on nsa.')
         d = {
             'requirements': requirements,
-            'web_user': settings.WEB_USER,
+            'database': DATABASES['default']
             'notmuch_dir': os.path.join(settings.NOTMUCH_DB, 'mail'),
         }
 
