@@ -3,16 +3,15 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
-from .views import index
+from .views import index, docs
 
 urlpatterns = patterns('',
     url(r'^/?$', index),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^docs/', docs),
+    url(r'^docs/?$', docs),
 
     url(r'^\+$', RedirectView.as_view(url='/+/')),
     url(r'^\+/$', 'search.views.search'),
-
     url(r'^schedule/', include('schedule.urls')),
 
     url(r'^@/', include('mail.urls')),
