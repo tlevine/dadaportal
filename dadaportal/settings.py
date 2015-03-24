@@ -124,3 +124,6 @@ NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
 
 # WEB_USER = 'www-data'
+
+LOCAL_PAL_DIR = '~/.pal/p'
+REMOTE_PAL_DIR = '~/.pal'
