@@ -22,3 +22,15 @@ to nsa; you must add it on *home* and *not nsa*.
     */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
 
 '
+
+# Apache
+Copy this to your apache sites-enabled directory.
+
+    <blah>
+      <blahblah>
+      </blahblah>
+    </blah>
+
+And then reload Apache.
+
+    sudo service apache reload

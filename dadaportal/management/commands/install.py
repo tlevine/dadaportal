@@ -17,8 +17,6 @@ class Command(BaseCommand):
             requirements = [line.strip() for line in fp]
         
         
-        direction('Set up the database on nsa.')
-        direction('Install, configure and enable the Apache site on nsa.')
         d = {
             'requirements': requirements,
             'database': DATABASES['default']
