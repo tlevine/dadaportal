@@ -1,4 +1,5 @@
-Install dependencies
+# Install dependencies
+Assuming you're on Debian,
 
     sudo apt-get install python3 pal notmuch python3-pip postgresql
     sudo pip3 install{% for r in requirements %} {{r}}{% endfor %}
@@ -9,13 +10,14 @@ As the PostgreSQL user (probably "postgres"),
     createuser '{{database.USER}}'
     createdb --owner '{{web_user}}'  '{{database.NAME}}'
 
-
 The database user is set to {{database.USER}}. We assume that you're using
-the. Ensure that the Apache user has access
-to these files, particularly if WEB_USER is not the Apache user.
+the vanilla authentication mechanism, which is just POSIX users. Ensure that
+the Apache user has access to these files, particularly if {{database.USER}}
+is not the Apache user.
 
+# Crontab
 Add this crontab entry to send public emails from the email server (home)
-to nsa; you must copy it to the computer that contains your emails.
+to nsa; you must add it on *home* and *not nsa*.
 
     */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
 
