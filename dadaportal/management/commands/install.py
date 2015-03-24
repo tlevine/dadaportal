@@ -9,18 +9,15 @@ from ..util import sh, direction
 
 class Command(BaseCommand):
     args = '(none)'
-    help = 'Generate an installation script to be run on the server.'
+    help = 'Get directions for installing.'
 
     def handle(self, *args, **options):
-        template = get_template('install.sh')
+        template = get_template('install.md')
         with open(os.path.join(settings.BASE_DIR, 'requirements.txt')) as fp:
             requirements = [line.strip() for line in fp]
-        
-        
         d = {
             'requirements': requirements,
             'database': DATABASES['default']
             'notmuch_dir': os.path.join(settings.NOTMUCH_DB, 'mail'),
         }
-
         sys.stdout.write(template.render(Context(d)))
