@@ -1,1 +1,2 @@
-{% block base %}{{doc|markdown}}{% endblock %}
+{% extends 'base.html' %}
+{% block base %}<article><pre>{{doc}}</pre></article>{% endblock %}
