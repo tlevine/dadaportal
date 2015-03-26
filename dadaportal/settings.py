@@ -7,27 +7,39 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
+import subprocess
 import datetime
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
+p.wait()
+is_production = p.stdout.read().strip() == 'nsa'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+if is_production:
+    NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
+    SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
+    DEBUG = False
+    TEMPLATE_DEBUG = False
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+    ALLOWED_HOSTS = ['localhost']
+    NOTMUCH_DB = os.path.join(BASE_DIR, maildir)
 
-TEMPLATE_DEBUG = True
+else:
+    # Keep this secret on production
+    NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
 
-ALLOWED_HOSTS = []
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
 
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
+    TEMPLATE_DEBUG = True
+
+    ALLOWED_HOSTS = []
+    NOTMUCH_DB = '/tmp/dadaportal-notmuch'
 
 # Application definition
 
@@ -60,13 +72,11 @@ ROOT_URLCONF = 'dadaportal.urls'
 
 WSGI_APPLICATION = 'dadaportal.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dadaportal',                      
-        'USER': 'tlevine',
-       #'PASSWORD': 'db_user_password',
+        'NAME': 'dadaportal',
+        'USER': os.environ['USER'],
         'HOST': 'localhost'
     }
 }
@@ -75,13 +85,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = False
 TIME_ZONE = 'UTC' # That's how Tom rolls.
 
@@ -89,7 +94,7 @@ TIME_ZONE = 'UTC' # That's how Tom rolls.
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/tmp/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-compiled')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -97,10 +102,6 @@ STATICFILES_DIRS = [
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
-
-NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
-NOTMUCH_DB = '/tmp/not-notmuch'
-
 ARTICLES_DIR = os.path.join(BASE_DIR, 'canonical-articles')
 
 TEMPLATE_CONTEXT_PROCESSORS = (
