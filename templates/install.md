@@ -1,10 +1,15 @@
-# Install dependencies
+# Documentation
+Here are directions for installing (both for development and production),
+for configuring external servers, and for deploying from development to
+production.
+
+## Install dependencies
 Assuming you're on Debian,
 
     sudo apt-get install python3 pal notmuch python3-pip postgresql
     sudo pip3 install{% for r in requirements %} {{r}}{% endfor %}
 
-# Configure the database
+## Configure the database
 As the PostgreSQL user (probably "postgres"),
 
     createuser '{{database.USER}}'
@@ -15,7 +20,7 @@ the vanilla authentication mechanism, which is just POSIX users. Ensure that
 the Apache user has access to these files, particularly if {{database.USER}}
 is not the Apache user.
 
-# Crontab
+## Crontab
 Add this crontab entry to send public emails from the email server (home)
 to nsa; you must add it on *home* and *not nsa*.
 
@@ -23,8 +28,8 @@ to nsa; you must add it on *home* and *not nsa*.
 
 '
 
-# Apache
-Copy this to your apache sites-enabled directory.
+## Apache
+Copy this to your apache sites-enabled directory on the production website.
 
     <blah>
       <blahblah>
