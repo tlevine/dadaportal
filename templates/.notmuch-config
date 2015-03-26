@@ -1,0 +1,13 @@
+[database]
+path={{NOTMUCH_MAILDIR}}
+
+[user]
+name={{NAME}}
+primary_email={{EMAIL_ADDRESS}}
+other_email={{NOTMUCH_OTHER_EMAIL}}
+
+[new]
+tags=unread;inbox;
+
+[maildir]
+synchronize_flags=true

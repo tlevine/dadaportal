@@ -25,7 +25,7 @@ if is_production:
     TEMPLATE_DEBUG = False
 
     ALLOWED_HOSTS = ['localhost']
-    NOTMUCH_DB = os.path.join(BASE_DIR, maildir)
+    NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 else:
     # Keep this secret on production
@@ -39,7 +39,7 @@ else:
     TEMPLATE_DEBUG = True
 
     ALLOWED_HOSTS = []
-    NOTMUCH_DB = '/tmp/dadaportal-notmuch'
+    NOTMUCH_MAILDIR = '/tmp/dadaportal-notmuch'
 
 # Application definition
 
@@ -124,8 +124,9 @@ BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 DOMAIN_NAME = 'http://thomaslevine.com/'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
+NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;perluette@thomaslevine.com;tkl22@cornell.edu;'
 
-# WEB_USER = 'www-data'
+REMOTE_HOST = 'nsa' # This is an SSH host, configured in .ssh/config
 
 LOCAL_PAL_DIR = '~/.pal/p'
 REMOTE_PAL_DIR = '~/.pal'

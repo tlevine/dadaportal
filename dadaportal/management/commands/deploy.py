@@ -7,12 +7,12 @@ def _run(args):
     p.wait()
     return p
 
-def rsync(local, remote, remote_host = 'nsa'):
-    return _run(['rsync', local, remote_host + ':' + remote])
+def rsync(local, remote):
+    return _run(['rsync', local, settings.REMOTE_HOST + ':' + remote])
 
-def ssh(command, remote_host = 'nsa'):
+def ssh(command):
     full_command = "cd '%s' && %s" % (settings.REMOTE_BASE_DIR, command)
-    return _run(['ssh', remote_host, full_command])
+    return _run(['ssh', settings.REMOTE_HOST, full_command])
 
 class Command(BaseCommand):
     args = '(none)'
