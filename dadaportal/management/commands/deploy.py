@@ -10,6 +10,11 @@ def _run(args):
 def rsync(local, remote):
     return _run(['rsync', local, settings.REMOTE_HOST + ':' + remote])
 
+def rsync_text(text, remote):
+    with tempfile.NamedTemporaryFile(mode = 'w') as tmp:
+        tmp.write(text)
+    return rsync(tmp.name, remote)
+
 def ssh(command):
     full_command = "cd '%s' && %s" % (settings.REMOTE_BASE_DIR, command)
     return _run(['ssh', settings.REMOTE_HOST, full_command])
