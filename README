@@ -9,7 +9,7 @@ Installation
 --------------
 Check it out.
 
-    git clone nsa:/lockers/tlevine_vol/jail/small.dada.pink/dadaportal.git
+    git clone nsa:/lockers/tlevine_vol/jail/small.dada.pink/dadaportal/.git
 
 Install dependencies and set up the server. Unfortunately, this is documented
 only [`templates/install.md'](templates/install.md), which can only be rendered
