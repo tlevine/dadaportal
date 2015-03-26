@@ -7,14 +7,32 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+from random import sample
+from string import ascii_letters, digits
 from configparser import ConfigParser, NoOptionError
 import subprocess
 import datetime
 import os
 
+# Store secrets elsewhere in ~/.dadaportal configuration file.
+config_file = os.path.expanduser('~/.dadaportal')
+section_name = 'secrets'
+c = ConfigParser()
+c.read(config_file)
+if section_name not in c.sections():
+    c.add_section(section_name)
+section = c[section_name]
+for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
+    if secret_name not in section.keys():
+        c.set(section_name, secret_name, ''.join(sample(ascii_letters + digits, 62)))
+    locals()[secret_name] = c.get(section_name, secret_name)
+with open(config_file, 'w') as fp:
+    c.write(fp)
+
+# Dada portal repository directory
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# This is a host name.
+# This is a hostname.
 p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
 p.wait()
 LOCAL_HOST = p.stdout.read().strip()
@@ -28,6 +46,7 @@ REMOTE_SSH_HOST = 'nsa'
 IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST
 
 if IS_PRODUCTION:
+    print('Running the production server')
     DEBUG = False
     TEMPLATE_DEBUG = False
 
@@ -35,14 +54,13 @@ if IS_PRODUCTION:
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 else:
+    print('Running the development server')
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     TEMPLATE_DEBUG = True
 
     ALLOWED_HOSTS = []
     NOTMUCH_MAILDIR = '/tmp/dadaportal-notmuch'
-
-# Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -116,34 +134,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'tracking.context_processors.tracking',
 )
 
+# For tracking
 HIT_ID_SIZE = 62
 
+# For mail and searching
 DEFAULT_SEARCH_RESULT_TITLE = '(no subject)'
 MAX_SEARCH_RESULTS = 100
-
 BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 DOMAIN_NAME = 'http://thomaslevine.com/'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
 NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;perluette@thomaslevine.com;tkl22@cornell.edu;'
 
+# For copying files during deployment
 LOCAL_PAL_DIR = '~/.pal/p'
 REMOTE_PAL_DIR = '~/.pal'
-
 REMOTE_BASE_DIR = '/var/www/dada-portal'
-CONFIGURATION_FILES_DIR = os.path.join(BASE_DIR, 'config')
-
-config_file = os.path.expanduser('~/.dadaportal')
-section_name = 'secrets'
-c = ConfigParser()
-c.read(config_file)
-if section not in c.sections():
-    c.add_section(section)
-section = c[section_name]
-for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
-    if secret_name not in section.keys():
-        secret = ''.join(randint(33, 126) for _ in range(64))
-        c.set(section_name, secret_name, secret)
-    locals()[secret_name] = c.get(SECTION, secret_name)
-with open(config_file, 'w') as fp:
-    c.write(fp)
