@@ -22,14 +22,14 @@ is not the Apache user.
 
 ## Crontab
 Add this crontab entry to send public emails from the email server (home)
-to nsa; you must add it on *home* and *not nsa*.
+to the production server (nsa); you must add it on *home* and *not nsa*.
 
     */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
 
 '
 
 ## Apache
-Copy this to your apache sites-enabled directory on the production website.
+Copy this to your apache sites-enabled directory on the production computer.
 
     <blah>
       <blahblah>
