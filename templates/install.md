@@ -32,7 +32,7 @@ to the production server (nsa); you must add it on *home* and *not nsa*.
 Copy this to your apache sites-enabled directory on the production computer.
 
     <VirtualHost {{DOMAIN_NAME}}:80>
-        ServerAdmin _@thomaslevine.com
+        ServerAdmin {{EMAIL_ADDRESS}}
 
         DocumentRoot {{STATIC_ROOT}}
         <Directory {{STATIC_URL}}>
