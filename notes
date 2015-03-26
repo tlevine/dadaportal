@@ -1,24 +1,26 @@
 Definitely look into these
 
 * django.contrib.sitemaps
-* django.contrib.flatpages
 
 and maybe these.
 
-* django.contrib.markup
 * django.contrib.humanize
 * django.contrib.contenttypes
 
 Things to do eventually
 
+* http://www.jw.pe/blog/post/using-markdown-django-17/
 * http://stackoverflow.com/questions/8687927/django-static-static-url-static-root
-* URL-encode slashes (http://localhost:8000/@/id:osmlab/to-fix-backend/issues/11/85005016@github.com)
 * Make group of words not wrap.
 
   * Switch spaces for &nbsp; in Django templates?
   * CSS?
 
 * Smart quotes for emails, or just choose a typeface with reasonable dumb quotes
+
+Done
+
+* Allow slashes in emails (http://localhost:8000/@/id:osmlab/to-fix-backend/issues/11/85005016@github.com)
 
 
 Useful parts of templates

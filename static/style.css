@@ -241,12 +241,9 @@ section.thread > ul ul {
 section.thread > ul {
   margin-left: 0;
 }
-section.thread li {
+section.thread li .date {
   margin-top: 0.25em;
-}
-section.thread > ul > ul > ul > ul > ul > ul > ul > ul > ul > ul li a {
-  /* Change this to be a thing that just prevents breaking within the text. */
-  display: block; /* Don't try wrapping after this deep. */
+  white-space: nowrap;
 }
 article h1, section.reply p {
   text-align: center;

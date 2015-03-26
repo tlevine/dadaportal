@@ -46,14 +46,14 @@ REMOTE_SSH_HOST = 'nsa'
 IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST
 
 if IS_PRODUCTION:
-    print('Running the production server')
+    print('Running in production mode')
     DEBUG = False
     TEMPLATE_DEBUG = False
 
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 else:
-    print('Running the development server')
+    print('Running in development mode')
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     TEMPLATE_DEBUG = True
