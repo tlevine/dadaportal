@@ -31,10 +31,19 @@ to the production server (nsa); you must add it on *home* and *not nsa*.
 ## Apache
 Copy this to your apache sites-enabled directory on the production computer.
 
-    <blah>
-      <blahblah>
-      </blahblah>
-    </blah>
+    <VirtualHost {{DOMAIN_NAME}}:80>
+        ServerAdmin _@thomaslevine.com
+
+        DocumentRoot {{STATIC_ROOT}}
+        <Directory {{STATIC_URL}}>
+            Options FollowSymLinks
+            AllowOverride None
+        </Directory>
+
+        LogLevel warn
+        ErrorLog ${APACHE_LOG_DIR}/dadaportal-error.log
+        CustomLog ${APACHE_LOG_DIR}/dadaportal-access.log combined
+    </VirtualHost>
 
 And then reload Apache.
 

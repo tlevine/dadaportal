@@ -47,7 +47,7 @@ def subhierarchy(message):
         'subject': subject,
         'references': references,
         'in-reply-to': message.get_message_id(),
-        'body': quote('''In reply to: %s!/id:%s/
+        'body': quote('''In reply to: http://%s/@/id:%s/
 ''' % (settings.DOMAIN_NAME, message.get_message_id()))
     }
 
