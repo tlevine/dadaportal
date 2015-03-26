@@ -42,9 +42,19 @@ class Command(BaseCommand):
         self.stdout.write('Copying pal calendar files to nsa')
         rsync(settings.LOCAL_PAL_DIR, settings.REMOTE_PAL_DIR)
 
-        self.stdout.write('Copy pal.conf to nsa')
+        self.stdout.write('Copying pal.conf to nsa')
         text = get_template('config/pal.conf').render()
         rsync_text(text, os.path.join(settings.REMOTE_PAL_DIR, 'pal.conf'))
+
+        self.stdout.write('Writing .notmuch-config to nsa')
+        params = {
+            'NOTMUCH_MAILDIR': settings.NOTMUCH_MAILDIR,
+            'NAME': settings.NAME,
+            'EMAIL_ADDRESS': settings.EMAIL_ADDRESS,
+            'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
+        }
+        text = get_template('config/.notmuch-config').render(Context(params))
+        rsync_text(text, '~')
 
         self.stdout.write('Generating static files on nsa')
         ssh('./manage.py collectstatic')
