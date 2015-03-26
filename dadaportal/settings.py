@@ -131,3 +131,4 @@ LOCAL_PAL_DIR = '~/.pal/p'
 REMOTE_PAL_DIR = '~/.pal'
 
 REMOTE_BASE_DIR = '/var/www/dada-portal'
+CONFIGURATION_FILES_DIR = os.path.join(BASE_DIR, 'config')

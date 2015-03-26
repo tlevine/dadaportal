@@ -36,7 +36,7 @@ class Command(BaseCommand):
         rsync(settings.LOCAL_PAL_DIR, settings.REMOTE_PAL_DIR)
 
         self.stdout.write('Copy pal.conf to nsa')
-        local_pal_conf = os.path.join(settings.BASE_DIR, 'pal.conf')
+        local_pal_conf = os.path.join(settings.CONFIGURATION_FILES_DIR, 'pal.conf')
         rsync(local_pal_conf, settings.REMOTE_PAL_DIR)
 
         self.stdout.write('Generating static files on nsa')
