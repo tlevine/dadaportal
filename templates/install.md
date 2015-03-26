@@ -24,9 +24,8 @@ is not the Apache user.
 Add this crontab entry to send public emails from the email server (home)
 to the production server (nsa); you must add it on *home* and *not nsa*.
 
+    # There's a slash at the end !
     */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
-
-'
 
 ## Apache
 Copy this to your apache sites-enabled directory on the production computer.
