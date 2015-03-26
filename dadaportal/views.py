@@ -10,7 +10,7 @@ index = TemplateView.as_view(template_name = 'index.html')
 
 def docs(request):
     with open(os.path.join(settings.BASE_DIR, 'requirements.txt')) as fp:
-        requirements = [line.strip() for line in fp]
+        requirements = [line.strip() for line in fp if not line.startswith('#')]
     params = {
         'requirements': requirements,
         'database': settings.DATABASES['default'],
