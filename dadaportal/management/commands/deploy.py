@@ -26,6 +26,9 @@ class Command(BaseCommand):
     help = 'This should be run from any account with appropriate SSH keys.'
 
     def handle(self, *args, **options):
+        if settings.IS_PRODUCTION:
+            raise CommandError('This command should be run from the development system, not from production.')
+
         self.stdout.write('Running tests')
         _run(['./manage.py', 'test'])
 

@@ -13,11 +13,20 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# This is a host name.
 p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
 p.wait()
-is_production = p.stdout.read().strip() == 'nsa'
+LOCAL_HOST = p.stdout.read().strip()
 
-if is_production:
+# This is a hostname.
+REMOTE_HOST = 'nsa'
+
+# This is an SSH host, configured in .ssh/config.
+REMOTE_SSH_HOST = 'nsa'
+
+IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST
+
+if IS_PRODUCTION:
     NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
     SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
 
@@ -125,8 +134,6 @@ DOMAIN_NAME = 'http://thomaslevine.com/'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
 NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;perluette@thomaslevine.com;tkl22@cornell.edu;'
-
-REMOTE_HOST = 'nsa' # This is an SSH host, configured in .ssh/config
 
 LOCAL_PAL_DIR = '~/.pal/p'
 REMOTE_PAL_DIR = '~/.pal'
