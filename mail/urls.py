@@ -8,10 +8,8 @@ urlpatterns = patterns('',
     url(r'^\s+/.*$', RedirectView.as_view(url='/@/')),
     url(r'^$', RedirectView.as_view(url='/+/')),
 
-    # Redirect to one with a slash.
-  # url(r'^[^/]+$', RedirectView.as_view(url='')),
-
     # The actual message/thread
-    url(r'^([^/]+)/$', search),
-    url(r'^([^/]+)/([0-9]+)$', attachment),
+    # Allow for queries to contain slashes
+    url(r'^(.+)/([0-9]+)$', attachment),
+    url(r'^(.+)/$', search),
 )
