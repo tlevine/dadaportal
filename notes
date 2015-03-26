@@ -2,6 +2,7 @@ Maybe look at these.
 
 * django.contrib.humanize
 * django.contrib.contenttypes
+* http://dustindavis.me/django-textile-template-caching/
 
 Things to do eventually
 
@@ -108,3 +109,7 @@ Old parameters
     $calling-card-short: 6 * $square
     $topic-card-width: 4
 
+
+
+https://en.wikipedia.org/wiki/XMLHttpRequest
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM%2FXMLHttpRequest
