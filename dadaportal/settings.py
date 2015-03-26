@@ -50,7 +50,6 @@ if IS_PRODUCTION:
     DEBUG = False
     TEMPLATE_DEBUG = False
 
-    ALLOWED_HOSTS = ['localhost']
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 else:
@@ -59,8 +58,9 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
-    ALLOWED_HOSTS = []
     NOTMUCH_MAILDIR = '/tmp/dadaportal-notmuch'
+
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
