@@ -21,8 +21,11 @@
 
     function receive() {
       if (r.readyState==4 /* and status ok */ ) {
-        setTimeout(function() {send(r.responseText.trim(), i + 1)},
-                   Math.pow(2, i) * interval)
+          console.log(r.status)
+        if (r.status == 200) {
+          setTimeout(function() {send(r.responseText.trim(), i + 1)},
+                     Math.pow(2, i) * interval)
+        }
       }
     }
   }
