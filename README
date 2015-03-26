@@ -75,7 +75,7 @@ More about articles
 ------------------------
 Source code for the articles is easy to display.
 ``/source`` is a directory listing of
-the top-level of the repository, and directories recursively list their
+the top level of the repository, and directories recursively list their
 contents.
 
 The following markup languages for articles are supported.
