@@ -3,6 +3,5 @@ Markdown>=2.6.1
 PyYAML>=3.11
 Unidecode>=0.4.16
 lxml>=3.4.2
-notmuch>=0.19
 pexpect>=3.3
 psycopg2>=2.5.4
