@@ -7,6 +7,7 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+from configparser import ConfigParser, NoOptionError
 import subprocess
 import datetime
 import os
@@ -27,9 +28,6 @@ REMOTE_SSH_HOST = 'nsa'
 IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST
 
 if IS_PRODUCTION:
-    NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
-    SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
-
     DEBUG = False
     TEMPLATE_DEBUG = False
 
@@ -37,12 +35,6 @@ if IS_PRODUCTION:
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 else:
-    # Keep this secret on production
-    NOTMUCH_SECRET = 'maorh023h.ucrhu02hrs' # For separating emails from other
-
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'g-$dx5y31pxfu8bgr%llpnt^4&j*m%#z5eijd7&^-h#rk(xqa('
-
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     TEMPLATE_DEBUG = True
@@ -140,3 +132,18 @@ REMOTE_PAL_DIR = '~/.pal'
 
 REMOTE_BASE_DIR = '/var/www/dada-portal'
 CONFIGURATION_FILES_DIR = os.path.join(BASE_DIR, 'config')
+
+config_file = os.path.expanduser('~/.dadaportal')
+section_name = 'secrets'
+c = ConfigParser()
+c.read(config_file)
+if section not in c.sections():
+    c.add_section(section)
+section = c[section_name]
+for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
+    if secret_name not in section.keys():
+        secret = ''.join(randint(33, 126) for _ in range(64))
+        c.set(section_name, secret_name, secret)
+    locals()[secret_name] = c.get(SECTION, secret_name)
+with open(config_file, 'w') as fp:
+    c.write(fp)
