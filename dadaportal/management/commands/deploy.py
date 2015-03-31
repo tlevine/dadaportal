@@ -1,4 +1,4 @@
-import subprocess, tempfile, sys, shlex
+import subprocess, tempfile, sys, shlex, os
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -57,7 +57,7 @@ class Command(BaseCommand):
         rsync(settings.LOCAL_PAL_DIR, settings.REMOTE_PAL_DIR)
 
         self._comment('Copying pal.conf to nsa')
-        text = get_template('config/pal.conf').render()
+        text = get_template('config/pal.conf').render(Context({}))
         rsync_text(text, os.path.join(settings.REMOTE_PAL_DIR, 'pal.conf'))
 
         self._comment('Writing .notmuch-config to nsa')
