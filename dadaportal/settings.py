@@ -49,7 +49,6 @@ REMOTE_SSH_HOST = 'nsa'
 IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST and 'USER' not in os.environ
 
 if IS_PRODUCTION:
-    print('Running in production mode')
     DEBUG = False
     TEMPLATE_DEBUG = False
 
@@ -63,7 +62,7 @@ else:
 
     USER = os.environ['USER']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
