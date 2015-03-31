@@ -7,7 +7,7 @@ production.
 Assuming you're on Debian,
 
     sudo apt-get install python3 pal notmuch python3-pip postgresql
-    sudo pip3 install{% for r in requirements %} {{r}}{% endfor %}
+    sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
 ## Configure the database
 As the PostgreSQL user (probably "postgres"),
