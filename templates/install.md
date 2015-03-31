@@ -3,14 +3,17 @@ Here are directions for installing (both for development and production),
 for configuring external servers, and for deploying from development to
 production.
 
-## Install dependencies
+## Install
+Run this stuff on the server to which you are deploying (nsa).
+
+### Install dependencies
 Assuming you're on Debian,
 
     sudo apt-get install python3 pal notmuch python3-pip postgresql \
                          apache2 libapache2-mod-wsgi-py3
     sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
-## Configure the database
+### Configure the database
 As the PostgreSQL user (probably "postgres"),
 
     createuser '{{REMOTE_USER}}'
@@ -21,14 +24,14 @@ the vanilla authentication mechanism, which is just POSIX users. Ensure that
 the Apache user has access to these files, particularly if {{database.USER}}
 is not the Apache user.
 
-## Crontab
+### Crontab
 Add this crontab entry to send public emails from the email server (home)
 to the production server (nsa); you must add it on *home* and *not nsa*.
 
     # There's a slash at the end !
     */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
 
-## Apache
+### Apache
 Copy this to your apache sites-enabled directory on the production computer.
 
     <VirtualHost {{DOMAIN_NAME}}:80>
@@ -59,3 +62,8 @@ Copy this to your apache sites-enabled directory on the production computer.
 And then reload Apache.
 
     sudo service apache reload
+
+## Deploy
+Run this from a computer other than the one you are deploying to.
+
+    ./manage.py deploy
