@@ -47,6 +47,11 @@ Copy this to your apache sites-enabled directory on the production computer.
           </Files>
         </Directory>
 
+        <Directory {{REMOTE_BASE_DIR}}>
+            Order deny, allow
+            Allow from all
+        </Directory>
+
         DocumentRoot {{REMOTE_STATIC_ROOT}}
         <Directory {{STATIC_URL}}>
             Options FollowSymLinks
