@@ -1,2 +1,2 @@
 {% extends 'base.html' %}
-{% block base %}<article><pre>{{doc}}</pre></article>{% endblock %}
+{% block base %}<article>{{doc|safe}}</article>{% endblock %}

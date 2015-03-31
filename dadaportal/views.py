@@ -1,5 +1,7 @@
 import os
 
+import markdown
+
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.template import Context
@@ -17,4 +19,4 @@ def docs(request):
         'notmuch_dir': os.path.join(settings.NOTMUCH_MAILDIR, 'mail'),
     }
     doc = get_template('install.md').render(Context(params))
-    return render(request, 'docs.html', {'doc': doc})
+    return render(request, 'docs.html', {'doc': markdown.markdown(doc)})
