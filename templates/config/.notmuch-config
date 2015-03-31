@@ -1,5 +1,5 @@
 [database]
-path={{NOTMUCH_MAILDIR}}
+path={{REMOTE_NOTMUCH_MAILDIR}}
 
 [user]
 name={{NAME}}
