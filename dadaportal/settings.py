@@ -14,6 +14,9 @@ import subprocess
 import datetime
 import os
 
+# Dada portal repository directory
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 # Store secrets elsewhere in ~/.dadaportal configuration file.
 config_file = os.path.join(BASE_DIR, '.secrets')
 section_name = 'secrets'
@@ -28,9 +31,6 @@ for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
     locals()[secret_name] = c.get(section_name, secret_name)
 with open(config_file, 'w') as fp:
     c.write(fp)
-
-# Dada portal repository directory
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # This is a hostname.
 p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
