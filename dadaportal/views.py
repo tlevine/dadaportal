@@ -18,5 +18,8 @@ def docs(request):
         'database': settings.DATABASES['default'],
         'notmuch_dir': os.path.join(settings.NOTMUCH_MAILDIR, 'mail'),
     }
+    variables = ['REMOTE_USER', 'DOMAIN_NAME', 'EMAIL_ADDRESS', 'REMOTE_STATIC_ROOT', 'STATIC_URL']
+    for var in variables:
+        params[var] = getattr(settings, var)
     doc = get_template('install.md').render(Context(params))
     return render(request, 'docs.html', {'doc': markdown.markdown(doc)})

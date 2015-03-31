@@ -6,14 +6,15 @@ production.
 ## Install dependencies
 Assuming you're on Debian,
 
-    sudo apt-get install python3 pal notmuch python3-pip postgresql
+    sudo apt-get install python3 pal notmuch python3-pip postgresql \
+                         apache2 libapache2-mod-wsgi-py3
     sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
 ## Configure the database
 As the PostgreSQL user (probably "postgres"),
 
-    createuser '{{database.USER}}'
-    createdb --owner '{{web_user}}'  '{{database.NAME}}'
+    createuser '{{REMOTE_USER}}'
+    createdb --owner '{{REMOTE_USER}}' '{{database.NAME}}'
 
 The database user is set to {{database.USER}}. We assume that you're using
 the vanilla authentication mechanism, which is just POSIX users. Ensure that
@@ -33,7 +34,18 @@ Copy this to your apache sites-enabled directory on the production computer.
     <VirtualHost {{DOMAIN_NAME}}:80>
         ServerAdmin {{EMAIL_ADDRESS}}
 
-        DocumentRoot {{STATIC_ROOT}}
+        WSGIScriptAlias / {{REMOTE_BASE_DIR}}/dadaportal/wsgi.py
+        WSGIPythonPath {{REMOTE_BASE_DIR}}
+        WSGIDaemonProcess {{DOMAIN_NAME}} python-path={{REMOTE_BASE_DIR}}
+        WSGIProcessGroup {{DOMAIN_NAME}}
+
+        <Directory {{REMOTE_BASE_DIR}}/dadaportal>
+          <Files wsgi.py>
+            Require all granted
+          </Files>
+        </Directory>
+
+        DocumentRoot {{REMOTE_STATIC_ROOT}}
         <Directory {{STATIC_URL}}>
             Options FollowSymLinks
             AllowOverride None

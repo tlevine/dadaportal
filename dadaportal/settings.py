@@ -37,6 +37,9 @@ p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
 p.wait()
 LOCAL_HOST = p.stdout.read().strip()
 
+# This is a Unix user on nsa
+REMOTE_USER = 'www-data'
+
 # This is a hostname.
 REMOTE_HOST = 'nsa'
 
@@ -51,6 +54,7 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
+    USER = REMOTE_USER
 
 else:
     print('Running in development mode')
@@ -59,6 +63,7 @@ else:
     TEMPLATE_DEBUG = True
 
     NOTMUCH_MAILDIR = '/tmp/dadaportal-notmuch'
+    USER = os.environ['USER']
 
 ALLOWED_HOSTS = []
 
@@ -95,7 +100,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dadaportal',
-        'USER': os.environ['USER'],
+        'USER': USER,
         'HOST': 'localhost'
     }
 }
@@ -150,3 +155,5 @@ NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;p
 LOCAL_PAL_DIR = '~/.pal/p'
 REMOTE_PAL_DIR = '~/.pal'
 REMOTE_BASE_DIR = '/var/www/dada-portal'
+
+REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
