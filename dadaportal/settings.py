@@ -15,7 +15,7 @@ import datetime
 import os
 
 # Store secrets elsewhere in ~/.dadaportal configuration file.
-config_file = os.path.expanduser('~/.dadaportal')
+config_file = os.path.join(BASE_DIR, '.secrets')
 section_name = 'secrets'
 c = ConfigParser()
 c.read(config_file)

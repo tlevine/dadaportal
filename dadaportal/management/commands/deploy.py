@@ -12,7 +12,7 @@ def _run(args):
 
 def rsync(local, remote):
     r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
-    return _run(['rsync', '-avHS', local, r])
+    return _run(['rsync', '-avHS', '--exclude', '.*', local, r])
 
 def rsync_text(text, remote):
     with tempfile.NamedTemporaryFile(mode = 'w') as tmp:
@@ -44,9 +44,8 @@ class Command(BaseCommand):
         self._comment('Creating the remote base directory')
         ssh('mkdir -p \'%s\'' % settings.REMOTE_BASE_DIR, prefix = False)
 
-        self._comment('Copying canonical articles to nsa')
-        # no slash at end of remote directory
-        rsync('./canonical-articles/', '%s/canonical-articles' % settings.REMOTE_BASE_DIR)
+        self._comment('Copying the local repository to nsa')
+        rsync('.', settings.REMOTE_BASE_DIR)
 
         self._comment('Caching the articles on nsa')
         ssh('./manage.py syncarticles')
