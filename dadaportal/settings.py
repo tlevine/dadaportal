@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     'search',
     'mail',
     'tracking',
+    'dadaportal',
 )
 
 MIDDLEWARE_CLASSES = (
