@@ -53,6 +53,7 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     USER = REMOTE_USER
+    ALLOWED_HOSTS = []
 
 else:
     print('Running in development mode')
@@ -61,8 +62,7 @@ else:
     TEMPLATE_DEBUG = True
 
     USER = os.environ['USER']
-
-ALLOWED_HOSTS = ['localhost']
+    ALLOWED_HOSTS = ['localhost']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
