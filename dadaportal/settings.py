@@ -160,8 +160,8 @@ EMAIL_ADDRESS = '_@thomaslevine.com'
 NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;perluette@thomaslevine.com;tkl22@cornell.edu;'
 
 # For copying files during deployment
-LOCAL_PAL_DIR = '~/.pal/p'
-REMOTE_PAL_DIR = '~/.pal'
+LOCAL_PAL_DIR = os.path.expanduser('~/git/schedule')
+REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/var/www/dada-portal'
 
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
