@@ -1,3 +1,4 @@
 */migrations
 *.sqlite3
+*.sqlite
 .secrets
