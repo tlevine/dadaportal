@@ -46,7 +46,7 @@ REMOTE_HOST = 'nsa'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST
+IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST and 'USER' in os.environ
 
 if IS_PRODUCTION:
     print('Running in production mode')
@@ -160,7 +160,7 @@ NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;p
 # For copying files during deployment
 LOCAL_PAL_DIR = os.path.expanduser('~/git/schedule')
 REMOTE_PAL_DIR = '.pal'
-REMOTE_BASE_DIR = '/var/www/dada-portal'
+REMOTE_BASE_DIR = '/var/www/dadaportal'
 
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
 
