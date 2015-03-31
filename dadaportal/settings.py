@@ -53,7 +53,6 @@ if IS_PRODUCTION:
     DEBUG = False
     TEMPLATE_DEBUG = False
 
-    NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
     USER = REMOTE_USER
 
 else:
@@ -62,7 +61,6 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
-    NOTMUCH_MAILDIR = '/tmp/dadaportal-notmuch'
     USER = os.environ['USER']
 
 ALLOWED_HOSTS = []
@@ -165,3 +163,6 @@ REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/var/www/dada-portal'
 
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
+
+NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
+REMOTE_NOTMUCH_MAILDIR = os.path.join(REMOTE_BASE_DIR, 'maildir')

@@ -14,10 +14,16 @@ def rsync(local, remote):
     r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
     return _run(['rsync', '-avHS', '--exclude', '.*', local, r])
 
-def rsync_text(text, remote):
-    with tempfile.NamedTemporaryFile(mode = 'w') as tmp:
+def scp(local, remote):
+    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
+    return _run(['scp', local, r])
+
+def scp_text(text, remote):
+    with open('/tmp/ttttttt', 'w') as tmp:
         tmp.write(text)
-    return rsync(tmp.name, remote)
+    code = scp(tmp.name, remote)
+    os.remove(tmp.name)
+    return code
 
 def ssh(command, prefix = True):
     if prefix:
@@ -47,18 +53,12 @@ class Command(BaseCommand):
         self._comment('Copying the local repository to nsa')
         rsync('.', settings.REMOTE_BASE_DIR)
 
-        self._comment('Caching the articles on nsa')
-        ssh('./manage.py syncarticles')
-
-        self._comment('Indexing the articles on nsa')
-        ssh('./manage.py indexarticles')
-
         self._comment('Copying pal calendar files to nsa')
         rsync(settings.LOCAL_PAL_DIR, settings.REMOTE_PAL_DIR)
 
         self._comment('Copying pal.conf to nsa')
         text = get_template('config/pal.conf').render(Context({}))
-        rsync_text(text, os.path.join(settings.REMOTE_PAL_DIR, 'pal.conf'))
+        scp_text(text, os.path.join(settings.REMOTE_PAL_DIR, 'pal.conf'))
 
         self._comment('Writing .notmuch-config to nsa')
         params = {
@@ -68,7 +68,13 @@ class Command(BaseCommand):
             'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
         }
         text = get_template('config/.notmuch-config').render(Context(params))
-        rsync_text(text, '~')
+        scp_text(text, '.notmuch-config')
+
+        self._comment('Caching the articles on nsa')
+        ssh('./manage.py syncarticles')
+
+        self._comment('Indexing the articles on nsa')
+        ssh('./manage.py indexarticles')
 
         self._comment('Generating static files on nsa')
         ssh('./manage.py collectstatic')
