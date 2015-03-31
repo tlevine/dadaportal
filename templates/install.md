@@ -33,13 +33,13 @@ to the production server (nsa); you must add it on *home* and *not nsa*.
 ### Apache
 Copy this to your apache sites-enabled directory on the production computer.
 
+    WSGIScriptAlias / {{REMOTE_BASE_DIR}}/dadaportal/wsgi.py
+    WSGIPythonPath {{REMOTE_BASE_DIR}}
+    WSGIDaemonProcess {{DOMAIN_NAME}} python-path={{REMOTE_BASE_DIR}}
+    WSGIProcessGroup {{DOMAIN_NAME}}
+
     <VirtualHost {{DOMAIN_NAME}}:80>
         ServerAdmin {{EMAIL_ADDRESS}}
-
-        WSGIScriptAlias / {{REMOTE_BASE_DIR}}/dadaportal/wsgi.py
-        WSGIPythonPath {{REMOTE_BASE_DIR}}
-        WSGIDaemonProcess {{DOMAIN_NAME}} python-path={{REMOTE_BASE_DIR}}
-        WSGIProcessGroup {{DOMAIN_NAME}}
 
         <Directory {{REMOTE_BASE_DIR}}/dadaportal>
           <Files wsgi.py>
