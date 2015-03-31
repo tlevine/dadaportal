@@ -7,7 +7,7 @@ from django.template.loader import get_template
 
 from ...models import ArticleCache
 
-notmuch_dir = os.path.join(settings.NOTMUCH_DB, 'article')
+notmuch_dir = os.path.join(settings.NOTMUCH_MAILDIR, 'article')
 
 class Command(BaseCommand):
     args = '(none)'

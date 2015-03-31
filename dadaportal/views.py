@@ -14,7 +14,7 @@ def docs(request):
     params = {
         'requirements': requirements,
         'database': settings.DATABASES['default'],
-        'notmuch_dir': os.path.join(settings.NOTMUCH_DB, 'mail'),
+        'notmuch_dir': os.path.join(settings.NOTMUCH_MAILDIR, 'mail'),
     }
     doc = get_template('install.md').render(Context(params))
     return render(request, 'docs.html', {'doc': doc})
