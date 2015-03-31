@@ -46,7 +46,7 @@ REMOTE_HOST = 'nsa'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST and 'USER' in os.environ
+IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST and 'USER' not in os.environ
 
 if IS_PRODUCTION:
     print('Running in production mode')
