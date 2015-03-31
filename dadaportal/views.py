@@ -19,6 +19,7 @@ def docs(request):
         'notmuch_dir': os.path.join(settings.NOTMUCH_MAILDIR, 'mail'),
     }
     variables = ['REMOTE_USER', 'DOMAIN_NAME', 'EMAIL_ADDRESS',
+                 'REMOTE_NOTMUCH_MAILDIR',
                  'REMOTE_STATIC_ROOT', 'REMOTE_BASE_DIR', 'STATIC_URL']
     for var in variables:
         params[var] = getattr(settings, var)

@@ -28,7 +28,8 @@ Add this crontab entry to send public emails from the email server (home)
 to the production server (nsa); you must add it on *home* and *not nsa*.
 
     # There's a slash at the end !
-    */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* nsa:{{notmuch_dir}}/
+    */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* {{REMOTE_USER}}@{{REMOTE_SSH_HOST}}:{{REMOTE_NOTMUCH_MAILDIR}}/
+
 
 ### Apache
 Copy this to your apache sites-enabled directory on the production computer.
@@ -45,11 +46,6 @@ Copy this to your apache sites-enabled directory on the production computer.
           <Files wsgi.py>
             Require all granted
           </Files>
-        </Directory>
-
-        <Directory {{REMOTE_BASE_DIR}}>
-            Order deny, allow
-            Allow from all
         </Directory>
 
         DocumentRoot {{REMOTE_STATIC_ROOT}}
