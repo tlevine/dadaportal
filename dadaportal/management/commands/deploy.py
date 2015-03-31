@@ -1,4 +1,4 @@
-import subprocess, tempfile, sys
+import subprocess, tempfile, sys, shlex
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -6,12 +6,13 @@ from django.template import Context
 from django.template.loader import get_template
 
 def _run(args):
-    sys.stdout.write(' '.join(args) + '\n')
+    sys.stdout.write(' '.join(map(shlex.quote, args)) + '\n')
     if 0 != subprocess.call(args):
         sys.exit(1)
 
 def rsync(local, remote):
-    return _run(['rsync', '-avHS', local, settings.REMOTE_HOST + ':' + remote])
+    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
+    return _run(['rsync', '-avHS', local, r])
 
 def rsync_text(text, remote):
     with tempfile.NamedTemporaryFile(mode = 'w') as tmp:
@@ -23,7 +24,8 @@ def ssh(command, prefix = True):
         full_command = "cd '%s' && %s" % (settings.REMOTE_BASE_DIR, command)
     else:
         full_command = command
-    return _run(['ssh', settings.REMOTE_HOST, full_command])
+    r = '%s@%s' % (settings.REMOTE_USER, settings.REMOTE_HOST)
+    return _run(['ssh', r, full_command])
 
 class Command(BaseCommand):
     args = '(none)'
@@ -40,7 +42,7 @@ class Command(BaseCommand):
        #_run(['./manage.py', 'test'])
 
         self._comment('Creating the remote base directory')
-        ssh('sudo mkdir -p \'%s\'' % settings.REMOTE_BASE_DIR, prefix = False)
+        ssh('mkdir -p \'%s\'' % settings.REMOTE_BASE_DIR, prefix = False)
 
         self._comment('Copying canonical articles to nsa')
         # no slash at end of remote directory
