@@ -11,11 +11,11 @@ def _run(args):
         sys.exit(1)
 
 def rsync(local, remote):
-    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
+    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_SSH_HOST, remote)
     return _run(['rsync', '-avHS', '--exclude', '.*', local, r])
 
 def scp(local, remote):
-    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_HOST, remote)
+    r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_SSH_HOST, remote)
     return _run(['scp', local, r])
 
 def scp_text(text, remote):
@@ -30,7 +30,7 @@ def ssh(command, prefix = True):
         full_command = "cd '%s' && %s" % (settings.REMOTE_BASE_DIR, command)
     else:
         full_command = command
-    r = '%s@%s' % (settings.REMOTE_USER, settings.REMOTE_HOST)
+    r = '%s@%s' % (settings.REMOTE_USER, settings.REMOTE_SSH_HOST)
     return _run(['ssh', r, full_command])
 
 class Command(BaseCommand):

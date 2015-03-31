@@ -32,21 +32,13 @@ for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
 with open(config_file, 'w') as fp:
     c.write(fp)
 
-# This is a hostname.
-p = subprocess.Popen(['hostname'], stdout = subprocess.PIPE)
-p.wait()
-LOCAL_HOST = p.stdout.read().strip()
-
 # This is a Unix user on nsa
 REMOTE_USER = 'www-data'
-
-# This is a hostname.
-REMOTE_HOST = 'nsa'
 
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-IS_PRODUCTION = LOCAL_HOST == REMOTE_HOST and 'USER' not in os.environ
+IS_PRODUCTION = 'USER' not in os.environ
 
 if IS_PRODUCTION:
     DEBUG = False
