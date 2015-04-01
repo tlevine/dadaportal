@@ -62,7 +62,7 @@ def reify(article_dir, filename):
         if field in head:
             for service in ['facebook', 'twitter']:
                 service_field = '%s_%s' % (service, field)
-                if service_field not in title:
+                if service_field not in head:
                     head[service_field] = head[field]
 
     return head, body
