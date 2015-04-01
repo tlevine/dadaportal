@@ -92,3 +92,10 @@ computer.''')
 
         self._comment('Generating static files on nsa')
         ssh('./manage.py collectstatic')
+
+        self.stdout.write('''
+
+Now reload apache, probably with this.
+
+  service apache2 reload
+''')
