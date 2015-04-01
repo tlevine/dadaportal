@@ -48,7 +48,7 @@ Copy this to your apache sites-enabled directory on the production computer.
           </Files>
         </Directory>
 
-        AliasMatch ^/!/(.+[^/])$ {{REMOTE_BASE_DIR}}/canonical-articles/$1
+        AliasMatch ^/!/(.+/.*[^/])$ {{REMOTE_BASE_DIR}}/canonical-articles/$1
 
         Alias {{STATIC_URL}} {{REMOTE_STATIC_ROOT}}/
         <Directory {{REMOTE_STATIC_ROOT}}/>

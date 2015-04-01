@@ -3,9 +3,16 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
 from .views import index, docs
+
+def fix_dir(old, new):
+    return url(r'^%s(/(?:.+)?)$' % old,
+               lambda _, x: HttpResponsePermanentRedirect('/%s%s' % (new, x)))
+
+def fix_tag(tag):
+    return url(r'^%s/?$' % tag, RedirectView.as_view(url='/!/?tag=%s' % tag))
 
 urlpatterns = patterns('',
     url(r'^/?$', index),
@@ -25,7 +32,15 @@ urlpatterns = patterns('',
     url(r'^track$', 'tracking.views.track_xhr'),
 
     # Backwards compatibility
-  # url(r'^open-data/?$', RedirectView.as_view(url='/!/open-data/')),
+    fix_tag('open-data'),
+    fix_tag('socrata'),
+    fix_tag('convert'),
+    fix_tag('sensing-data'),
+
+    fix_dir('__33__', '!'),
+    fix_dir('dada', '!'),
+    fix_dir('scarsdale', '!/scarsdale'),
+    fix_dir('stuff', '!/stuff'),
 
     # Slashes
     url(r'^(.+[^/])$', lambda _, x: HttpResponseRedirect('/%s/' % x)),
