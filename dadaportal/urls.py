@@ -3,16 +3,16 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
 
 from .views import index, docs
 
 urlpatterns = patterns('',
     url(r'^/?$', index),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^docs/?$', docs),
-    url(r'^popular/?$', TemplateView.as_view(template_name = 'popular.html')),
+    url(r'^docs/$', docs),
+    url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html')),
 
-    url(r'^\+$', RedirectView.as_view(url='/+/')),
     url(r'^\+/$', 'search.views.search'),
     url(r'^schedule/', include('schedule.urls')),
 
@@ -26,4 +26,7 @@ urlpatterns = patterns('',
 
     # Backwards compatibility
   # url(r'^open-data/?$', RedirectView.as_view(url='/!/open-data/')),
+
+    # Slashes
+    url(r'^(.+[^/])$', lambda _, x: HttpResponseRedirect('/%s/' % x)),
 )
