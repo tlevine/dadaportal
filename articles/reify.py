@@ -3,14 +3,12 @@ import yaml, markdown, docutils.examples
 
 import lxml.html, lxml.etree
 
-SEPARATOR = re.compile(r'^-+$')
-
 def parse(filename):
     formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
     with open(filename) as body_fp:
         head_fp = io.StringIO()
         for line in head_fp:
-            if re.match(SEPARATOR, line):
+            if re.match(r'^-+\s$', line):
                 head_fp.seek(0)
                 break
             else:
