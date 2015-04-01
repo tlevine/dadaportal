@@ -16,7 +16,6 @@ def docs(request):
     params = {
         'requirements': requirements,
         'database': settings.DATABASES['default'],
-        'notmuch_dir': os.path.join(settings.NOTMUCH_MAILDIR, 'mail'),
     }
     variables = ['REMOTE_USER', 'DOMAIN_NAME', 'EMAIL_ADDRESS',
                  'REMOTE_SSH_HOST', 'REMOTE_NOTMUCH_MAILDIR',
