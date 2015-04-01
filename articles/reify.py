@@ -48,13 +48,21 @@ def reify(article_dir, filename):
         return None, None
 
     head, body = parse(filename)
-    try:
-        html = lxml.html.fromstring(body)
-    except lxml.etree.XMLSyntaxError:
-        pass
-    else:
-        h1s = html.xpath('//h1')
-        if len(h1s) > 0 and 'title' not in head:
-            head['title'] = h1s[0].text_content()
+    if 'title' not in head:
+        try:
+            html = lxml.html.fromstring(body)
+        except lxml.etree.XMLSyntaxError:
+            pass
+        else:
+            h1s = html.xpath('//h1')
+            if len(h1s) > 0:
+                head['title'] = h1s[0].text_content()
+
+    for field in ['title', 'description']:
+        if field in head:
+            for service in ['facebook', 'twitter']:
+                service_field = '%s_%s' % (service, field)
+                if service_field not in title:
+                    head[service_field] = head[field]
 
     return head, body
