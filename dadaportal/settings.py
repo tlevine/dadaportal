@@ -56,7 +56,7 @@ else:
 
     USER = os.environ['USER']
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'localhost:8000', 'thomaslevine.com:8000', '.thomaslevine.com:8000', 'portal.dada.pink']
+ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com:*', '.thomaslevine.com:*', 'portal.dada.pink']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
