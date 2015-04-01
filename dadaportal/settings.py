@@ -27,8 +27,8 @@ c.read(config_file)
 if section_name not in c.sections():
     c.add_section(section_name)
 section = c[section_name]
-if 'PASSWORD' in section.keys():
-    PASSWORD = c['PASSWORD']
+if 'DATABASE_PASSWORD' in section.keys():
+    PASSWORD = c['DATABASE_PASSWORD']
 else:
     PASSWORD = None
 for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
