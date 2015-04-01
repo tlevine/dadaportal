@@ -1,13 +1,16 @@
 import os, re, io
 import yaml, markdown, docutils.examples
+from logging import getLogger
 
 import lxml.html, lxml.etree
+
+logger = getLogger(__name__)
 
 def parse(filename):
     formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
     with open(filename) as body_fp:
         head_fp = io.StringIO()
-        for line in head_fp:
+        for line in body_fp:
             if re.match(r'^-+\s$', line):
                 head_fp.seek(0)
                 break
@@ -17,7 +20,11 @@ def parse(filename):
             # If there was no dashed line,
             head_fp.truncate(0)
             body_fp.seek(0)
-        head = yaml.load(head_fp)
+        try:
+            head = yaml.load(head_fp)
+        except yaml.scanner.ScannerError:
+            logger.warning('Invalid YAML header at %s' % filename)
+            head = {}
         body = formatter(body_fp)
         if type(head) != dict:
             head = {}

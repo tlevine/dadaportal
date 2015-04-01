@@ -41,6 +41,9 @@ def sync(subdir = (), threshold = None):
             if modified > threshold:
                 endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
                 head, body = reify(settings.ARTICLES_DIR, fn)
+                for k, v in head.items():
+                    if isinstance(v, datetime.date):
+                        head[k] = v.isoformat()
                 if head == None and body == None:
                     logger.warn('I could not reify %s, so I skipped it.' % endpoint)
                 else:
