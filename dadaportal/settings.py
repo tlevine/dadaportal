@@ -160,3 +160,8 @@ REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/srv/dadaportal'
 
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
+
+DO_NOT_TRACK = [
+    r'^/admin',
+    r'^/track',
+]

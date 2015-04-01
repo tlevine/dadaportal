@@ -28,7 +28,7 @@ def track_xhr(request):
         new_scroll = getattr(hit, dimension[0])
         if new_scroll == None:
             pass
-        elif new_scroll > old_scroll:
+        elif old_scroll == None or new_scroll > old_scroll:
             for field in fields:
                 new = getattr(hit, field)
                 setattr(hit, field, new)
