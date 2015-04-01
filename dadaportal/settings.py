@@ -158,4 +158,4 @@ REMOTE_BASE_DIR = '/srv/dadaportal'
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
 
 NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
-REMOTE_NOTMUCH_MAILDIR = os.path.join(REMOTE_BASE_DIR, 'maildir')
+REMOTE_NOTMUCH_MAILDIR = '/var/www/maildir'
