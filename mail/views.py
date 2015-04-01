@@ -1,6 +1,6 @@
 import re
 
-from notmuch import Database, Query
+from notmuch import Database, Query as _Query
 from unidecode import unidecode
 from lxml.html.clean import clean_html
 
@@ -10,10 +10,13 @@ from django.conf import settings
 
 from .queries import hierarchy, subhierarchy
 
-def search(request, querystr):
-    db = Database(settings.NOTMUCH_MAILDIR)
-    query = Query(db, querystr)
 
+def Query(querystr):
+    db = Database(settings.NOTMUCH_MAILDIR)
+    return _Query(db, '(not from:%s) and %s' % (settings.NOTMUCH_SECRET, querystr))
+
+def search(request, querystr):
+    query = Query(querystr)
     if query.count_messages() == 1:
         message = next(iter(query.search_messages()))
         title = message.get_header('subject')
@@ -44,7 +47,7 @@ def attachment(request, querystr, n):
     n = int(n)
 
     db = Database(settings.NOTMUCH_MAILDIR)
-    query = Query(db, '(not from:%s) and %s' % (settings.NOTMUCH_SECRET, querystr))
+    query = Query(querystr)
 
     if query.count_messages() != 1:
         return HttpResponseRedirect('/@/%s/' % querystr)
