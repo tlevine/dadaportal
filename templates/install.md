@@ -69,3 +69,12 @@ And then reload Apache.
 Run this from a computer other than the one you are deploying to.
 
     ./manage.py deploy
+
+## Difficulties
+Some things to consider if things are being weird.
+
+* Check in `/etc/postgresql/9.4/main/postgresql.conf` that the typical
+    port (5432) is being used.
+* `ALLOWED_HOSTS` must be set appropriately.
+* Turn on `DEBUG` to see what's going on.
+* Run `./manage.py syncdb`.
