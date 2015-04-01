@@ -23,4 +23,7 @@ urlpatterns = patterns('',
         {'document_root': settings.ARTICLES_DIR, 'show_indexes': True}),
 
     url(r'^track$', 'tracking.views.track_xhr'),
+
+    # Backwards compatibility
+  # url(r'^open-data/?$', RedirectView.as_view(url='/!/open-data/')),
 )
