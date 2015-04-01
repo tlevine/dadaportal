@@ -40,6 +40,8 @@ REMOTE_USER = 'www-data'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
+REMOTE_NOTMUCH_MAILDIR = '/var/www/maildir'
+
 IS_PRODUCTION = getuser() == REMOTE_USER or gethostname() == REMOTE_SSH_HOST or 'USER' not in os.environ
 
 if IS_PRODUCTION:
@@ -47,6 +49,7 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     USER = REMOTE_USER
+    NOTMUCH_MAILDIR = REMOTE_NOTMUCH_MAILDIR
 
 else:
     print('Running in development mode')
@@ -55,6 +58,7 @@ else:
     TEMPLATE_DEBUG = True
 
     USER = os.environ['USER']
+    NOTMUCH_MAILDIR = None
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com:*', '.thomaslevine.com:*', 'portal.dada.pink']
 
@@ -156,6 +160,3 @@ REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/srv/dadaportal'
 
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
-
-NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
-REMOTE_NOTMUCH_MAILDIR = '/var/www/maildir'
