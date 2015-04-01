@@ -78,3 +78,17 @@ class Command(BaseCommand):
 
         self._comment('Generating static files on nsa')
         ssh('./manage.py collectstatic')
+
+        self.stdout.write('''
+If this is the first time you ran "./manage deploy", log into the
+server (ssh www-data@nsa) and run the following.
+
+$ ./manage.py syncdb
+
+If you have changed the database schema, run this,
+
+$ ./manage.py makemigrations
+$ ./manage.py migrate
+
+and then copy the migrations into the repository on your non-server
+computer.''')
