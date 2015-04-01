@@ -20,17 +20,18 @@ def track_xhr(request):
         logger.warn('Hit "%d" was missing.' % hit_id)
         return HttpResponse(status = 403)
 
-    for field in ['availWidth', 'availHeight']:
-        setattr(hit, field, request.POST.get(field))
-    for field in ['scrollMaxX', 'scrollMaxY', 'pageXOffset', 'pageYOffset']:
-        old = request.POST.get(field)
-        new = getattr(hit, field)
-        if old == None:
-            setattr(hit, field, new)
-        elif new == None:
+    # Save values from the highest scroll.
+    dimensions = [('scrollMaxX', 'pageXOffset', 'availWidth'),
+                  ('scrollMaxY', 'pageYOffset', 'availHeight')]
+    for dimension in dimensions:
+        old_scroll = request.POST.get(dimension[0])
+        new_scroll = getattr(hit, dimension[0])
+        if new_scroll == None:
             pass
-        else:
-            setattr(hit, field, max(old, new))
+        elif new_scroll > old_scroll:
+            for field in fields:
+                new = getattr(hit, field)
+                setattr(hit, field, new)
 
     hit.datetime_end = datetime.datetime.now()
     hit.save()
