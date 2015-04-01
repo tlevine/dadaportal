@@ -283,12 +283,14 @@ body {
 nav {
   border-bottom: solid 1px #666;
 }
-.search-form input[type=text] {
+.search-form input {
   border: solid 1px #666;
+}
+nav .search-form input[type=text] {
   color: #111;
   background-color: #888;
 }
-.search-form input[type=text]:focus {
+nav .search-form input[type=text]:focus {
   background-color: white;
 }
 pre, blockquote, .line-block /* rst class */ {
