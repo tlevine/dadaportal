@@ -50,8 +50,8 @@ Copy this to your apache sites-enabled directory on the production computer.
 
         AliasMatch ^/!/(.+[^/])$ {{REMOTE_BASE_DIR}}/canonical-articles/$1
 
-        Alias {{STATIC_URL}} {{REMOTE_STATIC_ROOT}}
-        <Directory {{REMOTE_STATIC_ROOT}}>
+        Alias {{STATIC_URL}} {{REMOTE_STATIC_ROOT}}/
+        <Directory {{REMOTE_STATIC_ROOT}}/>
             Options FollowSymLinks
             AllowOverride None
         </Directory>

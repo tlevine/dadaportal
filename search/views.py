@@ -15,7 +15,7 @@ def search(request):
         querystr = 'from:"%s" and %s' % (settings.NOTMUCH_SECRET, q)
     else:
         querystr = q
-    db = Database()
+    db = Database(settings.NOTMUCH_MAILDIR)
     query = Query(db, querystr)
 
     results = []
