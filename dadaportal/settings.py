@@ -47,7 +47,6 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     USER = REMOTE_USER
-    ALLOWED_HOSTS = []
 
 else:
     print('Running in development mode')
@@ -56,7 +55,8 @@ else:
     TEMPLATE_DEBUG = True
 
     USER = os.environ['USER']
-    ALLOWED_HOSTS = ['localhost']
+
+ALLOWED_HOSTS = ['127.0.0.1:8000', 'localhost:8000', 'thomaslevine.com:8000', '.thomaslevine.com:8000', 'portal.dada.pink']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
