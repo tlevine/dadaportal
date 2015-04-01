@@ -24,14 +24,13 @@ def track_xhr(request):
     dimensions = [('scrollMaxX', 'pageXOffset', 'availWidth'),
                   ('scrollMaxY', 'pageYOffset', 'availHeight')]
     for dimension in dimensions:
-        old_scroll = request.POST.get(dimension[0])
-        new_scroll = getattr(hit, dimension[0])
+        old_scroll = getattr(hit, dimension[0])
+        new_scroll = request.POST.get(dimension[0])
         if new_scroll == None:
             pass
-        elif old_scroll == None or new_scroll > old_scroll:
-            for field in fields:
-                new = getattr(hit, field)
-                setattr(hit, field, new)
+        elif old_scroll == None or int(new_scroll) > old_scroll:
+            for field in dimension:
+                setattr(hit, field, request.POST.get(field))
 
     hit.datetime_end = datetime.datetime.now()
     hit.save()

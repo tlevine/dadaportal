@@ -23,8 +23,10 @@
       if (r.readyState==4 /* and status ok */ ) {
           console.log(r.status)
         if (r.status == 200) {
-          setTimeout(function() {send(r.responseText.trim(), i + 1)},
-                     Math.pow(2, i) * interval)
+          function recurse() {
+            send(r.responseText.trim(), i + 1)
+          }
+          setTimeout(recurse, interval)
         }
       }
     }
