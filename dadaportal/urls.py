@@ -40,6 +40,7 @@ urlpatterns = patterns('',
     fix_tag('shenanigans'),
     fix_tag('letterpress'),
 
+    fix_dir('notes', '!/notes'),
     fix_dir('__33__', '!'),
     fix_dir('dada', '!'),
     fix_dir('scarsdale', '!/scarsdale'),
