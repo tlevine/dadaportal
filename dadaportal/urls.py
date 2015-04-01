@@ -36,11 +36,15 @@ urlpatterns = patterns('',
     fix_tag('socrata'),
     fix_tag('convert'),
     fix_tag('sensing-data'),
+    fix_tag('learn'),
+    fix_tag('shenanigans'),
+    fix_tag('letterpress'),
 
     fix_dir('__33__', '!'),
     fix_dir('dada', '!'),
     fix_dir('scarsdale', '!/scarsdale'),
     fix_dir('stuff', '!/stuff'),
+   #fix_dir('schedule', ''),
 
     # Slashes
     url(r'^(.+[^/])$', lambda _, x: HttpResponseRedirect('/%s/' % x)),

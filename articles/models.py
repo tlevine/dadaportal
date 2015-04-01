@@ -25,3 +25,9 @@ class ArticleCache(models.Model):
 
     def __str__(self):
         return self.head().get('title', self.endpoint)
+
+class ArticleTag(models.Model):
+    article = models.ForeignKey(ArticleCache)
+    tag = models.TextField()
+    def __str__(self):
+        return '%s (%s)' % (self.tag, self.article)

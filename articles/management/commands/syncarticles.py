@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models import Max
 
 from ...reify import reify
-from ...models import ArticleCache
+from ...models import ArticleCache, ArticleTag
 
 logger = logging.getLogger(__name__)
 
@@ -47,13 +47,17 @@ def sync(subdir = (), threshold = None):
                     for k, v in head.items():
                         if isinstance(v, datetime.date):
                             head[k] = v.isoformat()
-                    if ArticleCache.objects.filter(endpoint = endpoint).count() == 1:
-                        ArticleCache.objects.filter(endpoint = endpoint).update(
+
+                    article_cache = ArticleCache.objects.filter(endpoint = endpoint)
+                    if article_cache.count() == 1:
+                        article_cache.update(
                             filename = child, redirect = head.get('redirect'),
                             modified = modified, headjson = json.dumps(head), body = body)
                     else:
-                        article_cache = ArticleCache.objects.get_or_create(
+                        article_cache = ArticleCache.objects.create(
                             filename = child, redirect = head.get('redirect'),
                             endpoint = endpoint, modified = modified,
                             headjson = json.dumps(head), body = body)
+                    for tag in head.get('tags', []):
+                        ArticleTag.objects.get_or_create(article = endpoint, tag = tag)
                     yield endpoint
