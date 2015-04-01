@@ -5,8 +5,8 @@
 </article>
 
 <footer>
-    <em>{% format_time modified '%B %d, %Y' %}</em>
-    <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>
-    {% if other_source %}<a href="{{ other_source }}">Other source</a>{% endif %}
+    <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
+    &bull; <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>
+    {% if other_source %}&bull; <a href="{{ other_source }}">Other source</a>{% endif %}
 </footer>
 {% endblock %}

@@ -11,5 +11,6 @@ def article(request, endpoint):
         raise Http404('No such article')
     else:
         params = a.head()
+        params['modified'] = a.modified
         params['body'] = a.body
         return render(request, 'article.html', params)

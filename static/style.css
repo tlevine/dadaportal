@@ -196,6 +196,13 @@ nav .search-form {
   float: right;
 }
 
+/* Footer */
+footer {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
 /* Root page */
 #index-main .search ul {
   text-align: center;
