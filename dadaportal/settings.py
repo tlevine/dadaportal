@@ -27,6 +27,10 @@ c.read(config_file)
 if section_name not in c.sections():
     c.add_section(section_name)
 section = c[section_name]
+if 'PASSWORD' in section.keys():
+    PASSWORD = c['PASSWORD']
+else:
+    PASSWORD = None
 for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
     if secret_name not in section.keys():
         c.set(section_name, secret_name, ''.join(sample(ascii_letters + digits, 62)))
@@ -100,7 +104,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dadaportal',
         'USER': USER,
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'PASSWORD': PASSWORD,
     }
 }
 
