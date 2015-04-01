@@ -49,11 +49,11 @@ def sync(subdir = (), threshold = None):
                             head[k] = v.isoformat()
                     if ArticleCache.objects.filter(endpoint = endpoint).count() == 1:
                         ArticleCache.objects.filter(endpoint = endpoint).update(
-                            filename = child,
+                            filename = child, redirect = head.get('redirect'),
                             modified = modified, headjson = json.dumps(head), body = body)
                     else:
                         article_cache = ArticleCache.objects.get_or_create(
-                            filename = child,
+                            filename = child, redirect = head.get('redirect'),
                             endpoint = endpoint, modified = modified,
                             headjson = json.dumps(head), body = body)
                     yield endpoint
