@@ -13,6 +13,8 @@ from configparser import ConfigParser, NoOptionError
 import subprocess
 import datetime
 import os
+from socket import gethostname
+from getpass import getuser
 
 # Dada portal repository directory
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -38,7 +40,7 @@ REMOTE_USER = 'www-data'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-IS_PRODUCTION = 'USER' not in os.environ
+IS_PRODUCTION = getuser() == REMOTE_USER or gethostname() == REMOTE_SSH_HOST or 'USER' not in os.environ
 
 if IS_PRODUCTION:
     DEBUG = False
