@@ -8,7 +8,10 @@ def tracking(request):
     The hit_id should be rendered in the template so it can be passed
     along in the XHR.
     '''
-    if request.hit_id != None:
+    if request.hit_id == None:
+        d = {}
+
+    else:
         if 'session_id' not in request.session:
             request.session['session_id'] = rand()
 
@@ -19,8 +22,5 @@ def tracking(request):
                            user_agent = request.META['HTTP_USER_AGENT'],
                            referrer = request.META.get('HTTP_REFERER', ''))
         d = {'hit_id': request.hit_id}
-
-    else:
-        d = {}
 
     return d
