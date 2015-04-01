@@ -60,7 +60,7 @@ def sync(subdir = (), threshold = None):
                             headjson = json.dumps(head), body = body)
 
                     for tag in head.get('tags', []):
-                        if ArticleTag.objects.filter(article = endpoint, tag = tag).count() == 0:
-                            ArticleTag.objects.create(article = endpoint, tag = tag)
+                        if ArticleTag.objects.filter(article = article_cache, tag = tag).count() == 0:
+                            ArticleTag.objects.create(article = article_cache, tag = tag)
 
                     yield endpoint

@@ -1,8 +1,12 @@
+import operator
+from functools import reduce
+
 from django.conf import settings
 from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect
+from django.db.models import Q
 
-from .models import ArticleCache
+from .models import ArticleTag, ArticleCache
 
 def article(request, endpoint):
     try:
@@ -17,3 +21,11 @@ def article(request, endpoint):
         return render(request, 'article.html', params)
     else:
         return HttpResponseRedirect(a.redirect)
+
+def index(request):
+    tags = request.GET.get('tags', '')
+    qs = reduce(operator.or_, (Q(tag = tag) for tag in tags.split('|')))
+    query = ArticleTag.objects.filter(qs).select_related('article').distinct('article_id')
+    articles = [article_tag.article for article_tag in query if 'title' in article_tag.article.head()]
+    articles_simple = [{'href': a.endpoint, 'title': a.head()['title']} for a in articles]
+    return render(request, 'article-index.html', {'articles': articles_simple})
