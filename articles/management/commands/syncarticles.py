@@ -46,9 +46,11 @@ def sync(subdir = (), threshold = None):
                 else:
                     if ArticleCache.objects.filter(endpoint = endpoint).count() == 1:
                         ArticleCache.objects.filter(endpoint = endpoint).update(
+                            filename = child,
                             modified = modified, headjson = json.dumps(head), body = body)
                     else:
                         article_cache = ArticleCache.objects.get_or_create(
+                            filename = child,
                             endpoint = endpoint, modified = modified,
                             headjson = json.dumps(head), body = body)
                     yield endpoint

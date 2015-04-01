@@ -56,6 +56,12 @@ Copy this to your apache sites-enabled directory on the production computer.
             AllowOverride None
         </Directory>
 
+        Alias /source/ {{REMOTE_BASE_DIR}}/canonical-articles/
+        <Directory {{REMOTE_BASE_DIR}}/canonical-articles/>
+            Options FollowSymLinks
+            AllowOverride None
+        </Directory>
+
         Alias /favicon.ico {{REMOTE_STATIC_ROOT}}/favicon.ico
         Alias /robots.txt {{REMOTE_STATIC_ROOT}}/robots.txt
 

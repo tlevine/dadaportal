@@ -5,9 +5,8 @@
 </article>
 
 <footer>
-    <em>created at strftime('%B %d, %Y') rescue ''</em>
-    = link_to('View source', 'https://github.com/tlevine/www.thomaslevine.com/tree/master/content' + @item.identifier + 'index.md')
-    = if @item[:other_source] then link_to('Other source', @item[:other_source])
-    = link_to('Discuss', @item[:tweet_link] || 'https://twitter.com/thomaslevine')
+    <em>{% format_time modified '%B %d, %Y' %}</em>
+    <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>
+    {% if other_source %}<a href="{{ other_source }}">Other source</a>{% endif %}
 </footer>
 {% endblock %}

@@ -11,6 +11,7 @@ class ArticleCache(models.Model):
     so I thus don't have to think as much.
     '''
     endpoint = models.TextField(primary_key = True)
+    filename = models.TextField()
     modified = models.DateTimeField()
     headjson = models.TextField() # JSON
     body = models.TextField() # HTML
