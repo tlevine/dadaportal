@@ -56,6 +56,9 @@ Copy this to your apache sites-enabled directory on the production computer.
             AllowOverride None
         </Directory>
 
+        Alias /favicon.ico {{REMOTE_STATIC_ROOT}}/favicon.ico
+        Alias /robots.txt {{REMOTE_STATIC_ROOT}}/robots.txt
+
         LogLevel warn
         ErrorLog ${APACHE_LOG_DIR}/dadaportal-error.log
         CustomLog ${APACHE_LOG_DIR}/dadaportal-access.log combined

@@ -125,3 +125,8 @@ I don't do forms in here; I run LimeSurvey and put forms there.
 People can't edit my site wiki-style as they could with Branchable.
 But nobody used that anyway. If people really want it, I can put the
 articles submodule up somewhere.
+
+Errors are not logged in the Hits model, because getting middleware
+to work on error pages seemed like too much work.
+([Here](http://stackoverflow.com/questions/12682291/middleware-not-executed-on-404)
+is a start.) One can see look at errors in the Apache logs.
