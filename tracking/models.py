@@ -27,4 +27,5 @@ class Hit(models.Model):
     pageYOffset = models.IntegerField(null = True)
 
     def __str__(self):
-        return str(self.hit)
+        d = datetime.datetime.now().strftime('%B %d, %H:%M')
+        return '%d (%s at %s)' % (self.hit, self.endpoint, d)
