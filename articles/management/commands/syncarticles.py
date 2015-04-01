@@ -58,6 +58,9 @@ def sync(subdir = (), threshold = None):
                             filename = child, redirect = head.get('redirect'),
                             endpoint = endpoint, modified = modified,
                             headjson = json.dumps(head), body = body)
+
                     for tag in head.get('tags', []):
-                        ArticleTag.objects.get_or_create(article = endpoint, tag = tag)
+                        if ArticleTag.objects.filter(article = endpoint, tag = tag).count() == 0:
+                            ArticleTag.objects.create(article = endpoint, tag = tag)
+
                     yield endpoint
