@@ -11,10 +11,11 @@ class ArticleCache(models.Model):
     so I thus don't have to think as much.
     '''
     endpoint = models.TextField(primary_key = True)
-    filename = models.TextField()
-    modified = models.DateTimeField()
-    headjson = models.TextField() # JSON
-    body = models.TextField() # HTML
+    filename = models.TextField(null = False, blank = False)
+    redirect = models.TextField(null = True)
+    modified = models.DateTimeField(null = False)
+    headjson = models.TextField(null = False) # JSON
+    body = models.TextField(null = False) # HTML
 
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
