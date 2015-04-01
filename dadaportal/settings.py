@@ -57,7 +57,10 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
-    USER = os.environ['USER']
+    if os.environ['USER'] == REMOTE_USER:
+        USER = REMOTE_USER
+    else:
+        USER = os.environ['USER']
     NOTMUCH_MAILDIR = None
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com:*', '.thomaslevine.com:*', 'portal.dada.pink']
