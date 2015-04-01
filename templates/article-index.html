@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block base %}
 <article>
+  {% if articles|length > 0 %}
   <ul>
     {% for article in articles %}
     <li>
@@ -8,5 +9,8 @@
     </li>
     {% endfor %}
   </ul>
+  {% else %}
+  <em>No articles match the tags.</em>
+  {% endif %}
 </article>
 {% endblock %}
