@@ -65,7 +65,7 @@ else:
         USER = REMOTE_USER
     else:
         USER = os.environ['USER']
-    NOTMUCH_MAILDIR = None
+    NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com:*', '.thomaslevine.com:*', 'portal.dada.pink']
 
@@ -187,3 +187,5 @@ DO_NOT_TRACK = [
     r'^/admin',
     r'^/track',
 ]
+
+os.environ['NOTMUCH_CONFIG'] = os.path.join(BASE_DIR, '.notmuch-config')

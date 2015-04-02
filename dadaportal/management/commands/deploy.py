@@ -76,7 +76,7 @@ computer.''')
 
         self._comment('Writing .notmuch-config to nsa')
         params = {
-            'REMOTE_NOTMUCH_MAILDIR': settings.REMOTE_NOTMUCH_MAILDIR,
+            'NOTMUCH_MAILDIR': settings.REMOTE_NOTMUCH_MAILDIR,
             'NAME': settings.NAME,
             'EMAIL_ADDRESS': settings.EMAIL_ADDRESS,
             'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
