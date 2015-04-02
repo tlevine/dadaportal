@@ -1,14 +1,15 @@
-import operator
+import operator, os
 from functools import reduce
 
 from django.conf import settings
 from django.shortcuts import render
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
 from django.db.models import Q
 
+from .reify import reify
 from .models import ArticleTag, ArticleCache
 
-def article(request, endpoint):
+def article_cached(request, endpoint):
     try:
         a = ArticleCache.objects.get(endpoint = endpoint)
     except ArticleCache.DoesNotExist:
@@ -21,6 +22,25 @@ def article(request, endpoint):
         return render(request, 'article.html', params)
     else:
         return HttpResponseRedirect(a.redirect)
+
+
+def article_canonical(request, endpoint):
+    dn = os.path.join(settings.ARTICLES_DIR, endpoint)
+    for x in os.listdir(dn):
+        if x.startswith('index.'):
+            fn = os.path.join(dn, x)
+            break
+    else:
+        raise Http404('No such article')
+    head, body = reify(settings.ARTICLES_DIR, fn)
+    if head == None and body == None:
+        msg = 'Could not reify %s' % fn
+        return HttpResponseServerError(content = msg.encode('utf-8'))
+    else:
+        params = dict(head)
+        params['modified'] = datetime.date.today()
+        params['body'] = body
+        return render(request, 'article.html', params)
 
 def index(request):
     tags = request.GET.get('tags')
