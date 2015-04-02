@@ -28,7 +28,7 @@ Add this crontab entry to send public emails from the email server (home)
 to the production server (nsa); you must add it on *home* and *not nsa*.
 
     # There's a slash at the end !
-    */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* {{REMOTE_USER}}@{{REMOTE_SSH_HOST}}:{{REMOTE_NOTMUCH_MAILDIR}}/
+    */4 * * * * rsync -avHS ~/safe/maildir/*/*/Public/*/* {{REMOTE_USER}}@{{REMOTE_SSH_HOST}}:{{REMOTE_NOTMUCH_MAILDIR}}/ && ssh www-data@nsa 'notmuch new'
 
 
 ### Apache
