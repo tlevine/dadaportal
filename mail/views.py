@@ -24,10 +24,14 @@ def search(request, querystr):
             ps = message.get_message_parts()
             parts = [(i + 1, part.get_filename('No description')) \
                      for i, part in enumerate(ps)]
-            body = ps[0].get_payload()
         except UnicodeDecodeError:
             parts = []
             body = 'There was an encoding problem with this message.'
+        else:
+            try:
+                body = message.get_part(1).decode('utf-8')
+            except UnicodeDecodeError:
+                body = ps[0].get_payload()
     else:
         title = '"%s" emails' % querystr
         parts = []
