@@ -2,3 +2,4 @@
 .secrets
 *.log
 .notmuch-config
+maildir

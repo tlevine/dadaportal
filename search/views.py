@@ -1,3 +1,5 @@
+import html
+
 from notmuch import Database, Query
 
 from django.conf import settings
@@ -22,12 +24,12 @@ def search(request):
     for i, m in enumerate(query.search_messages()):
         if i >= settings.MAX_SEARCH_RESULTS:
             break
-        subject = m.get_header('subject')
+        subject = html.unescape(m.get_header('subject'))
 
-        if settings.NOTMUCH_SECRET == m.get_header('from'):
-            href = '/!/%s/' % m.get_header('to')
+        if settings.NOTMUCH_SECRET == html.unescape(m.get_header('from')):
+            href = '/!/%s/' % html.unescape(m.get_header('to'))
             if subject.strip() == '':
-                subject = m.get_header('to')
+                subject = html.unescape(m.get_header('to'))
         else:
             href = '/@/id:%s' % m.get_message_id()
             if subject.strip() == '':
