@@ -36,12 +36,18 @@ def rst(fp):
 def md(fp):
     return markdown.markdown(fp.read())
 
+def md_plus(fp):
+    parser = markdown.Markdown(extensions = ['markdown.extensions.tables'])
+    return parser.convert(fp.read())
+
 def read(fp):
     return fp.read()
 
 FORMATS = {
     'mdwn': md,
     'md': md,
+    'mdwn+': md_plus,
+    'md+': md_plus,
     'rst': rst,
     'txt': read,
     'html': read,
