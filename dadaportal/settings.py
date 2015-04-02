@@ -144,6 +144,26 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'tracking.context_processors.tracking',
 )
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'WARN',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'warn.log'),
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'WARN',
+            'propagate': True,
+        },
+    },
+}
+
+
 # For tracking
 HIT_ID_SIZE = 62
 
