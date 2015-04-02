@@ -15,6 +15,13 @@ def Query(querystr):
     db = Database(settings.NOTMUCH_MAILDIR)
     return _Query(db, '(not from:%s) and %s' % (settings.NOTMUCH_SECRET, querystr))
 
+def _magically_decode(bytestring):
+    for encoding in ['utf-8', 'latin1']:
+        try:
+            return bytestring.decode('utf-8')
+        except UnicodeDecodeError:
+            pass
+
 def search(request, querystr):
     query = Query(querystr)
     if query.count_messages() == 1:
@@ -28,9 +35,8 @@ def search(request, querystr):
             parts = []
             body = 'There was an encoding problem with this message.'
         else:
-            try:
-                body = message.get_part(1).decode('utf-8')
-            except UnicodeDecodeError:
+            body = _magically_decode(message.get_part(1))
+            if body == None:
                 body = ps[0].get_payload()
     else:
         title = '"%s" emails' % querystr
