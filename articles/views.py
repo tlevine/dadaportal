@@ -36,6 +36,8 @@ def article_canonical(request, endpoint):
     if head == None and body == None:
         msg = 'Could not reify %s' % fn
         return HttpResponseServerError(content = msg.encode('utf-8'))
+    elif 'redirect' in head:
+        return HttpResponseRedirect(head['redirect'])
     else:
         params = dict(head)
         params['modified'] = datetime.date.today()
