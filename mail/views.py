@@ -18,7 +18,7 @@ def Query(querystr):
 def _magically_decode(bytestring):
     for encoding in ['utf-8', 'latin1']:
         try:
-            return bytestring.decode('utf-8')
+            return bytestring.decode(encoding)
         except UnicodeDecodeError:
             pass
 
