@@ -21,9 +21,10 @@ def search(request, querystr):
         message = next(iter(query.search_messages()))
         title = message.get_header('subject')
         try:
+            ps = message.get_message_parts()
             parts = [(i + 1, part.get_filename('No description')) \
-                     for i, part in enumerate(message.get_message_parts())]
-            body = message.get_part(1)
+                     for i, part in enumerate(ps)]
+            body = ps[0].get_payload()
         except UnicodeDecodeError:
             parts = []
             body = 'There was an encoding problem with this message.'
