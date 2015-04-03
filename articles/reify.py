@@ -1,4 +1,5 @@
 import os, re, io
+import datetime
 import yaml, markdown, docutils.examples
 from logging import getLogger
 
@@ -59,6 +60,7 @@ def from_file(dirname):
     for just_fn in os.listdir(dirname):
         if just_fn.startswith('index.'):
             filename = os.path.join(dirname, just_fn)
+            logger.debug('Using file %s from directory %s' % (just_fn, dirname))
             break
     else:
         return None, None, None
@@ -85,7 +87,7 @@ def from_file(dirname):
                     head[service_field] = head[field]
 
     meta = {
-        'modified': os.stat(filename).st_mtime,
+        'modified': datetime.datetime.fromtimestamp(os.stat(filename).st_mtime),
         'filename': just_fn,
         'redirect': head.get('redirect'),
     }

@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from django.db.models import Max, Q
 
-from ...reify import reify
+from ...reify import from_file
 from ...models import ArticleCache, ArticleTag
 
 logger = logging.getLogger(__name__)
@@ -32,10 +32,10 @@ def sync(subdir = (), threshold = None):
         fn = os.path.join(parent, child)
         if os.path.isdir(fn):
             yield from sync(subdir = subdir + (child,), threshold = threshold)
-        elif not child.startswith('index.'):
-            continue
         elif indexes > 0:
-            logger.warn('There were multiple index files for %s, so I used only the first one' % parent)
+            continue
+        elif not os.path.isfile(fn):
+            logger.warning('Skipping %s because it is a symlink' % fn)
             continue
 
         indexes += 1
@@ -44,17 +44,17 @@ def sync(subdir = (), threshold = None):
             continue
 
         endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
-        head, body = reify(settings.ARTICLES_DIR, fn)
-        if head == None and body == None:
-            logger.warn('I could not reify %s, so I skipped it.' % endpoint)
+        head, body, meta = from_file(os.path.join(settings.ARTICLES_DIR, endpoint))
+        if head == None and body == None and meta == None:
+            logger.warn('I could not reify "%s", so I skipped it.' % endpoint)
             continue
-
         for k, v in head.items():
             if isinstance(v, datetime.date):
                 head[k] = v.isoformat()
 
         article_cache = ArticleCache.objects.filter(endpoint = endpoint)
-        md5sum = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+        path = os.path.join(settings.ARTICLES_DIR, endpoint, meta['filename'])
+        md5sum = hashlib.md5(open(path, 'rb').read()).hexdigest()
 
         if article_cache.count() == 1:
             article_cache.filter(~Q(md5sum = md5sum)).update(
