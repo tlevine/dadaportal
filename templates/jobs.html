@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block base %}
+<article>
+  <p>{{message.0|safe}} <a href="{{email_address}}">{{message.1}}</a>{{message.2}}</p>
+</article>
+{% endblock %}

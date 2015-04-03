@@ -142,6 +142,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'tracking.context_processors.tracking',
+    'job.context_processors.job',
 )
 
 LOGGING = {
