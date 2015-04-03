@@ -13,7 +13,7 @@ Assuming you're on Debian,
     sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
 ### Configure the database
-As the PostgreSQL user (probably "postgres"),
+As the PostgreSQL user (probably &ldquo;postgres&rdquo;),
 
     createuser '{{REMOTE_USER}}'
     createdb --owner '{{REMOTE_USER}}' '{{database.NAME}}'
