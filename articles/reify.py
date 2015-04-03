@@ -53,7 +53,7 @@ FORMATS = {
     'html': read,
 }
 EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
-def reify(article_dir, filename):
+def reify(filename):
     m = re.match(EXTENSION, filename)
     if not (m and m.group(1) in FORMATS):
         return None, None
