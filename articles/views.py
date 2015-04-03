@@ -19,6 +19,8 @@ def article_cached(request, endpoint):
         params = a.head()
         params['modified'] = a.modified
         params['body'] = a.body
+        params['filename'] = a.filename
+        params['endpoint'] = a.endpoint
         return render(request, 'article.html', params)
     else:
         return HttpResponseRedirect(a.redirect)
@@ -26,9 +28,9 @@ def article_cached(request, endpoint):
 
 def article_canonical(request, endpoint):
     dn = os.path.join(settings.ARTICLES_DIR, endpoint)
-    for x in os.listdir(dn):
-        if x.startswith('index.'):
-            fn = os.path.join(dn, x)
+    for just_fn in os.listdir(dn):
+        if just_fn.startswith('index.'):
+            fn = os.path.join(dn, just_fn)
             break
     else:
         raise Http404('No such article')
@@ -42,6 +44,8 @@ def article_canonical(request, endpoint):
         params = dict(head)
         params['modified'] = datetime.date.today()
         params['body'] = body
+        params['filename'] = just_fn
+        params['endpoint'] = endpoint
         return render(request, 'article.html', params)
 
 def index(request):
