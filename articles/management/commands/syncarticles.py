@@ -41,12 +41,12 @@ def sync(subdir = (), threshold = None):
     indices = [os.path.join(parent, child) for child in os.listdir(parent) if child.startswith('index.')]
     if len(indices) == 0:
         logger.debug('No index file in "%s"' % parent)
-    elif datetime.datetime.fromtimestamp(os.stat(indices[0]).st_mtime) < threshold:
+    elif datetime.datetime.fromtimestamp(os.stat(indices[0]).st_mtime) <= threshold:
         logger.debug('Index file "%s" is old, skipping' % indices[0])
     else:
         head, body, meta = from_file(parent)
         if head == None and body == None and meta == None:
-            logger.warn('I could not reify "%s", so I skipped it.' % child)
+            logger.warn('I could not reify "%s", so I skipped it.' % parent)
         else:
             for k, v in head.items():
                 if isinstance(v, datetime.date):
