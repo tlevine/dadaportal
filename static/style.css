@@ -286,7 +286,7 @@ section.reply strong {
 /* Search form */
 .search-form input[type=text] {
   padding-left: 8px; /* Doesn't affect width */
-  width: 263px; /* should be 264, but I left room for the fudge factor */
+  width: 252px; /* should be 264, but I left room for the fudge factor */
 }
 .search-form input[type=submit] {
   width: 72px;
@@ -365,7 +365,7 @@ article ul, article ol, article dl {
     width: 400px;
   }
   .search-form input[type=text] {
-    width: 323px; /* should be 324, but I left room for the fudge factor */
+    width: 312px; /* should be 324, but I left room for the fudge factor */
   }
 }
 @media screen and (min-width: 720px) {
@@ -374,7 +374,7 @@ article ul, article ol, article dl {
     width: 480px;
   }
   .search-form input[type=text] {
-    width: 403px; /* should be 404, but I left room for the fudge factor */
+    width: 392px; /* should be 404, but I left room for the fudge factor */
   }
 }
 @media screen and (min-width: 900px) {
