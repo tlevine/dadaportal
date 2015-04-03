@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html')),
 
     url(r'^\+/$', 'search.views.search'),
-    url(r'^schedule/', include('schedule.urls')),
+#   url(r'^schedule/', include('schedule.urls')),
 
     url(r'^@/', include('mail.urls')),
 
