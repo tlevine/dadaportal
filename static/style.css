@@ -355,7 +355,7 @@ article ul, article ol, article dl {
 }
 @media screen and (min-width: 540px) {
   #index-main .search {
-    top: 20%;
+    top: 130px;
     right: 20%;
   }
   article {
