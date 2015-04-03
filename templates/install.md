@@ -39,7 +39,8 @@ Copy this to your apache sites-enabled directory on the production computer.
     WSGIDaemonProcess {{DOMAIN_NAME}} python-path={{REMOTE_BASE_DIR}}
     WSGIProcessGroup {{DOMAIN_NAME}}
 
-    <VirtualHost {{DOMAIN_NAME}}:80>
+    <VirtualHost *:80>
+        ServerName {{DOMAIN_NAME}}
         ServerAdmin {{EMAIL_ADDRESS}}
 
         <Directory {{REMOTE_BASE_DIR}}/dadaportal>
