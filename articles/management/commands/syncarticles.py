@@ -1,8 +1,8 @@
-import json, os, datetime, logging, shutil, subprocess
+import json, os, datetime, logging, shutil, subprocess, hashlib
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
-from django.db.models import Max
+from django.db.models import Max, Q
 
 from ...reify import reify
 from ...models import ArticleCache, ArticleTag
@@ -32,35 +32,44 @@ def sync(subdir = (), threshold = None):
         fn = os.path.join(parent, child)
         if os.path.isdir(fn):
             yield from sync(subdir = subdir + (child,), threshold = threshold)
-        elif child.startswith('index.'):
-            if indexes > 0:
-                logger.warn('There were multiple index files for %s, so I used only the first one' % parent)
-                continue
-            indexes += 1
-            modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
-            if modified > threshold:
-                endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
-                head, body = reify(settings.ARTICLES_DIR, fn)
-                if head == None and body == None:
-                    logger.warn('I could not reify %s, so I skipped it.' % endpoint)
-                else:
-                    for k, v in head.items():
-                        if isinstance(v, datetime.date):
-                            head[k] = v.isoformat()
+        elif not child.startswith('index.'):
+            continue
+        elif indexes > 0:
+            logger.warn('There were multiple index files for %s, so I used only the first one' % parent)
+            continue
 
-                    article_cache = ArticleCache.objects.filter(endpoint = endpoint)
-                    if article_cache.count() == 1:
-                        article_cache.update(
-                            filename = child, redirect = head.get('redirect'),
-                            modified = modified, headjson = json.dumps(head), body = body)
-                    else:
-                        article_cache = ArticleCache.objects.create(
-                            filename = child, redirect = head.get('redirect'),
-                            endpoint = endpoint, modified = modified,
-                            headjson = json.dumps(head), body = body)
+        indexes += 1
+        modified = datetime.datetime.fromtimestamp(os.stat(fn).st_mtime)
+        if not modified > threshold:
+            continue
 
-                    for tag in head.get('tags', []):
-                        if ArticleTag.objects.filter(article = article_cache, tag = tag).count() == 0:
-                            ArticleTag.objects.create(article = article_cache, tag = tag)
+        endpoint = os.path.dirname(os.path.relpath(fn, settings.ARTICLES_DIR))
+        head, body = reify(settings.ARTICLES_DIR, fn)
+        if head == None and body == None:
+            logger.warn('I could not reify %s, so I skipped it.' % endpoint)
+            continue
 
-                    yield endpoint
+        for k, v in head.items():
+            if isinstance(v, datetime.date):
+                head[k] = v.isoformat()
+
+        article_cache = ArticleCache.objects.filter(endpoint = endpoint)
+        md5sum = hashlib.md5(open(fn, 'rb').read()).hexdigest()
+
+        if article_cache.count() == 1:
+            article_cache.filter(~Q(md5sum = md5sum)).update(
+                filename = child, redirect = head.get('redirect'),
+                md5sum = md5sum,
+                modified = modified, headjson = json.dumps(head), body = body)
+        else:
+            article_cache = ArticleCache.objects.create(
+                filename = child, redirect = head.get('redirect'),
+                md5sum = md5sum,
+                endpoint = endpoint, modified = modified,
+                headjson = json.dumps(head), body = body)
+
+        for tag in head.get('tags', []):
+            if ArticleTag.objects.filter(article = article_cache, tag = tag).count() == 0:
+                ArticleTag.objects.create(article = article_cache, tag = tag)
+
+        yield endpoint

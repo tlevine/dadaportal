@@ -16,6 +16,7 @@ class ArticleCache(models.Model):
     modified = models.DateTimeField(null = False)
     headjson = models.TextField(null = False) # JSON
     body = models.TextField(null = False) # HTML
+    md5sum = models.CharField(max_length = 32, null = False)
 
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
