@@ -15,12 +15,12 @@ def article_cached(request, endpoint):
     except ArticleCache.DoesNotExist:
         return None, None, None
     else:
-        return _article(*from_db(article_cache))
+        return _article(request, *from_db(article_cache))
 
 def article_canonical(request, endpoint):
-    return _article(*from_file(settings.ARTICLES_DIR, endpoint))
+    return _article(request, *from_file(os.path.join(settings.ARTICLES_DIR, endpoint)))
 
-def _article(head, body, meta):
+def _article(request, head, body, meta):
     if head == None and body == None and meta == None:
         msg = 'Could not reify %s' % fn
         return HttpResponseServerError(content = msg.encode('utf-8'))

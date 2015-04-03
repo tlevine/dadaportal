@@ -96,6 +96,7 @@ def from_file(dirname):
 def from_db(article_cache):
     meta = {
         'modified': article_cache.modified,
+        'redirect': article_cache.redirect,
         'filename': article_cache.filename,
         'endpoint': article_cache.endpoint,
     }
