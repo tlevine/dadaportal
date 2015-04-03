@@ -13,7 +13,7 @@ def article_cached(request, endpoint):
     try:
         article_cache = ArticleCache.objects.get(endpoint = endpoint)
     except ArticleCache.DoesNotExist:
-        return None, None, None
+        raise Http404('Article is not cached in the database or doesn\'t exist at all.')
     else:
         return _article(request, *from_db(article_cache))
 
