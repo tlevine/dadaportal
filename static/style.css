@@ -297,6 +297,10 @@ body {
 nav {
   border-bottom: solid 1px #666;
 }
+footer {
+  padding-top: 0.5em;
+  border-top: solid 1px #666;
+}
 .search-form input {
   border: solid 1px #666;
 }
