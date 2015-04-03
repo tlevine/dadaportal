@@ -267,6 +267,7 @@ section.thread li .date {
   white-space: nowrap;
 }
 article h1, section.reply p {
+  border-bottom: solid 1px #666;
   text-align: center;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
