@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>Dada Portal | {{title|default:'Thomas Levine'}}</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
@@ -13,11 +14,11 @@
 
     <meta content="summary" name="twitter:card">
     <meta content="@thomaslevine" name="twitter:site">
-    <meta content="Thomas Levine" name="twitter:title">
+    <meta content="{{twitter_title|default:'Dada Portal | Thomas Levine'}}" name="twitter:title">
     <meta content="{{twitter_description|default:'Big Dada'}}"
           name="twitter:description">
     <meta content="@thomaslevine" name="twitter:creator">
-    <meta content="http://thomaslevine.com/static/hat.png"
+    <meta content="{{twitter_image|default:'http://thomaslevine.com/static/hat.png'}}"
           name="twitter:image:src">
     <meta content="thomaslevine.com" name="twitter:domain">
 
@@ -37,9 +38,9 @@
     <meta content="thomaslevine.com" property="og:site_name">
     <meta content="{{facebook_description|default:'Big Dada'}}"
           property="og:description">
-    <meta content="Dada Portal | {{facebook_title|default:'Thomas Levine'}}"
+    <meta content="{{facebook_title|default:'Dada Portal | Thomas Levine'}}"
           property="og:title">
-    <meta content="http://thomaslevine.com/static/hat.png"
+    <meta content="{{facebook_image|default:'http://thomaslevine.com/static/hat.png'}}"
           property="og:image">
 
     <link href="/static/favicon.ico" rel="icon" type="image/x-icon">

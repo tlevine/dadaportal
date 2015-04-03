@@ -69,15 +69,21 @@ def from_file(dirname):
         return None, None, None
 
     head, body = parse(filename)
-    if 'title' not in head:
-        try:
-            html = lxml.html.fromstring(body)
-        except lxml.etree.XMLSyntaxError:
-            pass
-        else:
+    try:
+        html = lxml.html.fromstring(body)
+    except lxml.etree.XMLSyntaxError:
+        pass
+    else:
+        if 'title' not in head:
             h1s = html.xpath('//h1')
             if len(h1s) > 0:
                 head['title'] = h1s[0].text_content()
+
+        srcs = html.xpath('//img/@src')
+        if len(srcs) > 0:
+            for key in ['twitter_image', 'facebook_image']:
+                if key not in head:
+                    head[key] = srcs[0]
 
     for field in ['title', 'description']:
         if field in head:

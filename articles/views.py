@@ -1,3 +1,4 @@
+from urllib.parse import urljoin
 import operator, os, datetime
 from functools import reduce
 
@@ -30,6 +31,9 @@ def _article(request, head, body, meta):
         params = {'body': body}
         params.update(head)
         params.update(meta)
+        for key in ['twitter_image', 'facebook_image']:
+            if key in params:
+                params[key] = urljoin('http://' + settings.DOMAIN_NAME + request.path_info, params[key])
         return render(request, 'article.html', params)
 
 def index(request):
