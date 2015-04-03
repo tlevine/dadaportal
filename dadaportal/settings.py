@@ -67,7 +67,7 @@ else:
         USER = os.environ['USER']
     NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
-ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com:*', '.thomaslevine.com:*', 'portal.dada.pink']
+ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 
 INSTALLED_APPS = (
     'django.contrib.admin',
