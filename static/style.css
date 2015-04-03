@@ -245,8 +245,13 @@ article img, article video {
   margin-right: auto;
   max-width: 80%;
   max-height: 340px;
-  background-color: white;
 }
+article iframe {
+  height: 100%;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+article iframe,
 article img.wide,
 article video.wide {
   max-height: none;
@@ -311,6 +316,9 @@ nav .search-form input[type=text] {
 }
 nav .search-form input[type=text]:focus {
   background-color: white;
+}
+article iframe, article img, article video {
+  background-color: #BBB;
 }
 pre, blockquote, .line-block /* rst class */ {
   color: #BBB;

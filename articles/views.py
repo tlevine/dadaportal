@@ -22,7 +22,7 @@ def article_canonical(request, endpoint):
 
 def _article(request, head, body, meta):
     if head == None and body == None and meta == None:
-        msg = 'Could not reify %s' % fn
+        msg = 'Could not reify %s' % request.path_info
         return HttpResponseServerError(content = msg.encode('utf-8'))
     elif meta['redirect'] != None:
         return HttpResponseRedirect(meta['redirect'])
