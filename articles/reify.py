@@ -76,4 +76,4 @@ def reify(filename):
                 if service_field not in head:
                     head[service_field] = head[field]
 
-    return head, body
+    return head, body, {}
