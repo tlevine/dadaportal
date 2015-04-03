@@ -4,6 +4,8 @@ from logging import getLogger
 
 import lxml.html, lxml.etree
 
+from .models import ArticleCache
+
 logger = getLogger(__name__)
 
 def parse(filename):
@@ -53,10 +55,16 @@ FORMATS = {
     'html': read,
 }
 EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
-def reify(filename):
-    m = re.match(EXTENSION, filename)
+def from_file(dirname):
+    for just_fn in os.listdir(dirname):
+        if just_fn.startswith('index.'):
+            filename = os.path.join(dirname, just_fn)
+            break
+    else:
+        return None, None, None
+    m = re.match(EXTENSION, just_fn)
     if not (m and m.group(1) in FORMATS):
-        return None, None
+        return None, None, None
 
     head, body = parse(filename)
     if 'title' not in head:
@@ -76,4 +84,17 @@ def reify(filename):
                 if service_field not in head:
                     head[service_field] = head[field]
 
-    return head, body, {}
+    meta = {
+        'modified': os.stat(filename).st_mtime,
+        'filename': just_fn,
+        'redirect': head.get('redirect'),
+    }
+    return head, body, meta
+
+def from_db(article_cache):
+    meta = {
+        'modified': article_cache.modified,
+        'filename': article_cache.filename,
+        'endpoint': article_cache.endpoint,
+    }
+    return article_cache.head(), article_cache.body, meta

@@ -6,46 +6,30 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
 from django.db.models import Q
 
-from .reify import reify
+from .reify import from_file, from_db
 from .models import ArticleTag, ArticleCache
 
 def article_cached(request, endpoint):
     try:
-        a = ArticleCache.objects.get(endpoint = endpoint)
+        article_cache = ArticleCache.objects.get(endpoint = endpoint)
     except ArticleCache.DoesNotExist:
-        raise Http404('No such article')
-
-    if a.redirect == None:
-        params = a.head()
-        params['modified'] = a.modified
-        params['body'] = a.body
-        params['filename'] = a.filename
-        params['endpoint'] = a.endpoint
-        return render(request, 'article.html', params)
+        return None, None, None
     else:
-        return HttpResponseRedirect(a.redirect)
-
+        return _article(*from_db(article_cache))
 
 def article_canonical(request, endpoint):
-    dn = os.path.join(settings.ARTICLES_DIR, endpoint)
-    for just_fn in os.listdir(dn):
-        if just_fn.startswith('index.'):
-            fn = os.path.join(dn, just_fn)
-            break
-    else:
-        raise Http404('No such article')
-    head, body = reify(settings.ARTICLES_DIR, fn)
-    if head == None and body == None:
+    return _article(*from_file(settings.ARTICLES_DIR, endpoint))
+
+def _article(head, body, meta):
+    if head == None and body == None and meta == None:
         msg = 'Could not reify %s' % fn
         return HttpResponseServerError(content = msg.encode('utf-8'))
-    elif 'redirect' in head:
-        return HttpResponseRedirect(head['redirect'])
+    elif meta['redirect'] != None:
+        return HttpResponseRedirect(meta['redirect'])
     else:
-        params = dict(head)
-        params['modified'] = datetime.date.today()
-        params['body'] = body
-        params['filename'] = just_fn
-        params['endpoint'] = endpoint
+        params = {'body': body}
+        params.update(head)
+        params.update(meta)
         return render(request, 'article.html', params)
 
 def index(request):
