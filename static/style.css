@@ -320,6 +320,9 @@ nav .search-form input[type=text]:focus {
 article iframe, article img, article video {
   background-color: #BBB;
 }
+.transparent {
+  background-color: inherit;
+}
 pre, blockquote, .line-block /* rst class */ {
   color: #BBB;
   background-color: #333;
