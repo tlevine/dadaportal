@@ -1,10 +1,15 @@
+import os
+
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.http import HttpResponsePermanentRedirect
 
 from .views import article_cached, article_canonical, index
 
-article = article_cached if settings.IS_PRODUCTION else article_canonical
+if 'USE_ARTICLE_CACHE' in os.environ or settings.IS_PRODUCTION:
+    article = article_cached
+else:
+    article = article_canonical
 
 urlpatterns = patterns('',
     url(r'^$', index),
