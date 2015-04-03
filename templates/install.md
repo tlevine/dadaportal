@@ -58,8 +58,11 @@ Copy this to your apache sites-enabled directory on the production computer.
 
         Alias /source/ {{REMOTE_BASE_DIR}}/canonical-articles/
         <Directory {{REMOTE_BASE_DIR}}/canonical-articles/>
-            Options FollowSymLinks
             AllowOverride None
+            Options +Indexes
+
+            # Don't use index.html as the index page.
+            DirectoryIndex
         </Directory>
 
         Alias /favicon.ico {{REMOTE_STATIC_ROOT}}/favicon.ico
