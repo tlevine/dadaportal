@@ -54,6 +54,9 @@
         <li><a href="/schedule/">Schedule</a></li>
         <li><a href="/!/about/">About</a></li>
         {% endcomment %}
+        {% if request_job %}
+        <li><a href="/jobs/">Hire me.</a></li>
+        {% endif %}
       </ul>
       {% endblock %}
       {% block top_search %}

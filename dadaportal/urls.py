@@ -31,7 +31,7 @@ urlpatterns = patterns('',
 
     url(r'^track$', 'tracking.views.track_xhr'),
 
-    url(r'^jobs$', 'job.views.job'),
+    url(r'^jobs/$', 'job.views.job'),
 
     # Backwards compatibility
     fix_tag('open-data'),
