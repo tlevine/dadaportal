@@ -19,7 +19,9 @@ def article_cached(request, endpoint):
         return _article(request, *from_db(article_cache))
 
 def article_canonical(request, endpoint):
-    return _article(request, *from_file(os.path.join(settings.ARTICLES_DIR, endpoint)))
+    head, body, meta = from_file(os.path.join(settings.ARTICLES_DIR, endpoint))
+    meta['endpoint'] = endpoint
+    return _article(request, head, body, meta)
 
 def _article(request, head, body, meta):
     if head == None and body == None and meta == None:
