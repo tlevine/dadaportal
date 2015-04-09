@@ -1,3 +1,18 @@
+select ip_address, count(*) from tracking_hit where datetime_start > '2015-04-09' group by ip_address order by count(*) desc;
+
+
+select ip_address, count(*) from tracking_hit where datetime_start > '2015-04-09' and user_agent not similar to '%(Bot|Spider|Baidu|Google|Yahoo)%' group by ip_address order by coun
+t(*) desc;
+
+
+select session, count(*) from tracking_hit where datetime_start > '2015-04-09' and user_agent not similar to '%(Bot|Spider|Baidu|Google|Yahoo)%' group by session order by count(*) d
+esc;
+
+
+
+select datetime_start, referrer, endpoint from tracking_hit where status_code = 404 order by datetime_start desc;
+
+
 http://www.dwheeler.com/essays/quotes-in-html.html
 
 
