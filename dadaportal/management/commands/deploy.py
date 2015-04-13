@@ -12,7 +12,7 @@ def _run(args):
 
 def rsync(local, remote):
     r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_SSH_HOST, remote)
-    return _run(['rsync', '-avHS', '--exclude', '.*', local, r])
+    return _run(['rsync', '-avHS', '--exclude', 'static-compiled', '--exclude', '.*', local, r])
 
 def scp(local, remote):
     r = '%s@%s:%s' % (settings.REMOTE_USER, settings.REMOTE_SSH_HOST, remote)
