@@ -81,7 +81,7 @@ computer.''')
             'EMAIL_ADDRESS': settings.EMAIL_ADDRESS,
             'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
         }
-        text = get_template('config/.notmuch-config').render(Context(params))
+        text = get_template('config/notmuch-config').render(Context(params))
         scp_text(text, os.path.join(settings.REMOTE_BASE_DIR, 'notmuch-config'))
 
         self._comment('Caching the articles on nsa')

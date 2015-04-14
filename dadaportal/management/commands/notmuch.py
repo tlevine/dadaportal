@@ -16,6 +16,6 @@ class Command(BaseCommand):
             'EMAIL_ADDRESS': settings.EMAIL_ADDRESS,
             'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
         }
-        text = get_template('config/.notmuch-config').render(Context(params))
+        text = get_template('config/notmuch-config').render(Context(params))
         with open(os.environ['NOTMUCH_CONFIG'], 'w') as fp:
             fp.write(text)

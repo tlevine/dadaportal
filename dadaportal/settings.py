@@ -189,4 +189,4 @@ DO_NOT_TRACK = [
     r'^/track',
 ]
 
-os.environ['NOTMUCH_CONFIG'] = os.path.join(BASE_DIR, '.notmuch-config')
+os.environ['NOTMUCH_CONFIG'] = os.path.join(BASE_DIR, 'notmuch-config')
