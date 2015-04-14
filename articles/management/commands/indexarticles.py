@@ -1,4 +1,4 @@
-import os, subprocess
+import os, subprocess, shutil
 
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -14,6 +14,9 @@ class Command(BaseCommand):
     help = 'Index articles in the notmuch database at %s.' % notmuch_dir
 
     def handle(self, *args, **options):
+        # Because "notmuch new" doesn't recognize the alternative notmuch directory, I guess
+        shutil.copyfile(os.environ['NOTMUCH_CONFIG'], os.path.expanduser('~/.notmuch-config'))
+
         template = get_template('article-notmuch.html')
         if os.path.isdir(notmuch_dir):
             for thing in os.listdir(notmuch_dir):
