@@ -82,7 +82,7 @@ computer.''')
             'NOTMUCH_OTHER_EMAIL': settings.NOTMUCH_OTHER_EMAIL,
         }
         text = get_template('config/.notmuch-config').render(Context(params))
-        scp_text(text, '.notmuch-config')
+        scp_text(text, os.path.join(settings.REMOTE_BASE_DIR, 'notmuch-config'))
 
         self._comment('Caching the articles on nsa')
         ssh('./manage.py syncarticles')
