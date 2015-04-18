@@ -47,7 +47,7 @@ def sync(subdir = (), threshold = None, endpoints = set()):
     indices = [os.path.join(parent, child) for child in os.listdir(parent) if child.startswith('index.')]
     if len(indices) == 0:
         logger.debug('No index file in "%s"' % parent)
-    elif datetime.datetime.fromtimestamp(os.stat(indices[0]).st_mtime) <= threshold or endpoint not in endpoints:
+    elif datetime.datetime.fromtimestamp(os.stat(indices[0]).st_mtime) <= threshold and endpoint in endpoints:
         logger.debug('Index file "%s" is old, skipping' % indices[0])
     else:
         head, body, meta = from_file(parent)
