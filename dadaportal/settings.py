@@ -141,8 +141,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
-    'tracking.context_processors.tracking',
+    'dadaportal.context_processors.og_url',
     'job.context_processors.job',
+    'tracking.context_processors.tracking',
 )
 
 LOGGING = {
