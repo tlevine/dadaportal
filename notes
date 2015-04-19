@@ -1,3 +1,7 @@
+select endpoint, count(*) from tracking_hit where datetime_start > 
+'2015-04-12' group by endpoint order by count(*) desc;
+
+
 select ip_address, count(*) from tracking_hit where datetime_start > '2015-04-09' group by ip_address order by count(*) desc;
 
 
