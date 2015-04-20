@@ -7,10 +7,7 @@ from .models import Hit
 
 logger = logging.getLogger(__name__)
 
-def track_xhr(request):
-    '''
-    Finish the tracking after the XHR.
-    '''
+def _get_hit_id(request):
     if 'hit_id' not in request.POST:
         return HttpResponse(status = 403)
     hit_id = request.POST['hit_id']
@@ -18,6 +15,27 @@ def track_xhr(request):
         hit = Hit.objects.get(hit = hit_id)
     except Hit.DoesNotExist:
         logger.warn('Hit "%d" was missing.' % hit_id)
+        return None
+    else:
+        return hit
+
+def followup_ico(request):
+    hit = _get_hit_id(request)
+    if hit == None:
+        hit.javascript_enabled = True
+        status = 200
+    else:
+        status = 403
+
+    return HttpResponse(status = status,
+        content = b'\x00\x00\x01\x00\x01\x00\x01\x01\x02\x00\x01\x00\x01\x008\x00\x00\x00\x16\x00\x00\x00(\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa1W\xfe\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
+def followup_js(request):
+    '''
+    Finish the tracking after the XHR.
+    '''
+    hit = _get_hit_id(request)
+    if hit == None:
         return HttpResponse(status = 403)
 
     # Save values from the highest scroll.
@@ -33,5 +51,6 @@ def track_xhr(request):
                 setattr(hit, field, request.POST.get(field))
 
     hit.datetime_end = datetime.datetime.now()
+    hit.javascript_enabled = True
     hit.save()
     return render(request, 'track.txt')
