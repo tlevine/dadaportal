@@ -51,3 +51,4 @@ def followup_js(request):
     hit.javascript_enabled = True
     hit.save()
     return render(request, 'track.txt')
+
