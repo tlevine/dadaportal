@@ -66,6 +66,9 @@
       {% endblock %}
     </nav>
     {% block base %}{% endblock %}
-    {% if hit_id %}<script>{% include 'track.js' %}</script>{% endif %}
+    {% if hit_id %}
+    <script>{% include 'track.js' %}</script>
+    <noscript><img style="border: 0;" src="/track/followup.ico" /></noscript>
+    {% endif %}
   </body>
 </html>
