@@ -59,8 +59,8 @@ urlpatterns = patterns('',
    #
     
     # Mess with script kiddies.
-    url(r'^wp-', infinite_redirect)
-    url(r'\.swf$', infinite_redirect)
+    url(r'^wp-', infinite_redirect),
+    url(r'\.swf$', infinite_redirect),
 
     # Slashes
     url(r'^(.+[^/])$', lambda _, x: HttpResponseRedirect('/%s/' % x)),
