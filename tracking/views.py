@@ -50,5 +50,8 @@ def followup_js(request):
     hit.datetime_end = datetime.datetime.now()
     hit.javascript_enabled = True
     hit.save()
-    return render(request, 'track.txt')
+    return render(request, 'tracking-track.txt')
 
+
+def overview(request):
+    return render(request, 'tracking-overview.html')
