@@ -9,7 +9,7 @@
       <dt>To</dt><dd>{{message.to}}</dd>
       <dt>Date</dt>
       <dd>
-        <a href="/@/date:{{message.notmuchdate}}..{{message.notmuchdate}}">{{message.date}}</a>
+        <a href="{% url 'mail-search' 'date:' + message['notmuchdate'] + '..' + message['notmuchdate'] %}">{{message.date}}</a>
         at {{message.time}}
       </dt>
     </dl>

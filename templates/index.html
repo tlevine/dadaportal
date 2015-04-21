@@ -11,8 +11,8 @@
   <h1>Dada Portal</h1>
   {% include 'search-form.html' %}
   <ul>
-    <li><a href="/popular/">Popular articles</a></li> &bull;
-    <li><a href="/+/?q=date:1D..&amp;hide_emails=">Recent updates</a></li>
+    <li><a href="{% url 'dadaportal-popular' %}">Popular articles</a></li> &bull;
+    <li><a href="{% url 'search' %}?q=date:1D..&amp;hide_emails=">Recent updates</a></li>
   </ul>
 </div>
 {% endblock %}

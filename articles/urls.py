@@ -12,11 +12,10 @@ else:
     article = article_canonical
 
 urlpatterns = patterns('',
-    url(r'^$', index),
-    url(r'^(.+)/$', article),
+    url(r'^$', index, name = 'article-index'),
+    url(r'^(.+)/$', article, name = 'article-article'),
     url(r'^([^/]+)$', lambda _, x: HttpResponsePermanentRedirect('/!/%s/' % x)),
-    url(r'^(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.ARTICLES_DIR}),
 
-    # Something other than 404?
-   #url(r'^$',
+    # Only for development
+    url(r'^(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.ARTICLES_DIR}),
 )

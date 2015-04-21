@@ -14,9 +14,9 @@
 <p>
   Here are the matches for &ldquo;<strong>{{q}}</strong>&rdquo; among
   {% if hide_emails %}
-  articles, only. You can <a href="/+/?q={{q}}">include mails too</a>.
+  articles, only. You can <a href="{% url 'search' %}?q={{q}}">include mails too</a>.
   {% else %}
-  articles and emails. You can <a href="/+/?q={{q}}&amp;hide_emails=">hide the mails</a>.
+  articles and emails. You can <a href="{% url 'search' %}?q={{q}}&amp;hide_emails=">hide the mails</a>.
   {% endif %}
 </p>
 {% endif %}

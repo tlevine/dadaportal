@@ -10,6 +10,6 @@ urlpatterns = patterns('',
 
     # The actual message/thread
     # Allow for queries to contain slashes
-    url(r'^(.+)/([0-9]+)$', attachment),
-    url(r'^(.+)/$', search),
+    url(r'^(.+)/([0-9]+)$', attachment, name = 'mail-attachment'),
+    url(r'^(.+)/$', search, name = 'mail-search'),
 )

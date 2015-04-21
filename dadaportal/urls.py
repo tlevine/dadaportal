@@ -15,12 +15,13 @@ def fix_tag(tag):
     return url(r'^%s/?$' % tag, RedirectView.as_view(url='/!/?tag=%s' % tag))
 
 urlpatterns = patterns('',
-    url(r'^/?$', index),
+    url(r'^/?$', index, name = 'dadaportal-index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/$', docs),
-    url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html')),
+    url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html'),
+        name = 'dadaportal-popular'),
 
-    url(r'^\+/$', 'search.views.search'),
+    url(r'^\+/$', 'search.views.search', name = 'search'),
 #   url(r'^schedule/', include('schedule.urls')),
 
     url(r'^@/', include('mail.urls')),
@@ -31,7 +32,7 @@ urlpatterns = patterns('',
 
     url(r'^track/', include('tracking.urls')),
 
-    url(r'^jobs/$', 'job.views.job'),
+    url(r'^jobs/$', 'job.views.job', name = 'jobs'),
 
     # Backwards compatibility
     fix_tag('open-data'),
