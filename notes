@@ -1,3 +1,29 @@
+
+portal=> select referrer from tracking_hit where endpoint = '/img/pink_hat_icon-200.png/'  
+dadaportal-> ;  
+dadaportal=> select * from tracking_hit where endpoint = '/img/pink_hat_icon-200.png/'           
+;
+dadaportal=> select * from tracking_hit where endpoint = '/img/pink_hat_icon-200.png/'  
+ order by datetime_start desc;  
+dadaportal=> select endpoint, count(*) from tracking_hit where status_code != 200 and datetime_start > '2015-04-12' group by endpoint order by count(*) desc;  
+dadaportal=> select endpoint, referrer from tracking_hit where status_code != 200 and referrer not null;
+ERROR:  syntax error at or near "null"  
+LINE 1: ...tracking_hit where status_code != 200 and referrer not null;
+                                                                  ^  
+dadaportal=> select endpoint, referrer from tracking_hit where status_code != 200 and referrer not NULL;                                                                                          
+ERROR:  syntax error at or near "NULL"
+LINE 1: ...tracking_hit where status_code != 200 and referrer not NULL;  
+                                                                  ^
+dadaportal=> select endpoint, referrer from tracking_hit where status_code != 200 and referrer IS NOT NULL;
+dadaportal=> select endpoint, referrer from tracking_hit where status_code != 200 and referrer IS NOT NULL order by datetime_start desc;
+
+
+
+
+
+
+
+
 select referrer, count(*) from tracking_hit group by referrer order by count(*) desc;
 
 select referrer, endpoint from tracking_hit where session = XXX;

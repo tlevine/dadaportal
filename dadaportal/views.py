@@ -24,3 +24,7 @@ def docs(request):
         params[var] = getattr(settings, var)
     doc = get_template('install.md').render(Context(params))
     return render(request, 'docs.html', {'doc': markdown.markdown(doc)})
+
+def infinite_redirect(request):
+    'To annoy script kiddies'
+    return HttpResponseRedirect(request.path_info)

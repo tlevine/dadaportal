@@ -5,7 +5,7 @@ from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
-from .views import index, docs
+from .views import index, docs, infinite_redirect
 
 def fix_dir(old, new):
     return url(r'^%s(/(?:.+)?)$' % old,
@@ -48,6 +48,19 @@ urlpatterns = patterns('',
     fix_dir('scarsdale', '!/scarsdale'),
     fix_dir('stuff', '!/stuff'),
    #fix_dir('schedule', ''),
+
+    url(r'^img/pink_hat_icon-200.png/?$',
+        RedirectView.as_view(url='/static/hat.png', permanent = True)),
+    url(r'^recentchanges',
+        RedirectView.as_view(url='/+/?q=date:1W..', permanent = False)),
+    url(r'^ikiwiki.cgi',
+        RedirectView.as_view(url='/+/', permanent = False)),
+   #url(r'piviti.xptv',
+   #
+    
+    # Mess with script kiddies.
+    url(r'^wp-', infinite_redirect)
+    url(r'\.swf$', infinite_redirect)
 
     # Slashes
     url(r'^(.+[^/])$', lambda _, x: HttpResponseRedirect('/%s/' % x)),
