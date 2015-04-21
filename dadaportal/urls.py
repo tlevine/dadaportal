@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^source/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.ARTICLES_DIR, 'show_indexes': True}),
 
-    url(r'^track/', include('tracking.views.urls')),
+    url(r'^track/', include('tracking.urls')),
 
     url(r'^jobs/$', 'job.views.job'),
 

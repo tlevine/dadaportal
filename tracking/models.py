@@ -26,6 +26,9 @@ class Hit(models.Model):
     pageXOffset = models.IntegerField(null = True)
     pageYOffset = models.IntegerField(null = True)
 
+    # Populated on the XHR or the img
+    javascript_enabled = models.NullBooleanField()
+
     def __str__(self):
-        d = datetime.datetime.now().strftime('%B %d, %H:%M:%S')
+        d = self.datetime_start.strftime('%B %d, %H:%M:%S')
         return '%d (%s at %s)' % (self.hit, self.endpoint, d)

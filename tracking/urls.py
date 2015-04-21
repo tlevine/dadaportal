@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from .views import analyze, followup_ico, followup_js
+from .views import overview, followup_ico, followup_js
 
 urlpatterns = patterns('',
     url(r'^$', overview),
