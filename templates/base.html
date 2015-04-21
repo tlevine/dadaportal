@@ -68,7 +68,7 @@
     {% block base %}{% endblock %}
     {% if hit_id %}
     <script>{% include 'tracking-track.js' %}</script>
-    <noscript><img style="border: 0;" src="/track/followup.ico?hit_id={{hit_id}}" /></noscript>
+    <noscript><img style="border: 0;" src="{% url 'followup-img' %}?hit_id={{hit_id}}" /></noscript>
     {% endif %}
   </body>
 </html>

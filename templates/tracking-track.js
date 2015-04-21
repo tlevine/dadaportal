@@ -15,7 +15,7 @@
     f.append('pageYOffset', window.pageYOffset)
 
     var r = new XMLHttpRequest();
-    r.open('POST', '/track/followup.js', true)
+    r.open('POST', '{% url 'followup-xhr' %}, true)
     r.onreadystatechange = receive
     r.send(f)
 
