@@ -46,5 +46,5 @@ def index(request):
         qs = reduce(operator.or_, (Q(tag = tag) for tag in tags.split('|')))
         query = ArticleTag.objects.filter(qs).select_related('article')
     articles = [article_tag.article for article_tag in query.distinct('article_id') if 'title' in article_tag.article.head()]
-    articles_simple = [{'href': a.endpoint, 'title': a.head()['title']} for a in articles]
+    articles_simple = [{'endpoint': a.endpoint, 'title': a.head()['title']} for a in articles]
     return render(request, 'article-index.html', {'articles': articles_simple})
