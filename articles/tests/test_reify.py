@@ -1,6 +1,6 @@
 import os
 
-from .reify import from_file, from_db
+from ..reify import from_file, from_db, parse
 
 def test_from_file(tmpdir):
     fn = os.path.join('article-name', 'index.txt')
@@ -14,3 +14,6 @@ def test_from_file(tmpdir):
         'filename': 'index.txt',
         'redirect': None,
     }
+
+def test_parse():
+    parse(os.path.join('articles', 'tests', 'fixtures', '1.rst'))
