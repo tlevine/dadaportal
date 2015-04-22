@@ -14,8 +14,14 @@ def parse(filename):
     with open(filename) as body_fp:
         head_fp = io.StringIO()
         for line in body_fp:
-            if re.match(r'^-+\s$', line):
+            if re.match(r'^-+\s+$', line):
+                # Dashed line
                 head_fp.seek(0)
+                break
+            elif re.match(r'^\s*$', line):
+                # Empty line before a dashed line
+                head_fp.truncate(0)
+                body_fp.seek(0)
                 break
             else:
                 head_fp.write(line)

@@ -236,9 +236,9 @@ article {
 article ul, article ol, article dl {
   margin-left: 1.5em;
 }
-article dt { float: left; width: 90px; }
 article dt:after { content: ': '; }
-article dd { margin-left: 90px; }
+article dt { float: left; width: 170px; }
+article dd { margin-left: 170px; }
 article img, article video {
   display: block;
   margin-left: auto;
