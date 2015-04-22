@@ -26,6 +26,8 @@ def search(request):
             break
         subject = html.unescape(m.get_header('subject'))
 
+        # I'm gonna move away from notmuch soon enough anyway,
+        # so let's not worry about fixing this.
         if settings.NOTMUCH_SECRET == html.unescape(m.get_header('from')):
             href = '/!/%s/' % html.unescape(m.get_header('to'))
             if subject.strip() == '':
