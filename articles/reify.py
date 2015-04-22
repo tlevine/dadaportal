@@ -40,7 +40,7 @@ def parse(filename):
     return head, body
 
 def rst(fp):
-    return docutils.examples.html_body(fp.read())
+    return docutils.examples.html_body(fp.read(), doctitle = False)
 
 def md(fp):
     return markdown.markdown(fp.read())
@@ -80,10 +80,11 @@ def from_file(dirname):
     except lxml.etree.XMLSyntaxError:
         pass
     else:
-        if 'title' not in head:
-            h1s = html.xpath('//h1')
-            if len(h1s) > 0:
-                head['title'] = h1s[0].text_content()
+        for key, tag in [('title', 'h1'), ('description', 'p')]:
+            if key not in head:
+                tags = html.xpath('//' + tag)
+                if len(tags) > 0:
+                    head[key] = tags[0].text_content()
 
         srcs = html.xpath('//img/@src')
         if len(srcs) > 0:
