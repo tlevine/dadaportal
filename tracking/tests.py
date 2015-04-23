@@ -1,7 +1,7 @@
 from django.test import Client, RequestFactory
 
-from ..models import Hit
-from ..context_processors import tracking
+from .models import Hit
+from .context_processors import tracking
 
 def test_tracking():
     Hit.objects.all().delete()
