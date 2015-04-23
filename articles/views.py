@@ -16,7 +16,9 @@ def article(request, endpoint):
         obj = get(Article, endpoint = endpoint)
     except Article.DoesNotExist:
         raise Http404('Article is not cached in the database or doesn\'t exist at all.')
+    return _article(request, obj)
 
+def _article(request, obj):
     if obj.redirect != None:
         return HttpResponseRedirect(obj.redirect)
 

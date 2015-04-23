@@ -14,4 +14,5 @@ def test_index():
     response = c.get('/!/')
     assert b'<a href="/!/a/b/">Schaufelradbagger</a>' in response.content
 
-
+def test_article():
+    _article(request, obj)
