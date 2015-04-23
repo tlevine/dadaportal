@@ -1,7 +1,7 @@
 '''
 http://www.jwz.org/doc/threading.html
 '''
-import email, os
+import email, os, re
 
 from lxml.html.clean import clean_html
 
@@ -21,6 +21,7 @@ class Message(Cache):
 
     body = m.TextField(null = False)
 
+    partsjson = m.TextField(null = False)
    #thread_id = m.Column(s.String)
     is_mailing_list = m.BooleanField(null = False, default = False)
 
@@ -40,7 +41,7 @@ class Message(Cache):
             date = email.utils.parsedate_to_datetime(date)
 
         return {
-            'message_id': m.get('message-id'),
+            'message_id': _parse_message_id(m.get('message-id')),
             'is_mailing_list': len([k for k in m.keys() if k.lower().startswith('list')]),
             'datetime': date,
             '_from': m.get('from', ''),
@@ -48,6 +49,7 @@ class Message(Cache):
             'cc': m.get('cc', ''),
             'subject': m.get('subject', ''),
             'body': _body(m),
+            'partsjson': json.dumps(_parts(m)),
         }
 
     def __str__(self):
@@ -63,3 +65,14 @@ def _body(message):
     if 'html' in message.get_content_type().lower():
         body = clean_html(body)
     return body
+
+def _parse_message_id(maybe_message_id):
+    if maybe_message_id:
+        m = re.match(r'^[^<]*<([^<]+)>.*$', m.get('message-id'))
+        if m:
+            return m.group(1)
+
+def _parts(m):
+    if not m.is_multipart():
+        return []
+    return list(part.get_filename('Untitled') for part in m.get_payload())

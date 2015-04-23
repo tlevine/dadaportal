@@ -1,7 +1,14 @@
+import re
+
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Message
+
+def index(request):
+    messages = [{'message_id': a.message_id, 'subject': a.subject} \
+        for a in Message.objects.all()]
+    return render(request, 'mail/index.html', {'messages': messages})
 
 def message_legacy(request, message_id):
     return HttpResponseRedirect('/@/%s/' % message_id)
@@ -21,14 +28,13 @@ def message(request, message_id):
         'cc': _redact(m.cc),
         'body': m.body,
 
-        'parts': parts,
+        'parts': m.parts,
         # Add thread eventually
     }
     return render(request, 'mail/message.html', params)
 
-def attachment(request, message_id, part):
-    i = int(part) - 1
-
+def attachment(request, message_id, i):
+    i = int(i)
     try:
         message_db = Message.objects.get(message_id = message_id)
     except Message.DoesNotExist:

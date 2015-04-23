@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block base %}
+<article>
+  {% if messages|length > 0 %}
+  <ul>
+    {% for message in messages %}
+    <li>
+      <a href="{% url 'mail/message' message.message_id %}">{{message.subject}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <center>No mail</center>
+  {% endif %}
+</article>
+{% endblock %}
