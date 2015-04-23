@@ -77,6 +77,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
    #'django.contrib.markup',
+
+    'haystack',
+
     'articles',
     'search',
     'mail',
