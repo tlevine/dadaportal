@@ -5,7 +5,7 @@ from logging import getLogger
 
 import lxml.html, lxml.etree
 
-from .models import ArticleCache
+from django.conf import settings
 
 logger = getLogger(__name__)
 
@@ -62,19 +62,18 @@ FORMATS = {
     'html': read,
 }
 EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
-def from_file(dirname):
-    for just_fn in os.listdir(dirname):
-        if just_fn.startswith('index.'):
-            filename = os.path.join(dirname, just_fn)
-            logger.debug('Using file %s from directory %s' % (just_fn, dirname))
-            break
-    else:
-        return None, None, None
-    m = re.match(EXTENSION, just_fn)
-    if not (m and m.group(1) in FORMATS):
-        return None, None, None
 
-    head, body = parse(filename)
+def reify(filename):
+    path = os.path.join(settings.ARTICLES_DIR, filename)
+    dn, fn = os.path.split(path)
+    if not fn.startswith('index.'):
+        return
+
+    m = re.match(EXTENSION, fn)
+    if not (m and m.group(1) in FORMATS):
+        return
+
+    head, body = parse(path)
     try:
         html = lxml.html.fromstring(body)
     except lxml.etree.XMLSyntaxError:
@@ -85,32 +84,30 @@ def from_file(dirname):
                 tags = html.xpath('//' + tag)
                 if len(tags) > 0:
                     head[key] = tags[0].text_content()
+                else:
+                    head[key] = ''
 
         srcs = html.xpath('//img/@src')
         if len(srcs) > 0:
-            for key in ['twitter_image', 'facebook_image']:
+            for service in ['twitter', 'facebook']:
+                key = '%s_image' % service
                 if key not in head:
                     head[key] = srcs[0]
 
     for field in ['title', 'description']:
-        if field in head:
-            for service in ['facebook', 'twitter']:
-                service_field = '%s_%s' % (service, field)
-                if service_field not in head:
-                    head[service_field] = head[field]
+        for service in ['facebook', 'twitter']:
+            key = '%s_%s' % (service, field)
+            if key not in head:
+                head[key] = head[field]
 
-    meta = {
-        'modified': datetime.datetime.fromtimestamp(os.stat(filename).st_mtime),
-        'filename': just_fn,
-        'redirect': head.get('redirect'),
+    data = {
+        'modified': datetime.datetime.fromtimestamp(os.stat(path).st_mtime),
+        'filename': filename,
+        'body': body,
     }
-    return head, body, meta
-
-def from_db(article_cache):
-    meta = {
-        'modified': article_cache.modified,
-        'redirect': article_cache.redirect,
-        'filename': article_cache.filename,
-        'endpoint': article_cache.endpoint,
-    }
-    return article_cache.head(), article_cache.body, meta
+    for key in data:
+        if key in head:
+            tpl = 'Key "%s" is reserved; you can\'t use it in an article header.'
+            raise ValueError(tpl % key)
+    data.update(head)
+    return data
