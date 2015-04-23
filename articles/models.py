@@ -1,11 +1,14 @@
-import json
+import json, os, logging
 from urllib.parse import urljoin
 
 from django.db import models
+from django.conf import settings
 
 from caching import Cache
 
 from .reify import reify as _reify
+
+logger = logging.getLogger(__name__)
 
 class Article(Cache):
     '''
@@ -15,20 +18,20 @@ class Article(Cache):
     '''
     endpoint = models.TextField(null = False, blank = False)
 
-    title = models.TextField(null = False)
-    description = models.TextField(null = False)
+    title = models.TextField(null = True)
+    description = models.TextField(null = True)
     body = models.TextField(null = False)
 
     redirect = models.TextField(null = True)
     tagsjson = models.TextField(null = False) # JSON
 
-    facebook_title = models.TextField(null = False)
-    facebook_description = models.TextField(null = False)
-    facebook_image = models.TextField(null = False)
+    facebook_title = models.TextField(null = True)
+    facebook_description = models.TextField(null = True)
+    facebook_image = models.TextField(null = True)
 
-    twitter_title = models.TextField(null = False)
-    twitter_description = models.TextField(null = False)
-    twitter_image = models.TextField(null = False)
+    twitter_title = models.TextField(null = True)
+    twitter_description = models.TextField(null = True)
+    twitter_image = models.TextField(null = True)
 
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
@@ -41,11 +44,8 @@ class Article(Cache):
     def tags(self, value):
         self.tagsjson = json.dumps(value)
 
-    def __str__(self):
-        return self.head().get('title', self.endpoint)
-
-    @staticmethod
-    def discover(subdir = ()):
+    @classmethod
+    def discover(Class, subdir = ()):
         '''
         subdir: Directory within ARTICLES_DIR to look for new articles
         '''
@@ -55,7 +55,7 @@ class Article(Cache):
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
             if os.path.isdir(fn):
-                yield from self.discover(subdir = subdir + (child,))
+                yield from Class.discover(subdir = subdir + (child,))
             elif not os.path.isfile(fn):
                 logger.warning('Skipping %s because it is a symlink' % fn)
                 continue

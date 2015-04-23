@@ -1,6 +1,7 @@
 '''
 http://www.jwz.org/doc/threading.html
 '''
+import os
 from email import message_from_file
 
 from lxml.html.clean import clean_html

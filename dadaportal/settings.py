@@ -51,6 +51,7 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     USER = REMOTE_USER
+    MAIL_DIR = '/var/www/maildir'
 
 else:
     print('Running in development mode')
@@ -62,6 +63,7 @@ else:
         USER = REMOTE_USER
     else:
         USER = os.environ['USER']
+    MAIL_DIR = '/home/tlevine/public-cur-emails'
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 

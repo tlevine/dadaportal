@@ -1,4 +1,8 @@
+import datetime, hashlib, os, logging
+
 from django.db import models
+
+logger = logging.getLogger(__name__)
 
 def _md5sum(filename):
     return hashlib.md5(open(filename, 'rb').read()).hexdigest()
@@ -69,3 +73,11 @@ class Cache(models.Model):
         # Update if everything worked.
         self.update(**reified)
         return True
+
+    def __str__(self):
+        msg = 'Cached %(class)s "%(instance)s"'
+        params = {
+            'class': self.__class__.__name__,
+            'instance': self.title if self.title else self.endpoint,
+        }
+        return msg % params

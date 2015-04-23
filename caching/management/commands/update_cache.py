@@ -19,9 +19,16 @@ class Command(BaseCommand):
         # Update and create.
         n = 0
         for filename in Class.discover():
-            if filename in filenames:
-                self.stdout.write('Updated "%s"' % filename)
-            else:
-                self.stdout.write('Created "%s"' % filename)
-            n += 1
-        self.stdout.write('Created or updated %d %s' % (n, Class.plural_noun))
+            if filename not in filenames:
+                obj = Class.add(filename)
+                self.stdout.write('Created %s' % obj)
+                n += 1
+                continue
+
+            obj = Class.objects.get(filename = filename)
+            if obj.sync():
+                self.stdout.write('Updated %s' % obj)
+                n += 1
+                continue
+
+        self.stdout.write('Created or updated %d %s records' % (n, Class.__name__))

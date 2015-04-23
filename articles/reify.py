@@ -1,4 +1,5 @@
 import os, re, io
+from urllib.parse import urljoin
 import datetime
 import yaml, markdown, docutils.examples
 from logging import getLogger
@@ -75,39 +76,38 @@ def reify(filename):
         return
 
     head, body = parse(path)
+    data = {
+        'endpoint': endpoint,
+        'body': body,
+    }
+    for field in ['tags', 'redirect']:
+        if field in head:
+            data[field] = head[field]
+
     try:
         html = lxml.html.fromstring(body)
     except lxml.etree.XMLSyntaxError:
-        logging.warn('Invalid XML at %s' % path)
+        logger.debug('%s is not XML (It might be text.)' % path)
     else:
         for key, tag in [('title', 'h1'), ('description', 'p')]:
             if key not in head:
                 tags = html.xpath('//' + tag)
                 if len(tags) > 0:
-                    head[key] = tags[0].text_content()
-                else:
-                    head[key] = ''
+                    data[key] = tags[0].text_content()
 
         srcs = html.xpath('//img/@src')
         if len(srcs) > 0:
             for service in ['twitter', 'facebook']:
                 key = '%s_image' % service
                 if key not in head:
-                    head[key] = urljoin(endpoint, srcs[0])
+                    data[key] = urljoin(endpoint, srcs[0])
 
     for field in ['title', 'description']:
         for service in ['facebook', 'twitter']:
             key = '%s_%s' % (service, field)
-            if key not in head:
-                head[key] = head[field]
+            if key in head:
+                data[key] = head[key]
+            elif field in head:
+                data[key] = head[field]
 
-    data = {
-        'endpoint': endpoint,
-        'body': body,
-    }
-    for key in data:
-        if key in head:
-            tpl = 'Key "%s" is reserved; you can\'t use it in an article header.'
-            raise ValueError(tpl % key)
-    data.update(head)
     return data
