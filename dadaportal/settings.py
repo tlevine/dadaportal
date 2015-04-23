@@ -50,6 +50,7 @@ if IS_PRODUCTION:
     DEBUG = False
     TEMPLATE_DEBUG = False
 
+    USE_CACHE = True
     USER = REMOTE_USER
     MAIL_DIR = '/var/www/maildir'
 
@@ -59,6 +60,7 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
+    USE_CACHE = False
     if os.environ['USER'] == REMOTE_USER:
         USER = REMOTE_USER
     else:

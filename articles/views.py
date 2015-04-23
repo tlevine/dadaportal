@@ -13,7 +13,7 @@ from .models import Article
 
 def article(request, endpoint):
     try:
-        obj = get(Article, endpoint)
+        obj = get(Article, endpoint = endpoint)
     except Article.DoesNotExist:
         raise Http404('Article is not cached in the database or doesn\'t exist at all.')
 
@@ -24,7 +24,7 @@ def article(request, endpoint):
         'title': obj.title,
         'description': obj.description,
         'body': obj.body,
-        'tags': obj.tags(),
+        'tags': obj.tags,
 
         'facebook_title': obj.facebook_title,
         'facebook_description': obj.facebook_description,

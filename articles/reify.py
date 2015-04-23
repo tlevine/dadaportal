@@ -80,9 +80,10 @@ def reify(filename):
         'endpoint': endpoint,
         'body': body,
     }
-    for field in ['tags', 'redirect']:
-        if field in head:
-            data[field] = head[field]
+    if 'redirect' in head:
+        data['redirect'] = head['redirect']
+    if 'tags' in head:
+        data['tagsjson'] = json.dumps(head['tags'])
 
     try:
         html = lxml.html.fromstring(body)
