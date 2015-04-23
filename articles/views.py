@@ -37,5 +37,5 @@ def article(request, endpoint):
     return render(request, 'articles/article.html', params)
 
 def index(request):
-    articles = [{'endpoint': a.endpoint, 'title': a.title} for a in ArticleTag.objects.all()]
-    return render(request, 'article/index.html', {'articles': articles})
+    articles = [{'endpoint': a.endpoint, 'title': a.title} for a in Article.objects.all()]
+    return render(request, 'articles/index.html', {'articles': articles})

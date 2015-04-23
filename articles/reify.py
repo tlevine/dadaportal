@@ -1,4 +1,4 @@
-import os, re, io
+import os, re, io, json
 from urllib.parse import urljoin
 import datetime
 import yaml, markdown, docutils.examples
@@ -80,10 +80,7 @@ def reify(filename):
         'endpoint': endpoint,
         'body': body,
     }
-    if 'redirect' in head:
-        data['redirect'] = head['redirect']
-    if 'tags' in head:
-        data['tagsjson'] = json.dumps(head['tags'])
+    data['tagsjson'] = json.dumps(head.get('tags', []))
 
     try:
         html = lxml.html.fromstring(body)
@@ -103,6 +100,13 @@ def reify(filename):
                 if key not in head:
                     data[key] = urljoin(endpoint, srcs[0])
 
+    for key in ['redirect', 'title']:
+        if key in head:
+            data[key] = head[key]
+
+    if 'title' not in data:
+        data['title'] = endpoint.replace('-', ' ')
+
     for field in ['title', 'description']:
         for service in ['facebook', 'twitter']:
             key = '%s_%s' % (service, field)
@@ -110,5 +114,7 @@ def reify(filename):
                 data[key] = head[key]
             elif field in head:
                 data[key] = head[field]
+            elif field in data:
+                data[key] = data[field]
 
     return data
