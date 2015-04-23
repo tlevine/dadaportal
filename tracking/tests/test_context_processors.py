@@ -11,8 +11,8 @@ def test_tracking():
     c = Client()
     response = c.get('/')
 
-    hit = next(Hit.objects.all())
-    assert str(hit.session) in response.content
+    hit = Hit.objects.all()[0]
+    assert str(hit.session).encode('ascii') in response.content
 
 @pytest.mark.django_db
 def test_yes_user_agent():
