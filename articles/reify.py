@@ -65,7 +65,7 @@ FORMATS = {
 EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
 
 def reify(filename):
-    endpoint = os.path.dirname(filename)
+    endpoint = os.path.relpath(os.path.dirname(filename), settings.ARTICLES_DIR)
     path = os.path.join(settings.ARTICLES_DIR, filename)
     dn, fn = os.path.split(path)
     if not fn.startswith('index.'):
