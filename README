@@ -29,7 +29,7 @@ categories of dada.
 
 * Articles, which start as a directory of files
 * Mail, which start as directories of email files within a maildir
-* Schedule, which starts as pal calendar files
+* Schedule, which starts as pal calendar files (not supported yet)
 
 When run in development mode, the Dada Portal ignores the database cache;
 this facilitates quick debugging iteration cycles.

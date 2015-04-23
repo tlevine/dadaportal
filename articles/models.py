@@ -10,13 +10,9 @@ class ArticleCache(models.Model):
     articles are loaded from a cache so it can be more Django-like and
     so I thus don't have to think as much.
     '''
-    endpoint = models.TextField(primary_key = True)
-    filename = models.TextField(null = False, blank = False)
     redirect = models.TextField(null = True)
-    modified = models.DateTimeField(null = False)
     headjson = models.TextField(null = False) # JSON
     body = models.TextField(null = False) # HTML
-    md5sum = models.CharField(max_length = 32, null = False)
 
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
@@ -26,9 +22,3 @@ class ArticleCache(models.Model):
 
     def __str__(self):
         return self.head().get('title', self.endpoint)
-
-class ArticleTag(models.Model):
-    article = models.ForeignKey(ArticleCache)
-    tag = models.TextField()
-    def __str__(self):
-        return '%s (%s)' % (self.tag, self.article)
