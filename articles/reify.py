@@ -64,6 +64,7 @@ FORMATS = {
 EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
 
 def reify(filename):
+    endpoint = os.path.dirname(filename)
     path = os.path.join(settings.ARTICLES_DIR, filename)
     dn, fn = os.path.split(path)
     if not fn.startswith('index.'):
@@ -92,7 +93,7 @@ def reify(filename):
             for service in ['twitter', 'facebook']:
                 key = '%s_image' % service
                 if key not in head:
-                    head[key] = srcs[0]
+                    head[key] = urljoin(endpoint, srcs[0])
 
     for field in ['title', 'description']:
         for service in ['facebook', 'twitter']:
@@ -103,7 +104,7 @@ def reify(filename):
     data = {
         'modified': datetime.datetime.fromtimestamp(os.stat(path).st_mtime),
         'filename': filename,
-        'endpoint': os.path.dirname(filename),
+        'endpoint': endpoint,
         'body': body,
     }
     for key in data:
