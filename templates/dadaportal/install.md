@@ -9,7 +9,7 @@ Run this stuff on the server to which you are deploying (nsa).
 ### Install dependencies
 Assuming you're on Debian,
 
-    sudo apt-get install python3 pal notmuch python3-pip postgresql apache2 libapache2-mod-wsgi-py3
+    sudo apt-get install python3 pal python3-pip postgresql apache2 libapache2-mod-wsgi-py3
     sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
 ### Configure the database

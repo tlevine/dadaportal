@@ -31,7 +31,7 @@ if 'DATABASE_PASSWORD' in section.keys():
     PASSWORD = section['DATABASE_PASSWORD']
 else:
     PASSWORD = None
-for secret_name in ['NOTMUCH_SECRET', 'SECRET_KEY']:
+for secret_name in ['SECRET_KEY']:
     if secret_name not in section.keys():
         c.set(section_name, secret_name, ''.join(sample(ascii_letters + digits, 62)))
     locals()[secret_name] = c.get(section_name, secret_name)
@@ -44,8 +44,6 @@ REMOTE_USER = 'www-data'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-REMOTE_NOTMUCH_MAILDIR = '/var/www/maildir'
-
 IS_PRODUCTION = getuser() == REMOTE_USER or gethostname() == REMOTE_SSH_HOST or 'USER' not in os.environ
 
 if IS_PRODUCTION:
@@ -53,7 +51,6 @@ if IS_PRODUCTION:
     TEMPLATE_DEBUG = False
 
     USER = REMOTE_USER
-    NOTMUCH_MAILDIR = REMOTE_NOTMUCH_MAILDIR
 
 else:
     print('Running in development mode')
@@ -65,7 +62,6 @@ else:
         USER = REMOTE_USER
     else:
         USER = os.environ['USER']
-    NOTMUCH_MAILDIR = os.path.join(BASE_DIR, 'maildir')
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 
@@ -185,7 +181,6 @@ BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 DOMAIN_NAME = 'thomaslevine.com'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
-NOTMUCH_OTHER_EMAIL = 'underscore@thomaslevine.com;occurrence@thomaslevine.com;perluette@thomaslevine.com;tkl22@cornell.edu;'
 
 # For copying files during deployment
 LOCAL_PAL_DIR = os.path.expanduser('~/git/schedule')
@@ -198,5 +193,3 @@ DO_NOT_TRACK = [
     r'^/admin',
     r'^/track',
 ]
-
-os.environ['NOTMUCH_CONFIG'] = os.path.join(BASE_DIR, 'notmuch-config')
