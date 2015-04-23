@@ -73,11 +73,3 @@ class Cache(models.Model):
         # Update if everything worked.
         self.update(**reified)
         return True
-
-    def __str__(self):
-        msg = 'Cached %(class)s "%(instance)s"'
-        params = {
-            'class': self.__class__.__name__,
-            'instance': self.title if self.title else self.endpoint,
-        }
-        return msg % params

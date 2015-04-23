@@ -73,3 +73,11 @@ class Article(Cache):
     @staticmethod
     def reify(filename):
         return _reify(filename)
+
+    def __str__(self):
+        msg = '%(class)s "%(instance)s"'
+        params = {
+            'class': self.__class__.__name__,
+            'instance': self.title if self.title else self.endpoint,
+        }
+        return msg % params

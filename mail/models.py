@@ -1,8 +1,7 @@
 '''
 http://www.jwz.org/doc/threading.html
 '''
-import os
-from email import message_from_file
+import email, os
 
 from lxml.html.clean import clean_html
 
@@ -34,24 +33,29 @@ class Message(Cache):
     @staticmethod
     def reify(filename):
         with open(filename) as fp:
-            m = message_from_file(fp)
-
-        while m.is_multipart():
-            m = m.get_payload()[0]
+            m = email.message_from_file(fp)
 
         date = m.get('date')
         if date != None:
-            date = datetime.datetime.fromtimestamp(date)
+            date = email.utils.parsedate_to_datetime(date)
 
         return {
             'is_mailing_list': len([k for k in m.keys() if k.lower().startswith('list')]),
             'datetime': date,
-            '_from': m.get('from'),
-            'to': m.get('to'),
-            'cc': m.get('cc'),
-            'subject': m.get('subject'),
+            '_from': m.get('from', ''),
+            'to': m.get('to', ''),
+            'cc': m.get('cc', ''),
+            'subject': m.get('subject', ''),
             'body': _body(m),
         }
+
+    def __str__(self):
+        msg = '%(class)s "%(instance)s"'
+        params = {
+            'class': self.__class__.__name__,
+            'instance': self.subject,
+        }
+        return msg % params
 
 def _body(message):
     body = message.get_payload()
