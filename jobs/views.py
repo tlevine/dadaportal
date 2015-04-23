@@ -4,7 +4,7 @@ from django.utils.translation import get_language_from_request
 
 from .want import WANT, WANT_DEFAULT
 
-def job(request):
+def jobs(request):
     language = get_language_from_request(request)
     params = {
         'message': WANT.get(language, WANT_DEFAULT),

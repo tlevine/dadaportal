@@ -18,8 +18,9 @@ urlpatterns = patterns('',
     url(r'^/?$', index, name = 'dadaportal/index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/$', docs),
-    url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html'),
-        name = 'dadaportal/popular'),
+    url(r'^recommended/$',
+        TemplateView.as_view(template_name = 'dadaportal/recommended.html'),
+        name = 'dadaportal/recommended'),
 
     url(r'^\+/$', 'search.views.search', name = 'search'),
 #   url(r'^schedule/', include('schedule.urls')),
@@ -32,7 +33,7 @@ urlpatterns = patterns('',
 
     url(r'^track/', include('tracking.urls')),
 
-    url(r'^jobs/$', 'job.views.job', name = 'jobs'),
+    url(r'^jobs/$', 'jobs.views.jobs', name = 'jobs'),
 
     # Backwards compatibility
     fix_tag('open-data'),
