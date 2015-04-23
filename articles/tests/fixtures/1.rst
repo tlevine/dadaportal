@@ -1,12 +1,14 @@
+Heading 1
+============
 This file contains no  header.
 
-Section 1
+Heading 2, a
 ----------
 
 Paragraph
 
 
-Section 2
+Heading 2, b
 ----------
 
 Paragraph
