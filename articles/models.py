@@ -11,6 +11,8 @@ class Article(Cache):
     articles are loaded from a cache so it can be more Django-like and
     so I thus don't have to think as much.
     '''
+    endpoint = models.TextField(null = False, blank = False)
+
     title = models.TextField(null = False)
     description = models.TextField(null = False)
     body = models.TextField(null = False)
@@ -29,8 +31,13 @@ class Article(Cache):
     def get_absolute_url(self):
         return '/!/%s/' % self.endpoint
 
+    @property
     def tags(self):
         return json.loads(self.tagsjson)
+
+    @tags.setter
+    def tags(self, value):
+        self.tagsjson = json.dumps(value)
 
     def __str__(self):
         return self.head().get('title', self.endpoint)
@@ -56,10 +63,10 @@ class Article(Cache):
         if len(indices) == 0:
             logger.debug('No index file in "%s"' % parent)
         elif len(indices) == 1:
-            yield os.path.dirname(indices[0]), indices[0]
+            yield indices[0]
         elif len(indices) > 1:
             logger.debug('Several index files in "%s", using "%s"' % (parent, indices[0]))
-            yield os.path.dirname(indices[0]), indices[0]
+            yield indices[0]
 
     @staticmethod
     def reify(filename):

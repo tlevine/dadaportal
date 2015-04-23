@@ -102,8 +102,6 @@ def reify(filename):
                 head[key] = head[field]
 
     data = {
-        'modified': datetime.datetime.fromtimestamp(os.stat(path).st_mtime),
-        'filename': filename,
         'endpoint': endpoint,
         'body': body,
     }

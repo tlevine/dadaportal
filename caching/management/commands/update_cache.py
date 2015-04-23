@@ -7,9 +7,6 @@ class Command(BaseCommand):
     args = '(none)'
     help = 'Refreshes the database cache of file-backed Dada'
 
-    def discover(self):
-        raise NotImplementedError
-
     def handle(self, *args, **options):
         for Model in get_models():
             if issubclass(Model, Cache):
@@ -17,14 +14,14 @@ class Command(BaseCommand):
         
     def handle_one(self, Class):
         # Populate the pks cache.
-        pks = set(row[0] for row in Class.objects.values_list('pk'))
+        filenames = set(row[0] for row in Class.objects.values_list('filename'))
 
         # Update and create.
         n = 0
-        for pk, fn in Class.discover():
-            if pk in pks:
-                self.stdout.write('Updated "%s"' % pk)
+        for filename in Class.discover():
+            if filename in filenames:
+                self.stdout.write('Updated "%s"' % filename)
             else:
-                self.stdout.write('Created "%s"' % pk)
+                self.stdout.write('Created "%s"' % filename)
             n += 1
         self.stdout.write('Created or updated %d %s' % (n, Class.plural_noun))

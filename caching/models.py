@@ -7,7 +7,7 @@ def _modified(filename):
     return datetime.datetime.fromtimestamp(os.stat(filename).st_mtime)
 
 class Cache(models.Model):
-    filename = models.TextField(null = False, blank = False)
+    filename = models.TextField(primary_key = True, blank = False)
     modified = models.DateTimeField(null = False)
     md5sum = models.CharField(max_length = 32, null = False)
 

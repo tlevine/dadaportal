@@ -1,13 +1,25 @@
+'''
+http://www.jwz.org/doc/threading.html
+'''
+from django.conf import settings
+from django.db import models as m
+
 from caching import Cache
 
-class Mail(Cache):
-    message_id = m.Column(s.String, primary_key = True)
-    datetime = m.Column(s.DateTime)
-    thread_id = m.Column(s.String)
-    filename = m.Column(s.String)
-    subject = m.Column(s.String)
-   #from_name = m.Column(s.String, default = '')
-    from_address = m.Column(s.String, default = '')
-   #recipient_names = m.Column(ARRAY(s.String, dimensions = 1), default = [])
-   #recipient_addresses = m.Column(ARRAY(s.String, dimensions = 1), default = [])
-    is_mailing_list = m.Column(s.Boolean)
+class Message(Cache):
+    message_id = m.TextField(blank = False, null = False, unique = True)
+
+    datetime = m.DateTimeField(null = False)
+    subject = m.TextField(null = False)
+    _from = m.TextField(null = False)
+    to = m.TextField(null = False)
+    cc = m.TextField(null = False)
+
+   #thread_id = m.Column(s.String)
+    is_mailing_list = m.BooleanField(null = False)
+
+    @staticmethod
+    def discover():
+        for dirpath, dirnames, filenames in os.walk(settings.MAIL_DIR):
+            for filename in filenames:
+                yield os.path.join(dirpath, filename)
