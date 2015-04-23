@@ -5,16 +5,6 @@ Door to the dada
 There were several things that I wanted to do with static websites but
 couldn't. Here I finally take the plunge and add them dynamically.
 
-Dada flow
---------------
-Dada are acquired from files, cached in the database through the Django
-ORM, and searched with haystack. This is the case for the following
-categories of dada.
-
-* Articles, which start as a directory of files
-* Mail, which start as directories of email files within a maildir
-* Schedule, which starts as pal calendar files
-
 Installation
 --------------
 Check it out.
@@ -31,16 +21,38 @@ Turn it on.
 
 Follow [these directions](http://localhost:8000/docs/) to install on the server.
 
+Dada sources
+--------------
+Dada are acquired from files, cached in the database through the Django
+ORM, and searched with haystack. This is the case for the following
+categories of dada.
+
+* Articles, which start as a directory of files
+* Mail, which start as directories of email files within a maildir
+* Schedule, which starts as pal calendar files
+
+When run in development mode, the Dada Portal ignores the database cache;
+this facilitates quick debugging iteration cycles.
+
+Articles are stored in ordinary files with a YAML header and other
+body, as I did when I used Nanoc.
+Maybe things can be categorized and otherwise related.
+
+I expose my public emails with an adapted version of ejnug. My "home"
+computer gets the emails over imap and then sends the contents of the
+"Public" mailboxes to my "nsa" computer over rsync.
+
 Usage
 -----------
-Edit things in ``canonical-articles``. Update the cache for your local
+Edit things in the article directory (``canonical-articles``), the mail
+directory, or the schedule directory. Update the cache for your local
 computer like so. ::
 
-    ./manage.py syncarticles
+    ./manage.py cache
 
 Index them for the search engine like this. ::
 
-    ./manage.py indexarticles
+    ./manage.py index
 
 Deploy stuff from your laptop to the server. ::
 
@@ -53,33 +65,10 @@ Other stuff. ::
     ./manage.py syncdb
     ./manage.py collectstatic
 
-Data sources
--------------------------------
-Articles are stored in ordinary files with a YAML header and other
-body, as I did when I used Nanoc.
-Maybe things can be categorized and otherwise related.
-
-Stuff get cached in a relational database because it would take a while
-to load everything from files and because this way I can use Django's ORM.
-
-I expose my public emails with an adapted version of ejnug. My "home"
-computer gets the emails over imap and then sends the contents of the
-"Public" mailboxes to my "nsa" computer over rsync
-
-Searching
--------------------
-Notmuch indexes emails on nsa, and the dada portal hosts the
-notmuch-indexed emails. Articles are converted into an email representation
-so they can be indexed with notmuch and thus searched along with the emails.
-
 Tracking
 --------------------
 I do my own tracking so I don't need to use Piwik and so I don't have
 to match different logs after the fact.
-
-Schedule
---------------------
-My schedule gets rendered to HTML (with pal) and hosted.
 
 More about articles
 ------------------------
@@ -117,7 +106,6 @@ to install, configure, &c. a particular thing.
 
   * Python libraries
   * pal
-  * notmuch
 
 There's also a management command for deploying. It does the following,
 using rsync for all file transfers.
