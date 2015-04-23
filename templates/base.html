@@ -18,9 +18,9 @@
     <meta content="{{twitter_description|default:'Big Dada'}}"
           name="twitter:description">
     <meta content="@thomaslevine" name="twitter:creator">
-    <meta content="{{twitter_image|default:'http://thomaslevine.com/static/hat.png'}}"
+    <meta content="http://{{domain_name}}{{twitter_image|default:'/static/hat.png'}}"
           name="twitter:image:src">
-    <meta content="thomaslevine.com" name="twitter:domain">
+    <meta content="{{domain_name}}" name="twitter:domain">
 
     {% comment %}
     <meta content="" name="twitter:app:name:iphone">
@@ -34,14 +34,14 @@
     <meta content="" name="twitter:app:id:googleplay">
     {% endcomment %}
 
-    <meta content="thomaslevine.com" property="og:site_name">
+    <meta content="{{domain_name}}" property="og:site_name">
     <meta content="{{og_url}}"
           property="og:url">
     <meta content="{{facebook_description|default:'Big Dada'}}"
           property="og:description">
     <meta content="{{facebook_title|default:'Dada Portal | Thomas Levine'}}"
           property="og:title">
-    <meta content="{{facebook_image|default:'http://thomaslevine.com/static/hat.png'}}"
+    <meta content="http://{{domain_name}}{{facebook_image|default:'/static/hat.png'}}"
           property="og:image">
 
     <link href="/static/favicon.ico" rel="icon" type="image/x-icon">
@@ -67,7 +67,7 @@
     </nav>
     {% block base %}{% endblock %}
     {% if hit_id %}
-    <script>{% include 'tracking-track.js' %}</script>
+    <script>{% include 'tracking/followup.js' %}</script>
     <noscript><img style="border: 0;" src="{% url 'followup-img' %}?hit_id={{hit_id}}" /></noscript>
     {% endif %}
   </body>
