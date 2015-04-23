@@ -58,8 +58,8 @@ def followup_js(request):
     hit.datetime_end = datetime.datetime.now()
     hit.javascript_enabled = True
     hit.save()
-    return render(request, 'tracking-track.txt')
+    return render(request, 'tracking/csrf_token.txt')
 
 
 def overview(request):
-    return render(request, 'tracking-overview.html')
+    return render(request, 'tracking/overview.html')
