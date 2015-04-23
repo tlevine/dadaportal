@@ -7,14 +7,13 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
 from django.db.models import Q
 
-from ..caching import get
+from caching import get
 
-from .reify import from_file, from_db
 from .models import Article
 
 def article(request, endpoint):
     try:
-        obj = get(endpoint)
+        obj = get(Article, endpoint)
     except Article.DoesNotExist:
         raise Http404('Article is not cached in the database or doesn\'t exist at all.')
 

@@ -146,7 +146,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'dadaportal.context_processors.dadaportal',
-    'job.context_processors.job',
+    'jobs.context_processors.jobs',
     'tracking.context_processors.tracking',
 )
 
