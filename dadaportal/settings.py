@@ -168,6 +168,12 @@ LOGGING = {
     },
 }
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh-index'),
+    },
+}
 
 # For tracking
 HIT_ID_SIZE = 62
