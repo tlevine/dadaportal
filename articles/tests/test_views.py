@@ -1,7 +1,9 @@
 import datetime
 
 import pytest
-from django.test import Client
+from django.test import Client, RequestFactory
+from django.templates.loader import render_to_string
+from django.template import RequestContext
 
 from ..models import Article
 
@@ -15,4 +17,45 @@ def test_index():
     assert b'<a href="/!/a/b/">Schaufelradbagger</a>' in response.content
 
 def test_article():
-    _article(request, obj)
+    a = Article(
+        endpoint = 'aa/bb',
+        md5sum = 'xxx',
+        modified = datetime.datetime.now(),
+
+        title = 'AAA',
+        description = 'BBB',
+        body = '<p>Body here</p>',
+        tags = ['tag1', 'tag2'],
+        facebook_title = 'CCC',
+        facebook_description = 'DDD',
+        facebook_image = 'EEE',
+
+        twitter_title = 'FFF',
+        twitter_description = 'GGG',
+        twitter_image = 'HHH')
+
+    f = RequestFactory()
+    request = f.get('/!/aa/bb/')
+    request.hit_id = 8
+    request.session = {'session_id': 9}
+    response = _article(request, obj)
+
+    # Test that stuff is in here.
+    response.content
+
+def test_article_defaults():
+    a = Article(
+        endpoint = 'aa/bb',
+        md5sum = 'xxx',
+        modified = datetime.datetime.now(),
+        body = '<p>Body here</p>',
+        tags = [])
+
+    f = RequestFactory()
+    request = f.get('/!/aa/bb/')
+    request.hit_id = 8
+    request.session = {'session_id': 9}
+    response = _article(request, obj)
+
+    # Test that stuff is in here.
+    response.content

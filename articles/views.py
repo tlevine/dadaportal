@@ -36,7 +36,7 @@ def _article(request, obj):
         'twitter_description': obj.twitter_description,
         'twitter_image': obj.twitter_image,
     }
-    return render(request, 'articles/article.html', params)
+    response = render(request, 'articles/article.html', params)
 
 def index(request):
     articles = [{'endpoint': a.endpoint, 'title': a.title} for a in Article.objects.all()]
