@@ -1,3 +1,12 @@
-from django.test import TestCase
+from django.test import Client, RequestFactory
 
-# Create your tests here.
+from ..models import Hit
+from ..context_processors import tracking
+
+def test_tracking():
+    Hit.objects.all().delete()
+    c = Client()
+    response = c.get('/')
+
+    hit = next(Hit.objects.all())
+    assert str(hit.session) in response.content
