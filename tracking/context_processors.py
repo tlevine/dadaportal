@@ -19,7 +19,7 @@ def tracking(request):
                            session = request.session['session_id'],
                            endpoint = request.path_info,
                            ip_address = request.META['REMOTE_ADDR'],
-                           user_agent = request.META['HTTP_USER_AGENT'],
+                           user_agent = request.META.get('HTTP_USER_AGENT', ''),
                            referrer = request.META.get('HTTP_REFERER', ''))
         d = {'hit_id': request.hit_id}
 
