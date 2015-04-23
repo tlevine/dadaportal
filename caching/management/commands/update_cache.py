@@ -16,15 +16,15 @@ class Command(BaseCommand):
                 self.handle_one(Model)
         
     def handle_one(self, Class):
-        # Populate the endpoints cache.
-        endpoints = set(row[0] for row in Class.objects.values_list('endpoint'))
+        # Populate the pks cache.
+        pks = set(row[0] for row in Class.objects.values_list('pk'))
 
         # Update and create.
         n = 0
-        for endpoint, fn in Class.discover():
-            if endpoint in endpoints:
-                self.stdout.write('Updated "%s"' % endpoint)
+        for pk, fn in Class.discover():
+            if pk in pks:
+                self.stdout.write('Updated "%s"' % pk)
             else:
-                self.stdout.write('Created "%s"' % endpoint)
+                self.stdout.write('Created "%s"' % pk)
             n += 1
         self.stdout.write('Created or updated %d %s' % (n, Class.plural_noun))

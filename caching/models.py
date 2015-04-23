@@ -7,7 +7,6 @@ def _modified(filename):
     return datetime.datetime.fromtimestamp(os.stat(filename).st_mtime)
 
 class Cache(models.Model):
-    endpoint = models.TextField(primary_key = True)
     filename = models.TextField(null = False, blank = False)
     modified = models.DateTimeField(null = False)
     md5sum = models.CharField(max_length = 32, null = False)
@@ -20,7 +19,7 @@ class Cache(models.Model):
         '''
         This should return record fields as a dictionary to be passed as
         keyword arguments to an ORM update command. You must set at least
-        the "endpoint" field and any other not-null fields that you define.
+        any not-null fields that you define.
         '''
         raise NotImplementedError
 
