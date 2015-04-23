@@ -22,7 +22,7 @@ class Message(Cache):
     body = m.TextField(null = False)
 
    #thread_id = m.Column(s.String)
-    is_mailing_list = m.BooleanField(null = False)
+    is_mailing_list = m.BooleanField(null = False, default = False)
 
     @staticmethod
     def discover():

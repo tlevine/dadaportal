@@ -74,12 +74,15 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
    #'django.contrib.markup',
 
+    # Utilities
     'haystack',
+    'caching',
+    'tracking',
 
+    # Dada
     'articles',
     'search',
     'mail',
-    'tracking',
     'dadaportal',
 )
 

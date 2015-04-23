@@ -78,7 +78,7 @@ def reify(filename):
     try:
         html = lxml.html.fromstring(body)
     except lxml.etree.XMLSyntaxError:
-        pass
+        logging.warn('Invalid XML at %s' % path)
     else:
         for key, tag in [('title', 'h1'), ('description', 'p')]:
             if key not in head:
