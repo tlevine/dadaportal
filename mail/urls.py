@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic.base import RedirectView
 
-from .views import search, attachment
+from .views import message, message_legacy, attachment
 
 urlpatterns = patterns('',
     # Empty query.
@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 
     # The actual message/thread
     # Allow for queries to contain slashes
+    url(r'^(.+)/$', message, name = 'mail/message'),
+    url(r'^id:(.+)/$', message_legacy, name = 'mail/message_legacy'),
     url(r'^(.+)/([0-9]+)$', attachment, name = 'mail-attachment'),
-    url(r'^(.+)/$', search, name = 'mail-search'),
 )
