@@ -103,6 +103,7 @@ def reify(filename):
     data = {
         'modified': datetime.datetime.fromtimestamp(os.stat(path).st_mtime),
         'filename': filename,
+        'endpoint': os.path.dirname(filename),
         'body': body,
     }
     for key in data:
