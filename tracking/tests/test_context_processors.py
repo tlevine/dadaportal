@@ -12,7 +12,7 @@ def test_tracking():
     response = c.get('/')
 
     hit = Hit.objects.all()[0]
-    assert str(hit.session).encode('ascii') in response.content
+    assert str(hit.hit).encode('ascii') in response.content
 
 @pytest.mark.django_db
 def test_yes_user_agent():
