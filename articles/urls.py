@@ -12,8 +12,8 @@ else:
     article = article_canonical
 
 urlpatterns = patterns('',
-    url(r'^$', index, name = 'articles-index'),
-    url(r'^(.+)/$', article, name = 'articles-article'),
+    url(r'^$', index, name = 'articles/index'),
+    url(r'^(.+)/$', article, name = 'articles/article'),
     url(r'^([^/]+)$', lambda _, x: HttpResponsePermanentRedirect('/!/%s/' % x)),
 
     # Only for development

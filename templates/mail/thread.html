@@ -7,11 +7,7 @@
     <dl>
       <dt>From</dt><dd>{{message.from}}</dd>
       <dt>To</dt><dd>{{message.to}}</dd>
-      <dt>Date</dt>
-      <dd>
-        <a href="{% url 'mail-search' 'date:' + message['notmuchdate'] + '..' + message['notmuchdate'] %}">{{message.date}}</a>
-        at {{message.time}}
-      </dt>
+      <dt>Date</dt><dd>{{message.datetime}}</dd>
     </dl>
     <pre>{{body}}</pre>
   </section>

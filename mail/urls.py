@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     # Allow for queries to contain slashes
     url(r'^(.+)/$', message, name = 'mail/message'),
     url(r'^id:(.+)/$', message_legacy, name = 'mail/message_legacy'),
-    url(r'^(.+)/([0-9]+)$', attachment, name = 'mail-attachment'),
+    url(r'^(.+)/([0-9]+)$', attachment, name = 'mail/attachment'),
 )

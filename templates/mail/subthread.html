@@ -1,5 +1,5 @@
 <li>
-  <a href="{% url 'id' + message['message_id'] %}" title="{{message.subject}}">{{ message.from }}</a>
+  <a href="{% url 'mail/message' message.message_id %}" title="{{message.subject}}">{{ message.from }}</a>
   <span class="date">({{message.date}})</span>
   </a>
 </li>

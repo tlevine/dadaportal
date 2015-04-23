@@ -55,7 +55,7 @@
     <nav>
       {% block navlinks %}
       <ul>
-        <li><a href="{% url 'dadaportal-index' %}">Home</a></li>
+        <li><a href="{% url 'dadaportal/index' %}">Home</a></li>
         {% comment %}
         <li><a href="/schedule/">Schedule</a></li>
         <li><a href="/!/about/">About</a></li>
@@ -72,7 +72,7 @@
     {% block base %}{% endblock %}
     {% if hit_id %}
     <script>{% include 'tracking/followup.js' %}</script>
-    <noscript><img style="border: 0;" src="{% url 'followup-img' %}?hit_id={{hit_id}}" /></noscript>
+    <noscript><img style="border: 0;" src="{% url 'tracking/followup-img' %}?hit_id={{hit_id}}" /></noscript>
     {% endif %}
   </body>
 </html>

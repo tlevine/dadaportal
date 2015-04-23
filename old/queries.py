@@ -67,6 +67,3 @@ def subhierarchy(message):
         'replies': [subhierarchy(reply) for reply in message.get_replies()]
     }
 
-
-def _redact(address):
-    return re.sub(r'@[^, >]+', '@...', address)

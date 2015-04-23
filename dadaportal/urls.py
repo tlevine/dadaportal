@@ -15,11 +15,11 @@ def fix_tag(tag):
     return url(r'^%s/?$' % tag, RedirectView.as_view(url='/!/?tag=%s' % tag))
 
 urlpatterns = patterns('',
-    url(r'^/?$', index, name = 'dadaportal-index'),
+    url(r'^/?$', index, name = 'dadaportal/index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/$', docs),
     url(r'^popular/$', TemplateView.as_view(template_name = 'popular.html'),
-        name = 'dadaportal-popular'),
+        name = 'dadaportal/popular'),
 
     url(r'^\+/$', 'search.views.search', name = 'search'),
 #   url(r'^schedule/', include('schedule.urls')),
