@@ -5,6 +5,16 @@ Door to the dada
 There were several things that I wanted to do with static websites but
 couldn't. Here I finally take the plunge and add them dynamically.
 
+Dada flow
+--------------
+Dada are acquired from files, cached in the database through the Django
+ORM, and searched with haystack. This is the case for the following
+categories of dada.
+
+* Articles, which start as a directory of files
+* Mail, which start as directories of email files within a maildir
+* Schedule, which starts as pal calendar files
+
 Installation
 --------------
 Check it out.
