@@ -40,6 +40,7 @@ class Message(Cache):
             date = email.utils.parsedate_to_datetime(date)
 
         return {
+            'message_id': m.get('message-id'),
             'is_mailing_list': len([k for k in m.keys() if k.lower().startswith('list')]),
             'datetime': date,
             '_from': m.get('from', ''),

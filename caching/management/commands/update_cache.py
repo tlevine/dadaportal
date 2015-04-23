@@ -20,14 +20,16 @@ class Command(BaseCommand):
         n = 0
         for filename in Class.discover():
             if filename not in filenames:
+                self.stdout.write(filename)
                 obj = Class.add(filename)
-                self.stdout.write('Created %s' % obj)
-                n += 1
+                if obj:
+                    self.stdout.write('Created %s from %s' % (obj, obj.filename))
+                    n += 1
                 continue
 
             obj = Class.objects.get(filename = filename)
             if obj.sync():
-                self.stdout.write('Updated %s' % obj)
+                self.stdout.write('Updated %s from %s' % (obj, obj.filename))
                 n += 1
                 continue
 
