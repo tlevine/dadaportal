@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 from django.test import Client, RequestFactory
-from django.templates.loader import render_to_string
+from django.template.loader import render_to_string
 from django.template import RequestContext
 
 from ..models import Article
