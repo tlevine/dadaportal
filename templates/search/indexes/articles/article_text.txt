@@ -1,0 +1,8 @@
+<article>
+{{ object.body }}
+</article>
+<dl>
+{% for key, value in object.head %}
+  <dt>{{ key }}</dt><dd>{{ value }}<dd>
+{% endfor %}
+</dl>
