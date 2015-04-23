@@ -1,8 +1,6 @@
-<article>
+{{ object.title }}
+{{ object.description }}
 {{ object.body }}
-</article>
-<dl>
-{% for key, value in object.head %}
-  <dt>{{ key }}</dt><dd>{{ value }}<dd>
+{% for tag in object.tags %}
+  {{ tag }}
 {% endfor %}
-</dl>
