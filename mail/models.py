@@ -15,6 +15,8 @@ class Message(Cache):
     to = m.TextField(null = False)
     cc = m.TextField(null = False)
 
+    body = m.TextField(null = False)
+
    #thread_id = m.Column(s.String)
     is_mailing_list = m.BooleanField(null = False)
 

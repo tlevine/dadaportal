@@ -1,0 +1,8 @@
+Message-Id: {{ object.message_id }}
+From: {{ object._from }}
+To: {{ object.to }}
+Cc: {{ object.cc }}
+Date: {{ object.datetime }}
+Subject: {{ object.subject }}
+
+{{ object.body }}
