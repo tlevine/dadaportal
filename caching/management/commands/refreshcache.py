@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
         # Update and create.
         n = 0
-        for endpoint, fn in self.discover():
+        for endpoint, fn in Class.discover():
             if endpoint in endpoints:
                 self.stdout.write('Updated "%s"' % endpoint)
             else:

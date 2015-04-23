@@ -1,9 +1,9 @@
 import json
 from urllib.parse import urljoin
 
-from django.db import models
-
 from caching import Cache
+
+from .reify import reify as _reify
 
 class Article(Cache):
     '''
