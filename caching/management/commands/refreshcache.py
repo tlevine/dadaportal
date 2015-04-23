@@ -2,13 +2,9 @@ from django.core.management.base import BaseCommand
 
 logger = logging.getLogger(__name__)
 
-class SyncCommand(BaseCommand):
-    plural_noun = '(unspecified plural noun)'
-    directory = '(unspecified directory)'
-
+class Command(BaseCommand):
     args = '(none)'
-    def help(self):
-        return 'Loads %s from files in the %s directory' % (self.plural_noun, self.directory)
+    help = 'Refreshes the database cache of file-backed Dada'
 
     def discover(self):
         raise NotImplementedError
