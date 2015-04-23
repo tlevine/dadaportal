@@ -18,7 +18,7 @@ def test_from_file(tmpdir):
         'redirect': None,
     }
 
-def test_parse():
+def test_1_parse():
     head, body = parse(os.path.join('articles', 'tests', 'fixtures', '1.rst'))
     assert head == {}
     assert '<h1>Heading 1</h1>' in body
