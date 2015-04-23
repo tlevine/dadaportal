@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
+from django.db.models.loading import get_models
 
-logger = logging.getLogger(__name__)
+from ...models import Cache
 
 class Command(BaseCommand):
     args = '(none)'
@@ -10,8 +11,13 @@ class Command(BaseCommand):
         raise NotImplementedError
 
     def handle(self, *args, **options):
+        for Model in get_models():
+            if issubclass(Model, Cache):
+                self.handle_one(Model)
+        
+    def handle_one(self, Class):
         # Populate the endpoints cache.
-        endpoints = set(row[0] for row in Article.objects.values_list('endpoint'))
+        endpoints = set(row[0] for row in Class.objects.values_list('endpoint'))
 
         # Update and create.
         n = 0
@@ -21,4 +27,4 @@ class Command(BaseCommand):
             else:
                 self.stdout.write('Created "%s"' % endpoint)
             n += 1
-        self.stdout.write('Created or updated %d %s' % (n, self.plural_noun))
+        self.stdout.write('Created or updated %d %s' % (n, Class.plural_noun))

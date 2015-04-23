@@ -8,7 +8,7 @@ from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
 from django.db.models import Q
 
 from .reify import from_file, from_db
-from .models import ArticleTag, ArticleCache
+from .models import Article
 
 def article_cached(request, endpoint):
     try:
