@@ -12,4 +12,4 @@ def test_index():
         modified = datetime.datetime.now(), md5sum = 'abc', title = 'Schaufelradbagger')
     c = Client()
     response = c.get('/!/')
-    assert '"a/b/">Schaufelradbagger</a>' in response.content
+    assert '"a/b/">Schaufelradbagger</a>' in response.content.decode('utf-8')
