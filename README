@@ -48,15 +48,19 @@ Edit things in the article directory (``canonical-articles``), the mail
 directory, or the schedule directory. Update the cache for your local
 computer like so. ::
 
-    ./manage.py cache
+    ./manage.py update_cache
 
 Index them for the search engine like this. ::
 
-    ./manage.py index
+    ./manage.py update_index
 
 Deploy stuff from your laptop to the server. ::
 
     ./manage.py deploy
+
+Run tests
+
+    py.test
 
 Other stuff. ::
 

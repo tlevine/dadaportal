@@ -3,6 +3,8 @@ import datetime
 import pytest
 from django.test import Client
 
+from ..models import Article
+
 @pytest.mark.django_db
 def test_index():
     'GET /!/ should return a list of articles.'
