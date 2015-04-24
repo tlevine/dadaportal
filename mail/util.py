@@ -1,6 +1,12 @@
 import email
 
+from lxml.html.clean import clean_html
 from unidecode import unidecode
+
+def clean_payload(message, payload):
+    if 'html' in message.get_content_type().lower():
+        payload = clean_html(payload)
+    return payload
 
 def encode_charset(message, payload):
     for charset in filter(None, message.get_charsets()):
@@ -21,10 +27,7 @@ def decode_charset(message, payload):
     '''
     Decode a payload and clean the HTML if appropriate.
     '''
-    if 'html' in message.get_content_type().lower():
-        payload = clean_html(payload)
-
-    base_charsets = ['ascii', 'latin1', 'utf-8']
+    base_charsets = []
     charsets = list(filter(None, message.get_charsets()))
     for charset in charsets + base_charsets:
         try:

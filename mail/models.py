@@ -3,14 +3,12 @@ http://www.jwz.org/doc/threading.html
 '''
 import email, os, re, json
 
-from lxml.html.clean import clean_html
-
 from django.conf import settings
 from django.db import models as m
 
 from caching import Cache
 
-from .util import decode_charset, decode_header
+from .util import decode_charset, decode_header, clean_payload
 
 class Message(Cache):
     message_id = m.TextField(blank = False, null = False, unique = True)
@@ -57,7 +55,7 @@ class Message(Cache):
             'to': m.get('to', ''),
             'cc': m.get('cc', ''),
             'subject': decode_header(m.get('subject', '')),
-            'body': decode_header(_body(m)),
+            'body': clean_payload(m, decode_header(_body(m))),
             'partsjson': json.dumps(_parts(m)),
         }
 
@@ -70,11 +68,12 @@ class Message(Cache):
         return msg % params
 
 def _body(message):
-    body = message.get_payload(decode = True)
-    if body == None and message.is_multipart():
-        body = message.get_payload()[0].get_payload(decode = True)
-
-    return decode_charset(message, body)
+    if message.is_multipart():
+        payload = message.get_payload()[0].get_payload(decode = True)
+        body = decode_charset(message, payload)
+    else:
+        body = message.get_payload()
+    return clean_payload(body)
 
 def _parse_message_id(maybe_message_id):
     if maybe_message_id:
