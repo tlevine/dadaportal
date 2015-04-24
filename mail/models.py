@@ -47,7 +47,7 @@ class Message(Cache):
             '_from': m.get('from', ''),
             'to': m.get('to', ''),
             'cc': m.get('cc', ''),
-            'subject': m.get('subject', ''),
+            'subject': _decode_header(m.get('subject', '')),
             'body': _body(m),
             'partsjson': json.dumps(_parts(m)),
         }
@@ -76,3 +76,7 @@ def _parts(m):
     if not m.is_multipart():
         return []
     return list(part.get_filename('Untitled') for part in m.get_payload())
+
+def _decode_header(header):
+    return ''.join(content.decode(charset if charset else 'ascii') \
+        for content, charset in email.header.decode_header(header))
