@@ -9,7 +9,7 @@ Installation
 --------------
 Check it out.
 
-    git clone nsa:/lockers/tlevine_vol/jail/small.dada.pink/dadaportal/.git
+    git clone nsa:dada.pink/dadaportal
 
 Install dependencies and set up the server. Unfortunately, this is documented
 only [`templates/install.md'](templates/install.md), which can only be rendered
@@ -89,11 +89,12 @@ The following markup languages for articles are supported.
 
 Public and semi-public articles are a git submodule.
 
-Articles are automatically converted into
+Articles are automatically converted into a fork of
 `big <https://github.com/tmcw/big>`_ presentations.
 
-Homepage displays the most popular articles, maybe grouped in some
-interesting way, or maybe not if that's easier.
+Popular and otherwise suggested articles are displayed in the `/recommended/`
+page. At present, this is a file I edit manually, but I might eventually base
+it on the activity to the site.
 
 Management commands for installing and deploying
 ----------------------------------------------------
@@ -105,11 +106,8 @@ to install, configure, &c. a particular thing.
 * Install a crontab to send public emails from the email server (home)
     to nsa.
 * Set up the database on nsa.
-* Install, configure and enable the Apache site on nsa.
 * Install dependencies on nsa
-
-  * Python libraries
-  * pal
+* Install, configure and enable the Apache site on nsa.
 
 There's also a management command for deploying. It does the following,
 using rsync for all file transfers.
@@ -117,7 +115,7 @@ using rsync for all file transfers.
 * Run tests.
 * Copy canonical articles to nsa.
 * Cache and index the articles on nsa.
-* Copy ``pal.conf`` and pal calendar files to nsa.
+* Cache and index the mails on nsa.
 * Generate static files on nsa.
 
 Not features
