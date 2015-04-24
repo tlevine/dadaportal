@@ -1,5 +1,6 @@
 body {
-  font-family: 'sans-serif';
+  font-family: 'Helvetica';
+  letter-spacing:-5px;
   background:#000;
   background-size:100%;
   color:#fff;
@@ -8,11 +9,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font: inherit;
-  letter-spacing: -5px;
-  font-weight: bold;
-  display: inline;
+  font-weight:bold;
+  margin:0;
 }
+p { display: none; }
 
 em, a {
   font-style:normal;
