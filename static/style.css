@@ -324,13 +324,17 @@ section.thread li .date {
   margin-top: 0.25em;
   white-space: nowrap;
 }
-main h1, section.reply p {
+article h1, section.reply p, .centered-heading {
   border-bottom: solid 1px #666;
   text-align: center;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+h2.centered-heading {
+  border-top: solid 1px #666;
+  margin-top: 0.75em;
 }
 section.reply strong {
   text-decoration: none;
@@ -365,9 +369,11 @@ footer {
 }
 nav .search-form input[type=search] {
   color: #111;
+/* Show it brightly all the time.
   background-color: #888;
 }
 nav .search-form input[type=search]:focus {
+*/
   background-color: white;
 }
 article iframe, article img, article video {

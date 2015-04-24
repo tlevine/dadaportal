@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% block top_search %}{% endblock %}
+
 {% block base %}
-  <h1>Search the Dada Portal</h1>
+  <h1 class="centered-heading">Search the Dada Portal</h1>
 
   <form method="get" action="." class="haystack-search">
     {{ form.as_p }}
@@ -10,7 +12,7 @@
 
   {% if query %}
   <section>
-    <h2>Results</h2>
+    <h2 class="centered-heading">Results</h2>
 
     <dl>
       {% for result in page.object_list %}
