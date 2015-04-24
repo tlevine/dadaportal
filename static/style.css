@@ -170,10 +170,14 @@ blockquote > p {
   margin: 0;
 }
 
-/* Centered main block */
+/* Main content styles */
 main {
   margin-left: auto;
   margin-right: auto;
+}
+main ul, main ol, main dl {
+  text-align: left;
+  margin-left: 1.5em;
 }
 
 /* Tables */
@@ -248,24 +252,33 @@ article section.column:nth-child(odd) {
 }
 
 /* Haystack search page */
-.haystack-search > ul > li {
-  display: inline-block; 
-  width: 49%;
+.haystack-search {
+  width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.haystack-search input[type=search] {
+  display: block;
+  width: 99%;
+  height: 42px;
+}
+.haystack-search input[type=submit] {
+  height: 42px;
+  width: 126px;
+}
+.haystack-search > ul {
+  text-align: center;
   margin: 0;
   padding: 0;
-  vertical-align: top;
 }
-.haystack-search > input[type=text] {
-  
+.haystack-search > ul li {
+  display: inline-block;
 }
 
 /* Article styles */
 article {
   text-align: justify;
-}
-article ul, article ol, article dl {
-  text-align: left;
-  margin-left: 1.5em;
 }
 article dl {
   border-left: none;
@@ -311,7 +324,7 @@ section.thread li .date {
   margin-top: 0.25em;
   white-space: nowrap;
 }
-article h1, section.reply p {
+main h1, section.reply p {
   border-bottom: solid 1px #666;
   text-align: center;
   margin-top: 0.25em;
@@ -324,7 +337,7 @@ section.reply strong {
 }
 
 /* Search form */
-.search-form input[type=text] {
+.search-form input[type=search] {
   padding-left: 8px; /* Doesn't affect width */
   width: 252px; /* should be 264, but I left room for the fudge factor */
 }
@@ -347,14 +360,14 @@ footer {
   padding-top: 0.5em;
   border-top: solid 1px #666;
 }
-.search-form input {
+.search-form input, .haystack-search input {
   border: solid 1px #666;
 }
-nav .search-form input[type=text] {
+nav .search-form input[type=search] {
   color: #111;
   background-color: #888;
 }
-nav .search-form input[type=text]:focus {
+nav .search-form input[type=search]:focus {
   background-color: white;
 }
 article iframe, article img, article video {
@@ -417,7 +430,7 @@ article ul, article ol, article dl {
   .search-form, #index-main .search {
     width: 250px;
   }
-  .search-form input[type=text] {
+  .search-form input[type=search] {
     width: 162px; /* should be 174, but I left room for the fudge factor */
   }
 }
@@ -426,7 +439,7 @@ article ul, article ol, article dl {
   .search-form, #index-main .search {
     width: 350px;
   }
-  .search-form input[type=text] {
+  .search-form input[type=search] {
     width: 242px; /* should be 254, but I left room for the fudge factor */
   }
 }
@@ -435,7 +448,7 @@ article ul, article ol, article dl {
   .search-form, #index-main .search {
     width: 430px;
   }
-  .search-form input[type=text] {
+  .search-form input[type=search] {
     width: 342px; /* should be 354, but I left room for the fudge factor */
   }
 }

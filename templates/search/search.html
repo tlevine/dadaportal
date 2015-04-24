@@ -4,10 +4,8 @@
   <h1>Search the Dada Portal</h1>
 
   <form method="get" action="." class="haystack-search">
-    <ul>
-      {{ form.as_ul }}
-    </ul>
-    <input type="submit" value="Search">
+    {{ form.as_p }}
+    <p><input type="submit" value="Search"></p>
   </form>
 
   {% if query %}
