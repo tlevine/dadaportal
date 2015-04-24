@@ -34,7 +34,7 @@ def test_parts():
 
         body = 'body',
 
-        partsjson = '[None, "garzweiler.png"]',
+        partsjson = '[null, "garzweiler.png"]',
        #thread_id = m.Column(s.String)
         is_mailing_list = True,
     )
