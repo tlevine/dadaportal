@@ -85,7 +85,6 @@ INSTALLED_APPS = (
 
     # Dada
     'articles',
-    'search',
     'mail',
     'dadaportal',
 )
