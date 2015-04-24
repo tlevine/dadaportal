@@ -15,7 +15,7 @@ class Message(Cache):
 
     datetime = m.DateTimeField(null = False)
     subject = m.TextField(null = False)
-    from_ = m.TextField(null = False)
+    ffrom = m.TextField(null = False)
     to = m.TextField(null = False)
     cc = m.TextField(null = False)
 
@@ -51,7 +51,7 @@ class Message(Cache):
             'message_id': _parse_message_id(m.get('message-id')),
             'is_mailing_list': len([k for k in m.keys() if k.lower().startswith('list')]),
             'datetime': date,
-            'from_': m.get('from', ''),
+            'ffrom': m.get('from', ''),
             'to': m.get('to', ''),
             'cc': m.get('cc', ''),
             'subject': decode_header(m.get('subject', '')),

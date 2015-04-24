@@ -24,7 +24,7 @@ def test_parts():
 
         datetime = datetime.datetime.now(),
         subject = 'sub',
-        _from = 'fr',
+        ffrom = 'fr',
         to = 'to',
         cc = 'cc',
 
