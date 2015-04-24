@@ -22,7 +22,7 @@ urlpatterns = patterns('',
         TemplateView.as_view(template_name = 'dadaportal/recommended.html'),
         name = 'dadaportal/recommended'),
 
-    url(r'^\+/$', 'search.views.search', name = 'search'),
+    url(r'^search/', include('haystack.urls'), name = 'search'),
 #   url(r'^schedule/', include('schedule.urls')),
 
     url(r'^@/', include('mail.urls')),
