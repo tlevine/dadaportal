@@ -9,6 +9,7 @@ from django.db.models import Q
 
 from caching import get
 
+from .big import guess_slides
 from .models import Article
 
 def article(request, endpoint):
@@ -16,21 +17,24 @@ def article(request, endpoint):
         obj = get(Article, endpoint = endpoint)
     except Article.DoesNotExist:
         raise Http404('Article is not cached in the database or doesn\'t exist at all.')
-    if 'slides' in request.GET:
-        template = 'articles/big.html'
-    else:
-        template = 'articles/article.html'
-    return _article(request, obj, template)
+    return _article(request, obj)
 
-def _article(request, obj, template):
+def _article(request, obj):
     if obj.redirect != None:
         return HttpResponseRedirect(obj.redirect)
+
+    if 'slides' in request.GET:
+        template = 'articles/big.html'
+        body = guess_slides(obj.body)
+    else:
+        template = 'articles/article.html'
+        body = obj.body
 
     params = {
         'title': obj.title,
         'description': obj.description,
         'modified': obj.modified,
-        'body': obj.body,
+        'body': body,
         'tags': obj.tags,
 
         'facebook_title': obj.facebook_title,
