@@ -104,7 +104,7 @@ def reify(filename):
         if key in head:
             data[key] = head[key]
 
-    if 'title' not in data or not data['title']:
+    if ('title' not in data or not data['title']) and '/' not in endpoint:
         data['title'] = endpoint.replace('-', ' ')
 
     for field in ['title', 'description']:
