@@ -179,6 +179,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, '.whoosh-index'),
     },
 }
+EMPTY_SEARCH_DESCRIPTION = '(No description available)'
 
 # For tracking
 HIT_ID_SIZE = 62
