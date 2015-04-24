@@ -54,13 +54,12 @@ class Article(Cache):
         # Process descendants
         for child in os.listdir(parent):
             fn = os.path.join(parent, child)
-            if fn.startswith('.'):
+            if child.startswith('.'):
                 logger.debug('Skipping %s because it is hidden' % fn)
             elif os.path.isdir(fn):
                 yield from Class.discover(subdir = subdir + (child,))
             elif not os.path.isfile(fn):
                 logger.warning('Skipping %s because it is a symlink' % fn)
-                continue
 
         # Process the present directory
         indices = [os.path.join(parent, child) for child in os.listdir(parent) if child.startswith('index.')]
