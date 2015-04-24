@@ -68,7 +68,7 @@ class Message(Cache):
         return msg % params
 
 def _body(message):
-    body = message.get_payload()
+    body = message.get_payload(decode = True)
     if 'html' in message.get_content_type().lower():
         body = clean_html(body)
     return body
