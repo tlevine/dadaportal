@@ -11,8 +11,9 @@
   <h1>Dada Portal</h1>
   {% include 'dadaportal/search-form.html' %}
   <ul>
-    <li><a href="{% url 'dadaportal/recommended' %}">Popular articles</a></li> &bull;
-    <li><a href="{% url 'haystack_search' %}?q=date:1D..&amp;hide_emails=">Recent updates</a></li>
+    <li><a href="{% url 'dadaportal/recommended' %}">Recommended</a></li> &bull;
+    <li><a href="{% url 'mail/index' %}">All mail</a></li> &bull;
+    <li><a href="{% url 'articles/index' %}">All articles</a></li>
   </ul>
 </div>
 {% endblock %}
