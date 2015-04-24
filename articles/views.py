@@ -9,8 +9,8 @@ from django.db.models import Q
 
 from caching import get
 
-from .big import guess_slides
 from .models import Article
+from .big import guess_slides
 
 def article(request, endpoint):
     try:
@@ -25,14 +25,16 @@ def _article(request, obj):
 
     if 'slides' in request.GET:
         template = 'articles/big.html'
+        body = guess_slides(obj.body)
     else:
         template = 'articles/article.html'
+        body = obj.body
 
     params = {
         'title': obj.title,
         'description': obj.description,
         'modified': obj.modified,
-        'body': obj.body,
+        'body': body,
         'tags': obj.tags,
 
         'facebook_title': obj.facebook_title,

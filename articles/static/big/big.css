@@ -13,7 +13,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   display: inline;
 }
-p { display: none; }
 
 em, a {
   font-style:normal;
@@ -30,7 +29,7 @@ img {
   width:100%;
 }
 
-section {
+div {
   cursor:pointer;
   cursor:hand;
   position:absolute;
@@ -40,10 +39,10 @@ section {
   line-height:97%;
 }
 
-section.center {
+div.center {
   text-align:center;
 }
 
-section.imageText {
+div.imageText {
   text-shadow:0px 0px 5px rgba(0,0,0,0.2);
 }
