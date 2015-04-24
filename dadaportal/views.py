@@ -15,12 +15,12 @@ def docs(request):
         'database': settings.DATABASES['default'],
     }
     variables = ['REMOTE_USER', 'DOMAIN_NAME', 'EMAIL_ADDRESS',
-                 'REMOTE_SSH_HOST', 'REMOTE_NOTMUCH_MAILDIR',
+                 'REMOTE_SSH_HOST', 'REMOTE_MAIL_DIR',
                  'REMOTE_STATIC_ROOT', 'REMOTE_BASE_DIR', 'STATIC_URL']
     for var in variables:
         params[var] = getattr(settings, var)
-    doc = get_template('install.md').render(Context(params))
-    return render(request, 'docs.html', {'doc': markdown.markdown(doc)})
+    doc = get_template('dadaportal/install.md').render(Context(params))
+    return render(request, 'dadaportal/docs.html', {'doc': markdown.markdown(doc)})
 
 def infinite_redirect(request):
     'To annoy script kiddies'
