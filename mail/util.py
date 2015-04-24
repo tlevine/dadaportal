@@ -24,17 +24,14 @@ def decode_charset(message, payload):
     if 'html' in message.get_content_type().lower():
         payload = clean_html(payload)
 
-    for charset in filter(None, message.get_charsets()):
+    base_charsets = ['ascii', 'latin1', 'utf-8']
+    charsets = list(filter(None, message.get_charsets()))
+    for charset in charsets + base_charsets:
         try:
-            decoded_payload = payload.decode(charset)
-        except UnicodeEncodeError:
+            return payload.decode(charset)
+        except UnicodeDecodeError:
             pass
-        else:
-            break
-    else:
-        decoded_payload = unidecode(payload)
-
-    return decoded_payload
+    raise ValueError('Could not determine charset')
 
 def decode_header(header):
     '''

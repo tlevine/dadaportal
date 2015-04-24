@@ -1,0 +1,72 @@
+Return-Path: <thomas.levine+caf_=_=thomaslevine.com@gmail.com>
+Delivered-To: _@thomaslevine.com
+Received: from spool.mail.gandi.net (mspool2-d.mgt.gandi.net [10.0.21.133])
+	by nmboxes4-dc2.mgt.gandi.net (Postfix) with ESMTP id 0E58B40F3B
+	for <_@thomaslevine.com>; Mon, 16 Mar 2015 21:25:29 +0100 (CET)
+Received: from mfilter6-d.gandi.net (mfilter6-d.gandi.net [217.70.178.135])
+	by spool.mail.gandi.net (Postfix) with ESMTP id F1547178345
+	for <_@thomaslevine.com>; Mon, 16 Mar 2015 21:25:28 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at mfilter6-d.gandi.net
+Received: from spool.mail.gandi.net ([10.0.21.133])
+	by mfilter6-d.gandi.net (mfilter6-d.gandi.net [10.0.15.180]) (amavisd-new, port 10024)
+	with ESMTP id jMzHG73zEkJF for <_@thomaslevine.com>;
+	Mon, 16 Mar 2015 21:25:27 +0100 (CET)
+Received: from mail-pd0-f182.google.com (mail-pd0-f182.google.com [209.85.192.182])
+	by spool.mail.gandi.net (Postfix) with ESMTPS id 289791782F2
+	for <_@thomaslevine.com>; Mon, 16 Mar 2015 21:25:27 +0100 (CET)
+Received: by pdbcz9 with SMTP id cz9so67759312pdb.3
+        for <_@thomaslevine.com>; Mon, 16 Mar 2015 13:25:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-original-authentication-results:delivered-to:date:message-id:to
+         :subject:from:reply-to:content-type;
+        bh=GO7/76g2tgNdmfzPOCQdBtaL9YRbRrs3dKFUVYU9KiI=;
+        b=ZYR90FABvW97wKurCpHJICdGmENa132iUVQ9L5vMUSO2FC5qct3Tup4NuH26eKdzEY
+         3kTnwlL+Rjdua90XrbYuA+yoElPfhEAkc7jU+jqLqAzF+yuB9G8MfCMl8grMc7Oc7XUZ
+         Eb4/hwSJgBCSpSAFpk4bKv7MMqqAGjp/GUonB23fl63Dqrq+uRYbZdn2/IX7McLMULGq
+         IFPI9NGULlVDkrU6LO6Bw68svxViN6cPXEbns4BYPjneUTVaxnlvKpFrRlKyEUEo36Xw
+         4E/syRdfL9k1vAir//Zo2lVYjUHfeL45J1n787e0waAaJclgjkPicMw0pC11u0Lnr9ZM
+         synw==
+X-Original-Authentication-Results: mx.google.com;       spf=pass (google.com: domain of eraroj@lernu.net designates 46.4.214.82 as permitted sender) smtp.mail=eraroj@lernu.net
+X-Received: by 10.70.1.103 with SMTP id 7mr56538167pdl.4.1426537525766;
+        Mon, 16 Mar 2015 13:25:25 -0700 (PDT)
+X-Forwarded-To: _@thomaslevine.com
+X-Forwarded-For: thomas.levine@gmail.com _@thomaslevine.com
+Delivered-To: thomas.levine@gmail.com
+Received: by 10.66.248.103 with SMTP id yl7csp160311pac;
+        Mon, 16 Mar 2015 13:25:24 -0700 (PDT)
+X-Received: by 10.180.14.66 with SMTP id n2mr163753780wic.50.1426537523362;
+        Mon, 16 Mar 2015 13:25:23 -0700 (PDT)
+Received: from virtuala1.ikso.net (virtuala1.ikso.net. [46.4.214.82])
+        by mx.google.com with ESMTPS id eu20si19835297wjc.43.2015.03.16.13.25.22
+        for <thomas.levine@gmail.com>
+        (version=TLSv1 cipher=RC4-SHA bits=128/128);
+        Mon, 16 Mar 2015 13:25:23 -0700 (PDT)
+Received-SPF: pass (google.com: domain of eraroj@lernu.net designates 46.4.214.82 as permitted sender) client-ip=46.4.214.82;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of eraroj@lernu.net designates 46.4.214.82 as permitted sender) smtp.mail=eraroj@lernu.net
+Received: from root by virtuala1.ikso.net with local (Exim 4.71)
+	(envelope-from <eraroj@lernu.net>)
+	id 1YXbZi-0006bQ-93
+	for thomas.levine@gmail.com; Mon, 16 Mar 2015 20:25:22 +0000
+Date: Mon, 16 Mar 2015 20:25:22 +0000
+Message-Id: <E1YXbZi-0006bQ-93@virtuala1.ikso.net>
+To: thomas.levine@gmail.com
+Subject: Mez-Kanada =?UTF-8?B?UmVua29udGnEnW8gZW4gVG9yb250bw==?=
+X-PHP-Originating-Script: 1003:iloj.php
+From: lernu! <no-reply@lernu.net>
+Reply-To: lernu! <no-reply@lernu.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Length: 698
+X-OfflineIMAP: 1057814070-7286762167
+
+
+La Mez-Kanada Renkontiĝo de Esperanto (MeKaRo) — turisma semajnfino en amikeca etoso — organizita de Esperanto-Societo Kebekia kaj de lokaj Esperanto-kluboj en Kebekio kaj Ontario — okazos la 12-an fojo entute, kaj la 3-a fojon en Toronto, Ontario, de la 16-a ĝis la 18-a de majo 2015.
+
+La MeKaRon por 2015 organizas la Esperanto-Rondo de Toronto.
+
+La retejo mekaro.ca nun estas preta por akcepti aliĝojn kaj por havigi informojn pri la renkontiĝo de 2015. Ĝi jam enhavas plenajn informojn pri loĝado, kaj oni baldaŭ afiŝos plenajn informojn ankaŭ pri la programo.
+
+Se vi jam certas, ke vi ĉeestos la renkontiĝon, ni kuraĝigas vin aliĝi tuj !
+
+Plenaj informoj ĉe www.mekaro.ca
