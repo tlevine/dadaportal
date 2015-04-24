@@ -321,7 +321,7 @@ section.thread li .date {
   margin-top: 0.25em;
   white-space: nowrap;
 }
-article h1, section.reply p, .centered-heading {
+article h1, .centered-heading {
   border-bottom: solid 1px #666;
   text-align: center;
   margin-top: 0.25em;
@@ -332,9 +332,6 @@ article h1, section.reply p, .centered-heading {
 h2.centered-heading {
   border-top: solid 1px #666;
   margin-top: 0.75em;
-}
-section.reply strong {
-  text-decoration: none;
 }
 
 /* Search form */
@@ -381,9 +378,6 @@ article iframe, article img, article video {
 }
 pre, blockquote, .line-block /* rst class */ {
   color: #BBB;
-  background-color: #333;
-}
-section.reply p {
   background-color: #333;
 }
 #index-main .search {
