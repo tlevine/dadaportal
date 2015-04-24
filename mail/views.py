@@ -1,4 +1,5 @@
 import re
+from urllib.parse import urlencode
 from email import message_from_file
 
 from django.shortcuts import render
@@ -30,6 +31,7 @@ def message(request, message_id):
         'cc': _redact(m.cc),
         'body': m.body,
 
+        'mailto': mailto,
         'parts': m.parts,
         # Add thread eventually
     }
