@@ -184,18 +184,19 @@ td { border: none; }
 table tr:first-child th, table tr:first-child td { border-bottom: solid 1px; }
 
 /* Nav bar */
-nav ul {
-  display: inline-block;
+nav ul, nav .search-form {
+  display: block;
+  height: 21px;
+  margin-left: auto;
+  margin-right: auto;
 }
 nav li {
   display: inline-block;
-  margin-top: 0.75em;
-  margin-left: 0.5em;
-  margin-right: 0.5em;
 }
-nav .search-form {
-  display: inline-block;
-  float: right;
+nav ul, nav .search-form { text-align: center; }
+nav li { margin: 0; }
+nav {
+  height: 53px;
 }
 
 /* Footer */
@@ -335,9 +336,6 @@ section.reply p {
 strong { color: white; font-weight: normal; }
 
 /* Matching sizes */
-nav, .search-form input {
-  height: 42px;
-}
 .search-form, #index-main .search {
   width: 340px;
 }
@@ -353,6 +351,22 @@ article ul, article ol, article dl {
   }
 }
 @media screen and (min-width: 540px) {
+  nav ul {
+    display: inline-block;
+  }
+  nav li {
+    margin-top: 0.75em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+  nav .search-form {
+    display: inline-block;
+    float: right;
+  }
+  .search-form input {
+    height: 42px;
+  }
+
   #index-main .search {
     top: 130px;
     right: 20%;
@@ -361,10 +375,10 @@ article ul, article ol, article dl {
     width: 520px;
   }
   .search-form, #index-main .search {
-    width: 400px;
+    width: 250px;
   }
   .search-form input[type=text] {
-    width: 312px; /* should be 324, but I left room for the fudge factor */
+    width: 162px; /* should be 224, but I left room for the fudge factor */
   }
 }
 @media screen and (min-width: 720px) {
