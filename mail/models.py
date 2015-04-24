@@ -10,7 +10,7 @@ from django.db import models as m
 
 from caching import Cache
 
-from .util import decode_charset, decode_header
+from .util import decode_charset, decode_header, reencode_header
 
 class Message(Cache):
     message_id = m.TextField(blank = False, null = False, unique = True)

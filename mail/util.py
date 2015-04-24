@@ -40,5 +40,11 @@ def decode_header(header):
     '''
     Decode header with different encodings.
     '''
-    return ''.join(content.decode(charset if charset else 'ascii') \
-        for content, charset in email.header.decode_header(header))
+    def f(content, charset):
+        if isinstance(content, str):
+            return content
+        elif charset == None:
+            return content.decode('utf-8')
+        else:
+            return content.decode(charset)
+    return ''.join(f(*args) for args in email.header.decode_header(header))

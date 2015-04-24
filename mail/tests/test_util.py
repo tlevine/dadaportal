@@ -1,4 +1,4 @@
-from ..util import decode_header
+from ..util import decode_header, reencode_header
 
 def test_decode_header():
     observed = decode_header('Mez-Kanada =?UTF-8?B?UmVua29udGnEnW8gZW4gVG9yb250bw==?=')
