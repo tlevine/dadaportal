@@ -12,7 +12,7 @@ def fix_dir(old, new):
                lambda _, x: HttpResponsePermanentRedirect('/%s%s' % (new, x)))
 
 def fix_tag(tag):
-    return url(r'^%s/?$' % tag, RedirectView.as_view(url='/!/?tag=%s' % tag))
+    return url(r'^%s/?$' % tag, RedirectView.as_view(url='/search/?q=tag:' + tag))
 
 urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name = 'dadaportal/index.html'),

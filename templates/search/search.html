@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block base %}
-<article>
   <h1>Search the Dada Portal</h1>
 
   <section>
@@ -16,11 +15,14 @@
   <section>
     <h2>Results</h2>
 
-    {% for result in page.object_list %}
-    <p><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></p>
-    {% empty %}
-    <p>No results found.</p>
-    {% endfor %}
+    <dl>
+      {% for result in page.object_list %}
+      <dt><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></dt>
+      <dd>{{ result.object.description }}</dd>
+      {% empty %}
+      <p>No results found.</p>
+      {% endfor %}
+    </dl>
 
     {% if page.has_previous or page.has_next %}
     <footer>
@@ -48,5 +50,4 @@
   {% else %}
   {# Show some example queries to run, maybe query syntax, something else? #}
   {% endif %}
-</article>
 {% endblock %}
