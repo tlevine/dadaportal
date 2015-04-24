@@ -378,16 +378,25 @@ article ul, article ol, article dl {
     width: 250px;
   }
   .search-form input[type=text] {
-    width: 162px; /* should be 224, but I left room for the fudge factor */
+    width: 162px; /* should be 174, but I left room for the fudge factor */
+  }
+}
+@media screen and (min-width: 630px) {
+  article { width: 610px; }
+  .search-form, #index-main .search {
+    width: 350px;
+  }
+  .search-form input[type=text] {
+    width: 242px; /* should be 254, but I left room for the fudge factor */
   }
 }
 @media screen and (min-width: 720px) {
   article { width: 700px; }
   .search-form, #index-main .search {
-    width: 480px;
+    width: 430px;
   }
   .search-form input[type=text] {
-    width: 392px; /* should be 404, but I left room for the fudge factor */
+    width: 342px; /* should be 354, but I left room for the fudge factor */
   }
 }
 @media screen and (min-width: 900px) {
