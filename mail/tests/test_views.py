@@ -6,4 +6,4 @@ def test_redirect():
     'The legacy id: urls should be redirected.'
     c = Client()
     response = c.get('/@/id:abc/')
-    assert response.path_info == '/@/abc/'
+    assert 400 > response.status_code >= 300
