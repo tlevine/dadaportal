@@ -33,28 +33,30 @@ class Command(BaseCommand):
         if settings.IS_PRODUCTION:
             raise CommandError('This command should be run from the development system, not from production.')
 
-       #self._comment('Running tests')
-       #_run(['./manage.py', 'test'])
+        self._comment('Running tests')
+        _run(['py.test'])
+
+        self.stdout.write('''
+If you have changed the database scheme or if this is the first time are
+running "./manage.py deploy", you should consider running some of the following
+commands locally.
+
+$ ./manage.py makemigrations
+$ ./manage.py migrate
+$ ./manage.py syncdb
+
+Also, "./manage.py deploy" does not alter database schemas; if you have
+changed the schema, you will probably need to run this on the server.
+
+$ ./manage.py migrate
+
+''')
 
         self._comment('Creating the remote base directory')
         ssh('mkdir -p \'%s\'' % settings.REMOTE_BASE_DIR, prefix = False)
 
         self._comment('Copying the local repository to nsa')
         rsync('.', settings.REMOTE_BASE_DIR)
-
-        self.stdout.write('''
-If this is the first time you ran "./manage deploy", log into the
-server (ssh www-data@nsa) and run the following.
-
-$ ./manage.py syncdb
-
-If you have changed the database schema, run this,
-
-$ ./manage.py makemigrations
-$ ./manage.py migrate
-
-and then copy the migrations into the repository on your non-server
-computer.''')
 
 #       self._comment('Copying pal calendar files to nsa')
 #       rsync(settings.LOCAL_PAL_DIR, settings.REMOTE_PAL_DIR)
