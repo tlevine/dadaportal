@@ -50,6 +50,7 @@ if IS_PRODUCTION:
     DEBUG = False
     TEMPLATE_DEBUG = False
 
+    LOG_LEVEL = 'DEBUG'
     USE_CACHE = True
     USER = REMOTE_USER
     MAIL_DIR = os.path.join(BASE_DIR, '.mail')
@@ -61,6 +62,7 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
+    LOG_LEVEL = 'WARN'
     USE_CACHE = False
     if os.environ['USER'] == REMOTE_USER:
         USER = REMOTE_USER
@@ -157,15 +159,15 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
-            'level': 'WARN',
+            'level': LOG_LEVEL,
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'warn.log'),
+            'filename': os.path.join(BASE_DIR, '.log'),
         },
     },
     'loggers': {
         'django.request': {
             'handlers': ['file'],
-            'level': 'WARN',
+            'level': LOG_LEVEL,
             'propagate': True,
         },
     },
