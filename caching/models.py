@@ -71,5 +71,7 @@ class Cache(models.Model):
             return False
 
         # Update if everything worked.
-        self.update(**reified)
+        for k, v in reified.items():
+            setattr(self, k, v)
+        self.save()
         return True
