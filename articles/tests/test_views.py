@@ -1,7 +1,7 @@
 import datetime
 
 import pytest
-from django.test import Client, RequestFactory
+from django.test import Client, RequestFactory, override_settings
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
@@ -17,6 +17,7 @@ def test_index():
     response = c.get('/!/')
     assert b'<a href="/!/a/b/">Schaufelradbagger</a>' in response.content
 
+@override_settings(TEMPLATE_CONTEXT_PROCESSORS = ())
 def test_article():
     a = Article(
         endpoint = 'aa/bb',
@@ -44,6 +45,7 @@ def test_article():
     # Test that stuff is in here.
     response.content
 
+@override_settings(TEMPLATE_CONTEXT_PROCESSORS = ())
 def test_article_defaults():
     a = Article(
         endpoint = 'aa/bb',
