@@ -40,7 +40,6 @@ class Message(Cache):
 
     @staticmethod
     def reify(filename):
-        print(filename)
         with open(filename, 'rb') as fp:
             m = email.message_from_binary_file(fp)
 
