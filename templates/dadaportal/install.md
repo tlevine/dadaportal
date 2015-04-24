@@ -1,10 +1,21 @@
 # Documentation
-Here are directions for installing (both for development and production),
+Here are directions for downloading the Dada Portal software,
+for installing (both for development and production),
 for configuring external servers, and for deploying from development to
 production.
 
-## Install
-Run this stuff on the server to which you are deploying (nsa).
+## Download
+If you're Tom, you can do this.
+
+    git clone nsa:dada.pink/dadaportal
+
+If you're someone else, you have to do this.
+
+    git clone git@github.com:tlevine/dada-portal
+
+## Install for development
+This first section is all you need for installing the system for development
+purposes.
 
 ### Install dependencies
 Assuming you're on Debian,
@@ -19,9 +30,11 @@ As the PostgreSQL user (probably &ldquo;postgres&rdquo;),
     createdb --owner '{{REMOTE_USER}}' '{{database.NAME}}'
 
 The database user is set to {{database.USER}}. We assume that you're using
-the vanilla authentication mechanism, which is just POSIX users. Ensure that
-the Apache user has access to these files, particularly if {{database.USER}}
-is not the Apache user.
+the vanilla authentication mechanism, which is just POSIX users.
+
+## Install for production
+To install for production, do everything in the "Install for development"
+section and then do everything in the present section.
 
 ### Crontab
 Add this crontab entry to send public emails from the email server (home)
@@ -75,12 +88,19 @@ Copy this to your apache sites-enabled directory on the production computer.
         CustomLog ${APACHE_LOG_DIR}/dadaportal-access.log combined
     </VirtualHost>
 
-And then reload Apache.
+And then reload Apache on that computer.
 
     sudo service apache reload
 
 ## Deploy
-Run this from a computer other than the one you are deploying to.
+You should install the development version on the computer on which you
+will edit the site and the production version on the computer from which
+you will serve the site.
+
+After you edit the site on the development installation, you might want
+to send your edits to the production installation. To do that, run the
+following command on the development computer, from the root directory
+of the Dada Portal repository.
 
     ./manage.py deploy
 
@@ -92,3 +112,5 @@ Some things to consider if things are being weird.
 * `ALLOWED_HOSTS` must be set appropriately.
 * Turn on `DEBUG` to see what's going on.
 * Run `./manage.py syncdb`.
+* Ensure that the Apache user has access to the various file data sources,
+    particularly if {{database.USER}} is not the Apache user.
