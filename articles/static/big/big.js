@@ -1,5 +1,5 @@
 window.onload = function() {
-    var s = document.getElementsByTagName('section'), ti;
+    var s = document.getElementsByTagName('div'), ti;
     if (!s) return;
     var big = { current: 0, forward: fwd, reverse: rev, go: go, length: s.length };
     window.big = big;

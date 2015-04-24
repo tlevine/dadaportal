@@ -7,6 +7,6 @@
   <script src="{% static 'big/big.js' %}"></script>
 </head>
 <body>
-  {% block base %}{% endblock %}
+  {% block base %}{{ body|safe }}{% endblock %}
 </body>
 </html>
