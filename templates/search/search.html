@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load highlight %}
 
 {% block top_search %}{% endblock %}
 
@@ -16,8 +17,8 @@
 
     <dl>
       {% for result in page.object_list %}
-      <dt><a href="{{ result.url }}">{{ result.title }}</a></dt>
-      <dd>{{ result.description }}</dd>
+      <dt><a href="{{ result.url }}">{% highlight result.title with query %}</a></dt>
+      <dd>{% highlight result.text with query %}</dd>
       {% empty %}
       <p>No results found.</p>
       {% endfor %}

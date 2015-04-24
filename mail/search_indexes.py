@@ -12,17 +12,9 @@ class MessageIndex(indexes.SearchIndex, indexes.Indexable):
 
     url = indexes.CharField(model_attr = 'message_id')
     text = indexes.CharField(document = True, use_template = True)
-    description = indexes.CharField(indexed = False)
 
     def get_model(self):
         return Message
 
     def prepare_url(self, obj):
         return obj.get_absolute_url()
-
-    def prepare_description(self, obj):
-        left, _, right = obj.body.lstrip().partition('\n\n')
-        if len(left) < 400:
-            return left
-        else:
-            return left.partition('\n')[0]
