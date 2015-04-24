@@ -8,7 +8,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Message
-from .util import encode_charset, decode_charset
 
 def index(request):
     messages = [{'message_id': a.message_id, 'subject': a.subject} \
