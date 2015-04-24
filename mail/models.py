@@ -73,7 +73,7 @@ def _body(message):
         body = decode_charset(message, payload)
     else:
         body = message.get_payload()
-    return clean_payload(body)
+    return clean_payload(message, body)
 
 def _parse_message_id(maybe_message_id):
     if maybe_message_id:
