@@ -44,9 +44,6 @@ REMOTE_USER = 'www-data'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
-# Where the mail goes on NSA
-REMOTE_MAIL_DIR = '/var/www/maildir'
-
 IS_PRODUCTION = getuser() == REMOTE_USER or gethostname() == REMOTE_SSH_HOST or 'USER' not in os.environ
 
 if IS_PRODUCTION:
@@ -55,7 +52,8 @@ if IS_PRODUCTION:
 
     USE_CACHE = True
     USER = REMOTE_USER
-    MAIL_DIR = REMOTE_MAIL_DIR
+    MAIL_DIR = os.path.join(BASE_DIR, '.mail')
+    PAL_DIR = os.path.join(BASE_DIR, '.pal')
 
 else:
     print('Running in development mode')
@@ -69,6 +67,7 @@ else:
     else:
         USER = os.environ['USER']
     MAIL_DIR = os.path.expanduser('~/safe/maildir/hot/_@thomaslevine.com/Public/cur/')
+    PAL_DIR = os.path.expanduser('~/git/schedule')
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 
@@ -188,10 +187,9 @@ NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
 
 # For copying files during deployment
-LOCAL_PAL_DIR = os.path.expanduser('~/git/schedule')
-REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/srv/dadaportal'
-
+REMOTE_PAL_DIR = os.path.join(REMOTE_BASE_DIR, '.pal')
+REMOTE_MAIL_DIR = os.path.join(REMOTE_BASE_DIR, '.mail')
 REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, '.static-compiled')
 
 DO_NOT_TRACK = [
