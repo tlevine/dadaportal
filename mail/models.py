@@ -40,8 +40,9 @@ class Message(Cache):
 
     @staticmethod
     def reify(filename):
-        with open(filename) as fp:
-            m = email.message_from_file(fp)
+        print(filename)
+        with open(filename, 'rb') as fp:
+            m = email.message_from_binary_file(fp)
 
         date = m.get('date')
         if date != None:
@@ -70,7 +71,10 @@ class Message(Cache):
 def _body(message):
     if message.is_multipart():
         payload = message.get_payload()[0].get_payload(decode = True)
-        body = decode_charset(message, payload)
+        try:
+            body = decode_charset(message, payload)
+        except ValueError:
+            body = ''
     else:
         body = message.get_payload()
     return clean_payload(message, body)
