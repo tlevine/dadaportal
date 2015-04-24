@@ -5,7 +5,7 @@
 </article>
 
 <footer>
-    <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
+    Last modified <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
     &bull; <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>
     {% if other_source %}&bull; <a href="{{ other_source }}">Other source</a>{% endif %}
 </footer>

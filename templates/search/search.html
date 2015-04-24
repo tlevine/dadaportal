@@ -16,8 +16,8 @@
 
     <dl>
       {% for result in page.object_list %}
-      <dt><a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a></dt>
-      <dd>{{ result.object.description }}</dd>
+      <dt><a href="{{ result.object.get_absolute_url }}">{{ result.title }}</a></dt>
+      <dd>{{ result.description }}</dd>
       {% empty %}
       <p>No results found.</p>
       {% endfor %}

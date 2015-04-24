@@ -1,5 +1,5 @@
 Message-Id: {{ object.message_id }}
-From: {{ object._from }}
+From: {{ object.ffrom }}
 To: {{ object.to }}
 Cc: {{ object.cc }}
 Date: {{ object.datetime }}

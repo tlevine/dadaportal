@@ -25,6 +25,7 @@ def _article(request, obj):
     params = {
         'title': obj.title,
         'description': obj.description,
+        'modified': obj.modified,
         'body': obj.body,
         'tags': obj.tags,
 
