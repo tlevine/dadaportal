@@ -9,10 +9,12 @@ def guess_slides(body):
     '''
     Wrap slides around top-level elements.
     '''
-    html = fromstring(body)
-    result = b''
+    tree = fromstring(body)
+    if tree.tag == 'html':
+        tree = tree[0]
 
-    for element in html:
+    result = b''
+    for element in tree:
         if element.tag in TAGS:
             result += b'<div>' + tostring(element).strip() + b'</div>'
         else:
