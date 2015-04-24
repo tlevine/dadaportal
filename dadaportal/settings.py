@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'haystack',
     'caching',
     'tracking',
+    'big',
 
     # Dada
     'articles',
@@ -152,6 +153,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'dadaportal.context_processors.dadaportal',
     'jobs.context_processors.jobs',
     'tracking.context_processors.tracking',
+    'big.context_processors.big',
 )
 
 LOGGING = {

@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     <title>Dada Portal | {{title|default:'Thomas Levine'}}</title>
+    {% if big %}
+    {% include 'big/header.html' %}
+    {% else %}
     <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    {% endif %}
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">

@@ -21,11 +21,10 @@
 
     function receive() {
       if (r.readyState==4 && r.status == 200) {
-          function recurse() {
-            send(r.responseText.trim())
-          }
-          setTimeout(recurse, interval)
+        function recurse() {
+          send(r.responseText.trim())
         }
+        setTimeout(recurse, interval)
       }
     }
   }
