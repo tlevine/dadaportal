@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.template import RequestContext
 
 from ..models import Article
+from ..views import _article
 
 @pytest.mark.django_db
 def test_index():
@@ -38,7 +39,7 @@ def test_article():
     request = f.get('/!/aa/bb/')
     request.hit_id = 8
     request.session = {'session_id': 9}
-    response = _article(request, obj)
+    response = _article(request, a)
 
     # Test that stuff is in here.
     response.content
@@ -55,7 +56,7 @@ def test_article_defaults():
     request = f.get('/!/aa/bb/')
     request.hit_id = 8
     request.session = {'session_id': 9}
-    response = _article(request, obj)
+    response = _article(request, a)
 
     # Test that stuff is in here.
     response.content
