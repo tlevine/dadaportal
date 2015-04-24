@@ -228,6 +228,19 @@ footer {
   margin-bottom: 4px;
 }
 
+/* Two-column layout */
+article section.column {
+  width: 49%;
+  margin: 0;
+  padding: 0;
+}
+article section.column:nth-child(even) {
+  float: left;
+}
+article section.column:nth-child(odd) {
+  float: right;
+}
+
 /* Article styles */
 article {
   text-align: justify;
