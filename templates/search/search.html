@@ -4,9 +4,10 @@
 {% block top_search %}{% endblock %}
 
 {% block base %}
+<div class="haystack-search">
   <h1 class="centered-heading">Search the Dada Portal</h1>
 
-  <form method="get" action="." class="haystack-search">
+  <form method="get" action=".">
     {{ form.as_p }}
     <p><input type="submit" value="Search"></p>
   </form>
@@ -17,7 +18,7 @@
 
     <dl>
       {% for result in page.object_list %}
-      <dt><a href="{{ result.url }}">{% highlight result.title with query %}</a></dt>
+      <dt><a href="{{ result.url }}">{{ result.title }}</a></dt>
       <dd>{% highlight result.text with query %}</dd>
       {% empty %}
       <p>No results found.</p>
@@ -50,4 +51,5 @@
   {% else %}
   {# Show some example queries to run, maybe query syntax, something else? #}
   {% endif %}
+</div>
 {% endblock %}
