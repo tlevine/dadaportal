@@ -345,7 +345,7 @@ h2.centered-heading {
 /* Search form */
 .search-form input[type=search] {
   padding-left: 8px; /* Doesn't affect width */
-  width: 252px; /* should be 264, but I left room for the fudge factor */
+  width: 264px;
 }
 .search-form input[type=submit] {
   width: 72px;
@@ -422,8 +422,8 @@ article ul, article ol, article dl {
     float: right;
   }
   .search-form input {
+    box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
     height: 42px;
-    /* The input[type=search] elements are 2 px bigger, and I don't understand why. */
   }
 
   #index-main .search {
@@ -437,7 +437,7 @@ article ul, article ol, article dl {
     width: 200px;
   }
   .search-form input[type=search] {
-    width: 112px; /* should be 124, but I left room for the fudge factor */
+    width: 124px;
   }
 }
 @media screen and (min-width: 630px) {
@@ -446,7 +446,7 @@ article ul, article ol, article dl {
     width: 300px;
   }
   .search-form input[type=search] {
-    width: 192px; /* should be 204, but I left room for the fudge factor */
+    width: 204px;
   }
 }
 @media screen and (min-width: 720px) {
@@ -455,7 +455,7 @@ article ul, article ol, article dl {
     width: 430px;
   }
   .search-form input[type=search] {
-    width: 342px; /* should be 354, but I left room for the fudge factor */
+    width: 354px;
   }
 }
 @media screen and (min-width: 900px) {
