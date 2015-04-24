@@ -1,4 +1,9 @@
-from ..models import _parse_message_id, _decode_header
+import datetime
+
+from ..models import (
+    _parse_message_id, _decode_header,
+    Message,
+)
 
 def test_parse_message_id_none():
     'If the message-id is None, result should also be None.'
@@ -16,3 +21,21 @@ def test_decode_header():
     observed = _decode_header('Mez-Kanada =?UTF-8?B?UmVua29udGnEnW8gZW4gVG9yb250bw==?=')
     assert observed == 'Mez-Kanada Renkontiĝo en Toronto'
      
+def test_parts():
+    'Parts should be a list of names.'
+    m = Message(
+        message_id = 'abc@def.g',
+
+        datetime = datetime.datetime.now(),
+        subject = 'sub',
+        _from = 'fr',
+        to = 'to',
+        cc = 'cc',
+
+        body = 'body',
+
+        partsjson = '[None, "garzweiler.png"]',
+       #thread_id = m.Column(s.String)
+        is_mailing_list = True,
+    )
+    assert m.parts == [None, 'garzweiler.png']

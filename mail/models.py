@@ -22,6 +22,13 @@ class Message(Cache):
     body = m.TextField(null = False)
 
     partsjson = m.TextField(null = False)
+    @property
+    def parts(self):
+        return json.loads(self.partsjson)
+    @parts.setter
+    def parts(self, value):
+        self.partsjson = json.dumps(value)
+
    #thread_id = m.Column(s.String)
     is_mailing_list = m.BooleanField(null = False, default = False)
 
