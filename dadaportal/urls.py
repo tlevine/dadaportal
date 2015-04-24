@@ -5,7 +5,7 @@ from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
-from .views import index, docs, infinite_redirect
+from .views import docs, infinite_redirect
 
 def fix_dir(old, new):
     return url(r'^%s(/(?:.+)?)$' % old,
@@ -15,12 +15,14 @@ def fix_tag(tag):
     return url(r'^%s/?$' % tag, RedirectView.as_view(url='/!/?tag=%s' % tag))
 
 urlpatterns = patterns('',
-    url(r'^/?$', index, name = 'dadaportal/index'),
+    url(r'^$', TemplateView.as_view(template_name = 'dadaportal/index.html'),
+        name = 'dadaportal/index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/$', docs),
     url(r'^recommended/$',
         TemplateView.as_view(template_name = 'dadaportal/recommended.html'),
         name = 'dadaportal/recommended'),
+
 
     url(r'^search/', include('haystack.urls')),
 #   url(r'^schedule/', include('schedule.urls')),

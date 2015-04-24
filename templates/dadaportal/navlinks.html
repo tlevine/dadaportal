@@ -1,0 +1,12 @@
+<ul>
+  <li><a href="{% url 'dadaportal/recommended' %}">Recommended</a></li>
+  &bull; <li><a href="{% url 'mail/index' %}">All mail</a></li>
+  &bull; <li><a href="{% url 'articles/index' %}">All articles</a></li>
+  {% comment %}
+  &bull; <li><a href="/schedule/">Schedule</a></li>
+  &bull; <li><a href="/!/about/">About</a></li>
+  {% endcomment %}
+  {% if request_job %}
+  &bull; <li><a href="/jobs/">Hire me.</a></li>
+  {% endif %}
+</ul>

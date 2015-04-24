@@ -54,19 +54,10 @@
   {% block bodytag %}<body>{% endblock %}
     <nav>
       {% block navlinks %}
-      <ul>
-        <li><a href="{% url 'dadaportal/index' %}">Home</a></li>
-        {% comment %}
-        <li><a href="/schedule/">Schedule</a></li>
-        <li><a href="/!/about/">About</a></li>
-        {% endcomment %}
-        {% if request_job %}
-        <li><a href="/jobs/">Hire me.</a></li>
-        {% endif %}
-      </ul>
+      {% include 'dadaportal/navlinks.html' %}
       {% endblock %}
       {% block top_search %}
-      {% include 'dadaportal/search-form.html' %}
+      {% include 'dadaportal/simple-search.html' %}
       {% endblock %}
     </nav>
     {% block base %}{% endblock %}

@@ -3,12 +3,9 @@ import os
 import markdown
 
 from django.conf import settings
-from django.views.generic import TemplateView
 from django.template import Context
 from django.template.loader import get_template
 from django.shortcuts import render
-
-index = TemplateView.as_view(template_name = 'index.html')
 
 def docs(request):
     with open(os.path.join(settings.BASE_DIR, 'requirements.txt')) as fp:

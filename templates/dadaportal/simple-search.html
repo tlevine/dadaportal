@@ -1,4 +1,4 @@
 <form action="{% url 'haystack_search' %}" method="get" class="search-form">
-  <input name="q" type="text" value="{{q|default:''}}" placeholder="Search for dada." />
+  <input name="q" type="text" value="{{q|default:''}}" placeholder="{{placeholder|default:'Search for dada.'}}" />
   <input value="Go" type="submit" />
 </form>

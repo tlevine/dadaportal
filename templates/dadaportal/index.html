@@ -9,11 +9,7 @@
 {% block base %}
 <div class="search">
   <h1>Dada Portal</h1>
-  {% include 'dadaportal/search-form.html' %}
-  <ul>
-    <li><a href="{% url 'dadaportal/recommended' %}">Recommended</a></li> &bull;
-    <li><a href="{% url 'mail/index' %}">All mail</a></li> &bull;
-    <li><a href="{% url 'articles/index' %}">All articles</a></li>
-  </ul>
+  {% include 'dadaportal/simple-search.html' with placeholder='Search the dada. Or click below for everything.' %}
+  {% include 'dadaportal/navlinks.html' %}
 </div>
 {% endblock %}
