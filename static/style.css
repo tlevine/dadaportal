@@ -296,9 +296,8 @@ article dl {
   border-top: solid 2px;
   border-bottom: solid 2px;
 }
-/* article dt:after { content: ': '; } */
-article dt { float: left; width: 170px; }
-article dd { margin-left: 170px; }
+section.message dt { float: left; width: 170px; }
+section.message dd { margin-left: 170px; }
 article img, article video {
   display: block;
   margin-left: auto;

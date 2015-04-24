@@ -2,13 +2,12 @@
 {% block base %}
 <article>
   {% if articles|length > 0 %}
-  <ul>
+  <dl>
     {% for article in articles %}
-    <li>
-      <a href="{% url 'articles/article' article.endpoint %}">{{article.title}}</a>
-    </li>
+    <dt><a href="{% url 'articles/article' article.endpoint %}">{{article.title}}</a></dt>
+    <dd>{{ article.description|default:article.endpoint }}</dd>
     {% endfor %}
-  </ul>
+  </dl>
   {% else %}
   <center>No articles</center>
   {% endif %}

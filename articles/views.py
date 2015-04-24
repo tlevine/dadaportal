@@ -48,5 +48,4 @@ def _article(request, obj):
     return render(request, template, params)
 
 def index(request):
-    articles = [{'endpoint': a.endpoint, 'title': a.title} for a in Article.objects.all()]
-    return render(request, 'articles/index.html', {'articles': articles})
+    return render(request, 'articles/index.html', {'articles': Article.objects.all()})
