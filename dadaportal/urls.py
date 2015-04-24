@@ -5,6 +5,9 @@ from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 
+from haystack.views import SearchView, search_view_factory
+from haystack.forms import HighlightedModelSearchForm
+
 from .views import docs, infinite_redirect
 
 def fix_dir(old, new):
@@ -23,10 +26,9 @@ urlpatterns = patterns('',
         TemplateView.as_view(template_name = 'dadaportal/recommended.html'),
         name = 'dadaportal/recommended'),
 
-
-    url(r'^search/', include('haystack.urls')),
+    url(r'^search/$', search_view_factory(view_class=SearchView,
+        form_class=HighlightedModelSearchForm), name='haystack_search'),
 #   url(r'^schedule/', include('schedule.urls')),
-
     url(r'^mail/', include('mail.urls')),
 
     url(r'^!/', include('articles.urls')),

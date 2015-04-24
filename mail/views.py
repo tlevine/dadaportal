@@ -31,7 +31,6 @@ def message(request, message_id):
         'cc': _redact(m.cc),
         'body': m.body,
 
-        'mailto': mailto,
         'parts': m.parts,
         # Add thread eventually
     }
