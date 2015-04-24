@@ -1,8 +1,9 @@
+{# Body first so it shows up if there's no highlighting #}
+{{ object.body }}
+
 Message-Id: {{ object.message_id }}
 From: {{ object.ffrom }}
 To: {{ object.to }}
 Cc: {{ object.cc }}
 Date: {{ object.datetime }}
 Subject: {{ object.subject }}
-
-{{ object.body }}
