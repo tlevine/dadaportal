@@ -1,5 +1,10 @@
+@font-face {
+  font-family: 'Blackout';
+  src: url(/static/fonts/blackout/blackout_two_am-webfont.woff) format('woff');
+}
+
 body {
-  font-family: 'Helvetica';
+  font-family:Blackout;
   letter-spacing:-5px;
   background:#000;
   background-size:100%;
@@ -9,8 +14,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight:bold;
   margin:0;
+}
+pre {
+  font-family:monospace;
+  letter-spacing:-2px;
 }
 p { display: none; }
 
