@@ -1,6 +1,8 @@
 import re
 from urllib.parse import urlencode
-from email import message_from_file
+from email import message_from_binary_file
+
+from unidecode import unidecode
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -43,8 +45,8 @@ def attachment(request, message_id, i):
     except Message.DoesNotExist:
         raise Http404('Message is not cached in the database or doesn\'t exist at all.')
 
-    with open(message_db.filename) as fp:
-        message_file = message_from_file(fp)
+    with open(message_db.filename, 'rb') as fp:
+        message_file = message_from_binary_file(fp)
 
     if message_file.is_multipart():
         parts = message_file.get_payload()
@@ -56,13 +58,18 @@ def attachment(request, message_id, i):
     part = parts[i]
 
     # Things related to content type
-    payload = decode_charset(message_file, part.get_payload(decode = True))
-    encoding, encoded_payload = encode_charset(message_file, payload)
-    content_type = message_file.get_content_type()
+    payload = part.get_payload(decode = True)
+    content_type = part.get_content_type()
 
     # Start constructing the response
-    response = HttpResponse(content = encoded_payload, content_type = content_type)
-    response.charset = encoding
+    for charset in part.get_charsets():
+        try:
+            payload.decode(charset)
+        except UnicodeDecodeError:
+            pass
+        else:
+            content_type = '%s; charset=%s' % (content_type, charset)
+            break
 
     # Content disposition
     fn = part.get_filename()
@@ -81,6 +88,8 @@ def attachment(request, message_id, i):
         content_disposition_right = 'filename="%s-part-%d.txt";' % args
     else:
         content_disposition_right = 'filename="%s";' % unidecode(fn).replace('"', '')
+
+    response = HttpResponse(content = payload, content_type = content_type)
     response['content-disposition'] = content_disposition_left + content_disposition_right
     return response
 
