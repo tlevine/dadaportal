@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block base %}
-<article>
+  <h1>Published emails</h1>
+  <section>
+    <p>
+      Emails are usually private by convention, but I sometimes publish
+      them when they don't need to be private. Here are some emails.
+    </p>
+  </section>
+  <section>
   {% if messages|length > 0 %}
   <ul>
     {% for message in messages %}
@@ -12,5 +19,5 @@
   {% else %}
   <center>No mail</center>
   {% endif %}
-</article>
+  </section>
 {% endblock %}
