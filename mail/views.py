@@ -62,7 +62,7 @@ def attachment(request, message_id, i):
     content_type = part.get_content_type()
 
     # Start constructing the response
-    for charset in part.get_charsets():
+    for charset in filter(None, part.get_charsets()):
         try:
             payload.decode(charset)
         except UnicodeDecodeError:
