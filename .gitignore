@@ -1,5 +1,4 @@
-static-compiled
+.static-compiled
 .secrets
 *.log
-notmuch-config
-maildir
+.whoosh-index

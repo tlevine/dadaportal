@@ -25,7 +25,7 @@ def message(request, message_id):
         'title': m.subject,
         'subject': m.subject,
         'datetime': m.datetime,
-        'from': _redact(m._from),
+        'from': _redact(m.from_),
         'to': _redact(m.to),
         'cc': _redact(m.cc),
         'body': m.body,

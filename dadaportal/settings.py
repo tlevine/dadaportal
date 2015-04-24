@@ -128,7 +128,7 @@ TIME_ZONE = 'UTC' # That's how Tom rolls.
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static-compiled')
+STATIC_ROOT = os.path.join(BASE_DIR, '.static-compiled')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -173,7 +173,7 @@ LOGGING = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh-index'),
+        'PATH': os.path.join(BASE_DIR, '.whoosh-index'),
     },
 }
 
@@ -182,8 +182,6 @@ HIT_ID_SIZE = 62
 
 # For mail and searching
 DEFAULT_SEARCH_RESULT_TITLE = '(no subject)'
-MAX_SEARCH_RESULTS = 100
-BEGINNING_OF_TIME = datetime.datetime(1990, 3, 30)
 DOMAIN_NAME = 'thomaslevine.com'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
@@ -193,7 +191,7 @@ LOCAL_PAL_DIR = os.path.expanduser('~/git/schedule')
 REMOTE_PAL_DIR = '.pal'
 REMOTE_BASE_DIR = '/srv/dadaportal'
 
-REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, 'static-compiled')
+REMOTE_STATIC_ROOT = os.path.join(REMOTE_BASE_DIR, '.static-compiled')
 
 DO_NOT_TRACK = [
     r'^/admin',
