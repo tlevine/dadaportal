@@ -56,18 +56,20 @@ class Cache(models.Model):
         file_modified = _modified(self.filename)
         if self.modified == file_modified:
             return False
+        self.modified = file_modified
 
         # If the md5sums are the same, update only the date.
         file_md5sum = _md5sum(self.filename)
         if self.md5sum == file_md5sum:
-            self.modified == file_modified
             self.save()
             return False
+        self.md5sum = file_md5sum
 
         # Try to reify.
         reified = self.reify(self.filename)
         if reified == None:
             logger.warn('I could not reify "%s", so I skipped it.' % self.filename)
+            self.save()
             return False
 
         # Update if everything worked.
