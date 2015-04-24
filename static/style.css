@@ -247,6 +247,18 @@ article section.column:nth-child(odd) {
   float: right;
 }
 
+/* Haystack search page */
+.haystack-search > ul > li {
+  display: inline-block; 
+  width: 49%;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+.haystack-search > input[type=text] {
+  
+}
+
 /* Article styles */
 article {
   text-align: justify;
