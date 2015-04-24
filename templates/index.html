@@ -12,7 +12,7 @@
   {% include 'dadaportal/search-form.html' %}
   <ul>
     <li><a href="{% url 'dadaportal/recommended' %}">Popular articles</a></li> &bull;
-    <li><a href="{% url 'search' %}?q=date:1D..&amp;hide_emails=">Recent updates</a></li>
+    <li><a href="{% url 'haystack_search' %}?q=date:1D..&amp;hide_emails=">Recent updates</a></li>
   </ul>
 </div>
 {% endblock %}
