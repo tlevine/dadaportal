@@ -30,7 +30,7 @@ def message(request, message_id):
         'cc': _redact(m.cc),
         'body': m.body,
 
-        'parts': list(enumerate(m.parts)),
+        'parts': m.parts,
         # Add thread eventually
     }
     return render(request, 'mail/message.html', params)

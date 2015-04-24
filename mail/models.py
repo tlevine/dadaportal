@@ -5,6 +5,7 @@ import email, os, re, json
 
 from django.conf import settings
 from django.db import models as m
+from django.core.urlresolvers import reverse
 
 from caching import Cache
 
@@ -31,6 +32,9 @@ class Message(Cache):
 
    #thread_id = m.Column(s.String)
     is_mailing_list = m.BooleanField(null = False, default = False)
+
+    def get_absolute_url(self):
+        return reverse('mail/message', args = (self.message_id,))
 
     @staticmethod
     def discover():
@@ -87,4 +91,5 @@ def _parse_message_id(maybe_message_id):
 def _parts(m):
     if not m.is_multipart():
         return []
-    return list(part.get_filename() for part in m.get_payload())
+    unfiltered = enumerate(part.get_filename() for part in m.get_payload())
+    return [(i, fn) for i, fn in unfiltered if fn]

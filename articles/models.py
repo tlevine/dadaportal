@@ -3,6 +3,7 @@ from urllib.parse import urljoin
 
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from caching import Cache
 
@@ -34,7 +35,7 @@ class Article(Cache):
     twitter_image = models.TextField(null = True)
 
     def get_absolute_url(self):
-        return '/!/%s/' % self.endpoint
+        return reverse('articles/article', self.endpoint)
 
     @property
     def tags(self):

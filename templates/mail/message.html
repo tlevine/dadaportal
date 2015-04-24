@@ -13,11 +13,14 @@
   <section class="attachments">
     <h3>Attachments</h3>
     <ol>
-    {% for i, description in parts %}
-      <li><a href="{{i}}">{{description|default:'Untitled'}}</a></li>
-    {% endfor %}
+      {% for i, description in parts %}
+      <li><a href="{{i}}">{{description}}</a></li>
+      {% empty %}
+      No attachments
+      {% endfor %}
     </ol>
   </section>
+  {% comment %}
   <section class="reply">
     <p><a href="{{mailto}}" target="_blank">Reply to this message</a></p>
   </section>
@@ -33,5 +36,6 @@
       {% endfor %}
     </ul>
   </section>
+  {% endcomment %}
 </article>
 {% endblock %}
