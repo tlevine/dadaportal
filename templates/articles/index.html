@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block base %}
-<article>
   {% if articles|length > 0 %}
   <dl>
     {% for article in articles %}
@@ -11,5 +10,4 @@
   {% else %}
   <center>No articles</center>
   {% endif %}
-</article>
 {% endblock %}
