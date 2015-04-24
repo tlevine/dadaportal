@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block base %}
 <article>
-  {% if message %}
   <section class="message">
-    <h1>{{message.subject}}</h1>
+    <h1>{{subject}}</h1>
     <dl>
-      <dt>From</dt><dd>{{message.from}}</dd>
-      <dt>To</dt><dd>{{message.to}}</dd>
-      <dt>Date</dt><dd>{{message.datetime}}</dd>
+      <dt>From</dt><dd>{{from}}</dd>
+      <dt>To</dt><dd>{{to}}</dd>
+      <dt>Date</dt><dd>{{datetime}}</dd>
     </dl>
     <pre>{{body}}</pre>
   </section>
@@ -20,13 +19,10 @@
     </ol>
   </section>
   <section class="reply">
-    <p><a href="{{message.mailto}}" target="_blank">Reply to this message</a></p>
+    <p><a href="{{mailto}}" target="_blank">Reply to this message</a></p>
   </section>
-  {% endif %}
   <section class="thread">
-    {% if message %}
     <h3>Thread</h3>
-    {% endif %}
     <ul>
       {% for thread in threads %}
       <ul>
@@ -36,11 +32,6 @@
       </ul>
       {% endfor %}
     </ul>
-    {% if threads|length == 0 %}
-    <em>No emails match &ldquo;{{q}}&rdquo;.</em>
-    {% elif threads|length == 100 %}
-    <em>Only the first 100 threads are displayed; refine your search to see more results.</em>
-    {% endif %}
   </section>
 </article>
 {% endblock %}
