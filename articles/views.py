@@ -25,7 +25,8 @@ def _article(request, obj):
 
     if 'slides' in request.GET:
         template = 'articles/big.html'
-        body = guess_slides(obj.body)
+       #body = guess_slides(obj.body)
+        body = obj.body
     else:
         template = 'articles/article.html'
         body = obj.body
