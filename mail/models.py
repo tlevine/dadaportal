@@ -85,4 +85,4 @@ def _parse_message_id(maybe_message_id):
 def _parts(m):
     if not m.is_multipart():
         return []
-    return list(part.get_filename('Untitled') for part in m.get_payload())
+    return list(part.get_filename() for part in m.get_payload())

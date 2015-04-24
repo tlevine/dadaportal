@@ -13,8 +13,8 @@
   <section class="attachments">
     <h3>Attachments</h3>
     <ol>
-    {% for n, description in parts %}
-      <li><a href="{{n}}">{{description}}</a></li>
+    {% for i, description in parts %}
+      <li><a href="{{i}}">{{description|default:'Untitled'}}</a></li>
     {% endfor %}
     </ol>
   </section>
