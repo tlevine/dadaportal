@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Message
+from .util import encode_charset
 
 def index(request):
     messages = [{'message_id': a.message_id, 'subject': a.subject} \
@@ -53,21 +54,8 @@ def attachment(request, message_id, i):
     part = parts[i]
 
     # Things related to content type
-    payload = part.get_payload(decode = True)
-    if 'html' in part.get_content_type().lower():
-        payload = clean_html(payload)
-
-    for charset in filter(None, m.get_charsets()):
-        try:
-            encoded_payload = payload.encode(charset)
-        except UnicodeEncodeError:
-            pass
-        else:
-            encoding = charset
-            break
-    else:
-        encoded_payload = unidecode(payload).encode('utf-8')
-        encoding = 'utf-8'
+    payload = decode_payload(part.get_payload(decode = True))
+    encoding, encoded_payload = encode_charset(m, payload)
 
     # Start constructing the response
     response = HttpResponse(content = encoded_payload,

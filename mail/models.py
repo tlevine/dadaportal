@@ -10,6 +10,8 @@ from django.db import models as m
 
 from caching import Cache
 
+from .util import decode_charset, decode_header
+
 class Message(Cache):
     message_id = m.TextField(blank = False, null = False, unique = True)
 
@@ -54,8 +56,8 @@ class Message(Cache):
             '_from': m.get('from', ''),
             'to': m.get('to', ''),
             'cc': m.get('cc', ''),
-            'subject': _decode_header(m.get('subject', '')),
-            'body': _body(m),
+            'subject': decode_header(m.get('subject', '')),
+            'body': decode_header(_body(m)),
             'partsjson': json.dumps(_parts(m)),
         }
 
@@ -69,9 +71,10 @@ class Message(Cache):
 
 def _body(message):
     body = message.get_payload(decode = True)
-    if 'html' in message.get_content_type().lower():
-        body = clean_html(body)
-    return body
+    if body == None and message.is_multipart():
+        body = message.get_payload()[0].get_payload(decode = True)
+
+    return decode_charset(message, body)
 
 def _parse_message_id(maybe_message_id):
     if maybe_message_id:
@@ -83,7 +86,3 @@ def _parts(m):
     if not m.is_multipart():
         return []
     return list(part.get_filename('Untitled') for part in m.get_payload())
-
-def _decode_header(header):
-    return ''.join(content.decode(charset if charset else 'ascii') \
-        for content, charset in email.header.decode_header(header))
