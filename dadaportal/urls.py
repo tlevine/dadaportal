@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^search/', include('haystack.urls')),
 #   url(r'^schedule/', include('schedule.urls')),
 
-    url(r'^@/', include('mail.urls')),
+    url(r'^mail/', include('mail.urls')),
 
     url(r'^!/', include('articles.urls')),
     url(r'^source/(?P<path>.*)$', 'django.views.static.serve',
@@ -46,6 +46,7 @@ urlpatterns = patterns('',
     fix_tag('shenanigans'),
     fix_tag('letterpress'),
 
+    fix_dir('@', 'mail'),
     fix_dir('notes', '!/notes'),
     fix_dir('__33__', '!'),
     fix_dir('dada', '!'),
