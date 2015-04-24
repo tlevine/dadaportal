@@ -44,6 +44,9 @@ REMOTE_USER = 'www-data'
 # This is an SSH host, configured in .ssh/config.
 REMOTE_SSH_HOST = 'nsa'
 
+# Where the mail goes on NSA
+REMOTE_MAIL_DIR = '/var/www/maildir'
+
 IS_PRODUCTION = getuser() == REMOTE_USER or gethostname() == REMOTE_SSH_HOST or 'USER' not in os.environ
 
 if IS_PRODUCTION:
@@ -52,7 +55,7 @@ if IS_PRODUCTION:
 
     USE_CACHE = True
     USER = REMOTE_USER
-    MAIL_DIR = '/var/www/maildir'
+    MAIL_DIR = REMOTE_MAIL_DIR
 
 else:
     print('Running in development mode')
@@ -65,7 +68,7 @@ else:
         USER = REMOTE_USER
     else:
         USER = os.environ['USER']
-    MAIL_DIR = '/home/tlevine/public-cur-emails'
+    MAIL_DIR = os.path.expanduser('~/safe/maildir/hot/_@thomaslevine.com/Public/cur/')
 
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 
@@ -76,7 +79,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   #'django.contrib.markup',
 
     # Utilities
     'haystack',
@@ -181,7 +183,6 @@ HAYSTACK_CONNECTIONS = {
 HIT_ID_SIZE = 62
 
 # For mail and searching
-DEFAULT_SEARCH_RESULT_TITLE = '(no subject)'
 DOMAIN_NAME = 'thomaslevine.com'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
