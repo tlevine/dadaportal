@@ -1,0 +1,12 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  {% include 'meta.html' %}
+  <link href="{% static 'big/big.css' %}" rel="stylesheet" type="text/css" />
+  <script src="{% static 'big/big.js' %}"></script>
+</head>
+<body>
+  {% block base %}{% endblock %}
+</body>
+</html>

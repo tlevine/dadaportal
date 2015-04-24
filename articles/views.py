@@ -16,9 +16,13 @@ def article(request, endpoint):
         obj = get(Article, endpoint = endpoint)
     except Article.DoesNotExist:
         raise Http404('Article is not cached in the database or doesn\'t exist at all.')
-    return _article(request, obj)
+    if 'slides' in request.GET:
+        template = 'articles/big.html'
+    else:
+        template = 'articles/article.html'
+    return _article(request, obj, template)
 
-def _article(request, obj):
+def _article(request, obj, template):
     if obj.redirect != None:
         return HttpResponseRedirect(obj.redirect)
 
@@ -37,7 +41,7 @@ def _article(request, obj):
         'twitter_description': obj.twitter_description,
         'twitter_image': obj.twitter_image,
     }
-    return render(request, 'articles/article.html', params)
+    return render(request, template, params)
 
 def index(request):
     articles = [{'endpoint': a.endpoint, 'title': a.title} for a in Article.objects.all()]
