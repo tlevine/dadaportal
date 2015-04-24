@@ -172,6 +172,7 @@ blockquote > p {
 
 /* Main content styles */
 main {
+  margin-bottom: 21px;
   margin-left: auto;
   margin-right: auto;
 }
