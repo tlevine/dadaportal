@@ -6,6 +6,7 @@ import email, os, re, json
 from django.conf import settings
 from django.db import models as m
 from django.core.urlresolvers import reverse
+from django.db.utils import IntegrityError
 
 from caching import Cache
 
@@ -35,6 +36,18 @@ class Message(Cache):
 
     def get_absolute_url(self):
         return reverse('mail/message', args = (self.message_id,))
+
+    @classmethod
+    def add(Class, filename):
+        UpperClass = super(Message, Class)
+        try:
+            return UpperClass.add(filename)
+        except IntegrityError:
+            if Class.objects.filter(filename = filename).count() == 0:
+                Class.objects.filter(message_id = Class.reify(filename)['message_id']).delete()
+                return UpperClass.add(filename)
+            else:
+                raise
 
     @staticmethod
     def discover():
