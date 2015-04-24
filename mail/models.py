@@ -68,7 +68,7 @@ def _body(message):
 
 def _parse_message_id(maybe_message_id):
     if maybe_message_id:
-        m = re.match(r'^[^<]*<([^<]+)>.*$', m.get('message-id'))
+        m = re.match(r'^[^<]*<([^<]+)>.*$', maybe_message_id)
         if m:
             return m.group(1)
 
