@@ -35,7 +35,7 @@ class Article(Cache):
     twitter_image = models.TextField(null = True)
 
     def get_absolute_url(self):
-        return reverse('articles/article', self.endpoint)
+        return reverse('articles/article', args = (self.endpoint,))
 
     @property
     def tags(self):
