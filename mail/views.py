@@ -1,10 +1,11 @@
 import re
+from email import message_from_file
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from .models import Message
-from .util import encode_charset
+from .util import encode_charset, decode_charset
 
 def index(request):
     messages = [{'message_id': a.message_id, 'subject': a.subject} \
@@ -44,22 +45,23 @@ def attachment(request, message_id, i):
     with open(message_db.filename) as fp:
         message_file = message_from_file(fp)
 
-    if message.is_multipart():
-        parts = message.get_payload()
+    if message_file.is_multipart():
+        parts = message_file.get_payload()
     else:
-        parts = [message]
+        parts = [message_file]
 
     if i >= len(parts):
         return HttpResponseRedirect('/@/%s/' % message_id)
     part = parts[i]
 
     # Things related to content type
-    payload = decode_payload(part.get_payload(decode = True))
-    encoding, encoded_payload = encode_charset(m, payload)
+    payload = decode_charset(message_file, part.get_payload(decode = True))
+    encoding, encoded_payload = encode_charset(message_file, payload)
+    content_type = message_file.get_content_type()
 
     # Start constructing the response
-    response = HttpResponse(content = encoded_payload,
-        content_type = content_type, encoding = encoding)
+    response = HttpResponse(content = encoded_payload, content_type = content_type)
+    response.charset = encoding
 
     # Content disposition
     fn = part.get_filename()
@@ -74,7 +76,7 @@ def attachment(request, message_id, i):
 
     # Set the file name.
     if fn == None:
-        args = (message.get_message_id(), n)
+        args = (message_db.message_id, i)
         content_disposition_right = 'filename="%s-part-%d.txt";' % args
     else:
         content_disposition_right = 'filename="%s";' % unidecode(fn).replace('"', '')
