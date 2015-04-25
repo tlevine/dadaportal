@@ -11,10 +11,10 @@ def test_redirect():
     assert 400 > response.status_code >= 300
 
 def test_redact_named_email_address():
-    assert _redact('Thomas Levine <blah@thomaslevine.com>') == 'Thomas Levine <blah@...>'
+    assert _redact('Thomas Levine <blah@thomaslevine.com>') == 'Thomas Levine <[redacted]@[redacted]>'
 
 def test_redact_plain_email_address():
-    assert _redact('  blah@thomaslevine.com   ') == '  blah@...   '
+    assert _redact('  blah@thomaslevine.com   ') == '  [redacted]@[redacted]   '
 
 def test_redact_twitter_username():
     assert _redact('Twitter: @thomaslevine ') == 'Twitter: @thomaslevine '

@@ -5,7 +5,10 @@ from email import message_from_binary_file
 from unidecode import unidecode
 
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import (
+    HttpResponse, HttpResponseRedirect,
+    HttpResponseForbidden, Http404,
+)
 
 from .models import Message
 
@@ -56,6 +59,9 @@ def attachment(request, message_id, i):
     if i >= len(parts):
         return HttpResponseRedirect('/@/%s/' % message_id)
     part = parts[i]
+    fn = part.get_filename()
+    if fn == None:
+        return HttpResponseForbidden("You're not allowed to view this attachment.")
 
     # Things related to content type
     payload = part.get_payload(decode = True)
@@ -70,9 +76,6 @@ def attachment(request, message_id, i):
         else:
             content_type = '%s; charset=%s' % (content_type, charset)
             break
-
-    # Content disposition
-    fn = part.get_filename()
 
     # Force download on HTML if running it here could be unsafe.
     for ml in ['html', 'xml', 'svg']:
@@ -94,4 +97,4 @@ def attachment(request, message_id, i):
     return response
 
 def _redact(address):
-    return re.sub(r'([^ ]+)@([^, >@]+)', r'\1@...', address)
+    return re.sub(r'(<?)(?:[^< ]+)@(?:[^, >@]+)', r'\1[redacted]@[redacted]', address)
