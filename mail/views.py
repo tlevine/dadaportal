@@ -30,7 +30,7 @@ def message(request, message_id):
         'from': _redact(m.ffrom),
         'to': _redact(m.to),
         'cc': _redact(m.cc),
-        'body': m.body,
+        'body': _redact(m.body),
 
         'parts': m.parts,
         'model': m,
@@ -94,4 +94,4 @@ def attachment(request, message_id, i):
     return response
 
 def _redact(address):
-    return re.sub(r'@[^, >]+', '@...', address)
+    return re.sub(r'([^ ]+)@([^, >@]+)', r'\1@...', address)
