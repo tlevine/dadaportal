@@ -22,6 +22,11 @@ def docs(request):
     doc = get_template('dadaportal/install.md').render(Context(params))
     return render(request, 'dadaportal/docs.html', {'doc': markdown.markdown(doc)})
 
+def macro(request):
+    response = render(request, 'mail/macro.vim')
+    response['Content-Type'] = 'text/x-vim'
+    return response
+
 def infinite_redirect(request):
     'To annoy script kiddies'
     return HttpResponseRedirect(request.path_info)

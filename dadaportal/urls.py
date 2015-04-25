@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from haystack.views import SearchView, search_view_factory
 from haystack.forms import HighlightedModelSearchForm
 
-from .views import docs, infinite_redirect
+from .views import docs, infinite_redirect, macro
 
 def fix_dir(old, new):
     return url(r'^%s(/(?:.+)?)$' % old,
@@ -22,6 +22,7 @@ urlpatterns = patterns('',
         name = 'dadaportal/index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/$', docs),
+    url(r'^docs/dadamail.vim', macro),
     url(r'^recommended/$',
         TemplateView.as_view(template_name = 'dadaportal/recommended.html'),
         name = 'dadaportal/recommended'),
