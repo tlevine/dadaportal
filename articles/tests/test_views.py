@@ -21,6 +21,7 @@ def test_index():
 def test_article():
     a = Article(
         endpoint = 'aa/bb',
+        filename = '/home/tlevine/blah/aa/bb/index.md',
         md5sum = 'xxx',
         modified = datetime.datetime.now(),
 
@@ -49,6 +50,7 @@ def test_article():
 def test_article_defaults():
     a = Article(
         endpoint = 'aa/bb',
+        filename = '/home/tlevine/blah/aa/bb/index.md',
         md5sum = 'xxx',
         modified = datetime.datetime.now(),
         body = '<p>Body here</p>',
