@@ -1,4 +1,4 @@
 [submodule "articles"]
 	path = canonical-articles
-	url = ../thomaslevine.com/.git
-	branch = dada-portal
+	url = nsa:dada.pink/articles
+	branch = master
