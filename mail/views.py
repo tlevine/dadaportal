@@ -99,4 +99,4 @@ def attachment(request, message_id, i):
     return response
 
 def _redact(address):
-    return re.sub(r'(<?)(?:[^< ]+)@(?:[^,\s>@]+)', r'\1[redacted]@[redacted]', address)
+    return re.sub(r'(<mailto:|<|)(?:[^<> ]+)@(?:[^,\s<>@]+)', r'\1[redacted]@[redacted]', address)

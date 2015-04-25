@@ -26,5 +26,5 @@ def test_redact_newline():
 
 def test_redact_garbled_email_link():
     original = '>someone@montrealgazette.com<mailto:someone@montrealgazette.com>  '
-    expected = '>[redacted]@[redacted].com<mailto:[redacted]@[redacted].com>  '
+    expected = '>[redacted]@[redacted]<mailto:[redacted]@[redacted]>  '
     assert _redact(original) == expected
