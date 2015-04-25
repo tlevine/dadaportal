@@ -17,9 +17,6 @@
     <main role="main">
       {% block base %}{% endblock %}
     </main>
-    {% if hit_id %}
-    <script>{% include 'tracking/followup.js' %}</script>
-    <noscript><img style="border: 0;" src="{% url 'tracking/followup-img' %}?hit_id={{hit_id}}" /></noscript>
-    {% endif %}
+    {% include 'tracking/track.html' %}
   </body>
 </html>

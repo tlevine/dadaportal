@@ -8,5 +8,6 @@
 </head>
 <body>
   {% block base %}{{ body|safe }}{% endblock %}
+  {% include 'tracking/track.html' %}
 </body>
 </html>
