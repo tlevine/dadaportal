@@ -48,4 +48,5 @@ def _article(request, obj):
     return render(request, template, params)
 
 def index(request):
-    return render(request, 'articles/index.html', {'articles': Article.objects.all()})
+    articles = Article.objects.filter(redirect__isnull = True)
+    return render(request, 'articles/index.html', {'articles': articles})

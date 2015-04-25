@@ -88,7 +88,9 @@ def reify(filename):
         logger.debug('%s is not XML (It might be text.)' % path)
     else:
         for key, tag in [('title', 'h1'), ('description', 'p')]:
-            if key not in head:
+            if key in head:
+                data[key] = head[key]
+            else:
                 tags = html.xpath('//' + tag)
                 if len(tags) > 0:
                     data[key] = tags[0].text_content()
