@@ -59,9 +59,9 @@ urlpatterns = patterns('',
     url(r'^img/pink_hat_icon-200.png/?$',
         RedirectView.as_view(url='/static/hat.png', permanent = True)),
     url(r'^recentchanges',
-        RedirectView.as_view(url='/+/?q=date:1W..', permanent = False)),
+        RedirectView.as_view(url='/search/', permanent = False)),
     url(r'^ikiwiki.cgi',
-        RedirectView.as_view(url='/+/', permanent = False)),
+        RedirectView.as_view(url='/search/', permanent = False)),
    #url(r'piviti.xptv',
    #
     
