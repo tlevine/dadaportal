@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block base %}
   {% if articles|length > 0 %}
+  <h1>Articles</h1>
   <dl>
     {% for article in articles %}
     <dt><a href="{% url 'articles/article' article.endpoint %}">{{article.title}}</a></dt>
