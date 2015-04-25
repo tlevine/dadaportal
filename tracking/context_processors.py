@@ -18,7 +18,9 @@ def tracking(request):
         Hit.objects.create(hit = request.hit_id,
                            session = request.session['session_id'],
                            endpoint = request.path_info,
+                           querystring = request.META['QUERY_STRING'],
                            ip_address = request.META['REMOTE_ADDR'],
+                           accept_language = request.META.get('HTTP_ACCEPT_LANGUAGE', ''),
                            user_agent = request.META.get('HTTP_USER_AGENT', ''),
                            referrer = request.META.get('HTTP_REFERER', ''))
         d = {'hit_id': request.hit_id}

@@ -10,7 +10,9 @@ class Hit(models.Model):
     session = models.BigIntegerField(null = False, blank = False)
     datetime_start = models.DateTimeField(null = False, default = datetime.datetime.now)
     endpoint = models.TextField(null = False, blank = False)
+    querystring = models.TextField(null = False)
     ip_address = models.IPAddressField(null = False, blank = False)
+    accept_language = models.TextField(null = False)
     user_agent = models.TextField(null = False)
     referrer = models.URLField(null = False)
 
