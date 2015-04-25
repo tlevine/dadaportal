@@ -7,5 +7,9 @@ def get(Class, **kwargs):
     '''
     obj = Class.objects.get(**kwargs)
     if not settings.USE_CACHE:
-        obj.sync()
+        try:
+            obj.sync()
+        except FileNotFoundError:
+            obj.delete()
+            raise Class.DoesNotExist
     return obj
