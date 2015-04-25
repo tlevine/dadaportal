@@ -1,3 +1,4 @@
+/*
 @font-face {
   font-family: 'Blackout';
   font-weight: 800;
@@ -115,6 +116,7 @@
 	font-weight: normal;
 	font-style: italic;
 }
+*/
 
 @font-face {
   font-family: 'Sorts Mill Goudy';
@@ -129,7 +131,7 @@
 
 /* Base formatting */
 body {
-  font: normal 18px 'Sorts Mill Goudy', 'Linden Hill', serif;
+  font: normal 18px 'Sorts Mill Goudy', serif;
   line-height: 125%;
   width: 100%;
   height: 100%;
@@ -310,6 +312,11 @@ article video.wide {
 /* Mail styles */
 section.message dt { float: left; width: 170px; }
 section.message dd { margin-left: 170px; }
+section.email-body {
+  white-space: pre-wrap;
+  padding: 0.5em;
+  margin-top: 0.5em;
+}
 section.thread > ul ul {
   margin-left: 1em;
   margin-top: 0;
@@ -379,7 +386,7 @@ article iframe, article img, article video {
 .transparent {
   background-color: inherit;
 }
-pre, blockquote, .line-block /* rst class */ {
+section.email-body, pre, blockquote, .line-block /* rst class */ {
   color: #BBB;
   background-color: #333;
 }
