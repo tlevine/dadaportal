@@ -7,6 +7,7 @@ from unidecode import unidecode
 from django.shortcuts import render
 from django.http import (
     HttpResponse, HttpResponseRedirect,
+    HttpResponseNotFound,
     HttpResponseForbidden, Http404,
 )
 
@@ -24,7 +25,8 @@ def message(request, message_id):
     try:
         m = Message.objects.get(message_id = message_id)
     except Message.DoesNotExist:
-        raise Http404('Message is not cached in the database or doesn\'t exist at all.')
+        msg = "This email isn't here. If you followed a link from an email that Tom just sent you, try waiting a few minutes."
+        return HttpResponseNotFound(msg)
 
     params = {
         'title': m.subject,

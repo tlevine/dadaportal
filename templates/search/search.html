@@ -5,7 +5,9 @@
 
 {% block base %}
 <div class="haystack-search">
+  {% block introduction %}
   <h1 class="centered-heading">Search the Dada Portal</h1>
+  {% endblock %}
 
   <form method="get" action=".">
     {{ form.as_p }}
