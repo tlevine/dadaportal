@@ -1,11 +1,11 @@
-{# Description first so it shows up if there's no highlighting #}
-{{ object.description }}
-
-{# Then body #}
+{# Then body first so it shows up if there's no highlighting #}
 {{ object.body|striptags }}
 
 {# Then everything else #}
-{{ object.title }}
+{{ object.description }}
 {% for tag in object.tags %}
   {{ tag }}
 {% endfor %}
+
+{# Title last because I normally show that elsewhere in the template #}
+{{ object.title }}
