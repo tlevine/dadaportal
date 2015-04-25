@@ -27,10 +27,16 @@ class Command(BaseCommand):
                     n += 1
                 continue
 
-            obj = Class.objects.get(filename = filename)
-            if obj.sync():
-                self.stdout.write('Updated %s from %s' % (obj, obj.filename))
-                n += 1
-                continue
+            try:
+                obj = Class.objects.get(filename = filename)
+            except Class.DoesNotExist:
+                # This means that the "discover" method or an overloaded "add"
+                # method deleted this object, presumably for good reason.
+                pass
+            else:
+                if obj.sync():
+                    self.stdout.write('Updated %s from %s' % (obj, obj.filename))
+                    n += 1
+                    continue
 
         self.stdout.write('Created or updated %d %s records' % (n, Class.__name__))
