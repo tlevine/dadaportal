@@ -17,7 +17,5 @@ def guess_slides(body):
     for element in tree:
         if element.tag in TAGS:
             result += b'<div>' + tostring(element).strip() + b'</div>'
-        else:
-            result += tostring(element)
 
     return result
