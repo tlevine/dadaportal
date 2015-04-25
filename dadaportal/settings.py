@@ -179,6 +179,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, '.whoosh-index'),
     },
 }
+HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
 EMPTY_SEARCH_DESCRIPTION = '(No description available)'
 
 # For tracking
