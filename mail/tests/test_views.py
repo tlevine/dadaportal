@@ -18,3 +18,8 @@ def test_redact_plain_email_address():
 
 def test_redact_twitter_username():
     assert _redact('Twitter: @thomaslevine ') == 'Twitter: @thomaslevine '
+
+def test_redact_newline():
+    original = '> > discuss@lists.something.org\n> > https://lists.something.org/mailman/listinfo/discuss'
+    expected = '> > [redacted]@[redacted]\n> > https://lists.something.org/mailman/listinfo/discuss'
+    assert _redact(original) == expected
