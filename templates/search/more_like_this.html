@@ -1,0 +1,13 @@
+{% load more_like_this %}
+<section>
+  <h1>More like this</h1>
+  {% more_like_this model as related_stuffs limit 5  %}
+  <dl>
+    {% for related_stuff in related_stuffs %}
+    <dt><a href="{{ related_stuff.url }}">{{ related_stuff.title }}</a></dt>
+    <dd>{{ related_stuff.text|truncatechars:200 }}</dd>
+    {% empty %}
+    <p><em>I found no related stuffs.</em></p>
+    {% endfor %}
+  </dl>
+</section>

@@ -22,7 +22,7 @@
     <dl>
       {% for result in page.object_list %}
       <dt><a href="{{ result.url }}">{{ result.title }}</a></dt>
-      <dd>{% highlight result.text with query %}</dd>
+      <dd>{% highlight result.text with query max_length 200 %}</dd>
       {% empty %}
       <p>No results found.</p>
       {% endfor %}

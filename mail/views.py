@@ -33,6 +33,7 @@ def message(request, message_id):
         'body': m.body,
 
         'parts': m.parts,
+        'model': m,
         # Add thread eventually
     }
     return render(request, 'mail/message.html', params)

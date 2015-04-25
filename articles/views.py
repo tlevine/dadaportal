@@ -44,6 +44,8 @@ def _article(request, obj):
         'twitter_title': obj.twitter_title,
         'twitter_description': obj.twitter_description,
         'twitter_image': obj.twitter_image,
+
+        'model': obj,
     }
     return render(request, template, params)
 

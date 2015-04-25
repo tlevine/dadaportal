@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block base %}
 <article>
-  {{body|safe}}
+  <section>
+    {{body|safe}}
+  </section>
+  {% include 'search/more_like_this.html' %}
 </article>
-
 <footer>
     Last modified <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
     &bull; <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>

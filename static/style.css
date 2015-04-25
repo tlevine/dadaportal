@@ -176,8 +176,7 @@ main {
   margin-left: auto;
   margin-right: auto;
 }
-main ul, main ol, main dl {
-  text-align: left;
+main ul, main ol {
   margin-left: 1.5em;
 }
 
@@ -289,15 +288,6 @@ article section.column:nth-child(odd) {
 article {
   text-align: justify;
 }
-article dl {
-  margin: 0;
-  border-left: none;
-  border-right: none;
-  border-top: solid 2px;
-  border-bottom: solid 2px;
-}
-section.message dt { float: left; width: 170px; }
-section.message dd { margin-left: 170px; }
 article img, article video {
   display: block;
   margin-left: auto;
@@ -318,6 +308,8 @@ article video.wide {
 }
 
 /* Mail styles */
+section.message dt { float: left; width: 170px; }
+section.message dd { margin-left: 170px; }
 section.thread > ul ul {
   margin-left: 1em;
   margin-top: 0;
@@ -329,8 +321,11 @@ section.thread li .date {
   margin-top: 0.25em;
   white-space: nowrap;
 }
-article h1, .centered-heading {
+
+article h1, .centered-heading, section.message dl {
   border-bottom: solid 1px #666;
+}
+article h1, .centered-heading {
   text-align: center;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
