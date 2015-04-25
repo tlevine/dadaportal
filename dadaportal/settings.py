@@ -180,6 +180,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
+EMPTY_SEARCH_TITLE = '(Untitled)'
 EMPTY_SEARCH_DESCRIPTION = '(No description available)'
 
 # For tracking
