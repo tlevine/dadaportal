@@ -1,3 +1,6 @@
+On deleted items
+http://reinout.vanrees.org/weblog/2015/01/14/variabledoesnotexist-haystack-search.html
+
 
 portal=> select referrer from tracking_hit where endpoint = '/img/pink_hat_icon-200.png/'  
 dadaportal-> ;  
