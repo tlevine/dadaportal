@@ -1,3 +1,16 @@
+Interpretation of javascript_enabled:
+
+* True means that Javascript is enabled.
+* False means that it isn't.
+* Null means either that the client has a really bad connection or
+    that client isn't a normal browser; it might be someone who is
+    crawling lots of sites and thus isn't interested in running
+    Javascript or getting images.
+
+select datetime_start, javascript_enabled, ip_address, user_agent from tracking_hit where datetime_start > '2015-04-09' and user_agent not similar to '%(bot|Bot|Spider|Baidu|Google|Yahoo|facebook|\.com|\.net)%' order by datetime_start desc;
+
+
+
 https://github.com/django-haystack/saved_searches/blob/master/saved_searches/views.py
 
 
