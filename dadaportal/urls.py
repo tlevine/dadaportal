@@ -33,7 +33,8 @@ urlpatterns = patterns('',
 
     url(r'^!/', include('articles.urls')),
     url(r'^source/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.ARTICLES_DIR, 'show_indexes': True}),
+        {'document_root': settings.ARTICLES_DIR, 'show_indexes': True},
+        name = 'articles/source'),
 
     url(r'^track/', include('tracking.urls')),
 

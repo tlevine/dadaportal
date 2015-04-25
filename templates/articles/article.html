@@ -8,7 +8,7 @@
 </article>
 <footer>
     Last modified <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
-    &bull; <a href="/source/{{ endpoint }}/{{ filename }}">View source</a>
+    &bull; <a href="{% url 'articles/source' source %}">View source</a>
     {% if other_source %}&bull; <a href="{{ other_source }}">Other source</a>{% endif %}
     &bull; <a href="?slides">Slides</a>
 </footer>

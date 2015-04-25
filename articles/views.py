@@ -45,6 +45,7 @@ def _article(request, obj):
         'twitter_description': obj.twitter_description,
         'twitter_image': obj.twitter_image,
 
+        'source': os.path.relpath(obj.filename, settings.ARTICLES_DIR),
         'model': obj,
     }
     return render(request, template, params)
