@@ -10,4 +10,4 @@ def jobs(request):
         'message': WANT.get(language, WANT_DEFAULT),
         'email_address': settings.EMAIL_ADDRESS,
     }
-    return render(request, 'jobs.html', params)
+    return render(request, 'jobs/jobs.html', params)
