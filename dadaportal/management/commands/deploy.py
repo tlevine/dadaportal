@@ -65,7 +65,7 @@ $ ./manage.py migrate
         ssh('./manage.py update_cache')
 
         self._comment('Updating the search index')
-        ssh('./manage.py update_index --remove --workers=4')
+        ssh('./manage.py update_index --remove') # --workers=4')
 
         self._comment('Generating static files on nsa')
         ssh('./manage.py collectstatic --noinput')
