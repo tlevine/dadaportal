@@ -104,6 +104,12 @@ of the Dada Portal repository.
 
     ./manage.py deploy
 
+## Writing emails
+Add the linked [vim macro](dadamail.vim) to your `.vimrc` to sign a
+message with its future address on the web. Once you have loaded the
+macro, press "E" on the email draft screen in mutt to open the full
+view of the email, with headers, then press "m" in normal mode in vim.
+
 ## Difficulties
 Some things to consider if things are being weird.
 
