@@ -23,3 +23,8 @@ def test_redact_newline():
     original = '> > discuss@lists.something.org\n> > https://lists.something.org/mailman/listinfo/discuss'
     expected = '> > [redacted]@[redacted]\n> > https://lists.something.org/mailman/listinfo/discuss'
     assert _redact(original) == expected
+
+def test_redact_garbled_email_link():
+    original = '>someone@montrealgazette.com<mailto:someone@montrealgazette.com>  '
+    expected = '>[redacted]@[redacted].com<mailto:[redacted]@[redacted].com>  '
+    assert _redact(original) == expected
