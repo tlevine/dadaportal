@@ -1,3 +1,5 @@
+https://pypi.python.org/pypi/django-jsonfield/0.9.13
+
 Interpretation of javascript_enabled:
 
 * True means that Javascript is enabled.
