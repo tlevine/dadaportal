@@ -44,8 +44,8 @@ def followup_js(request):
         return HttpResponse(status = 403)
 
     # Save values from the highest scroll.
-    dimensions = [('scrollMaxX', 'pageXOffset', 'availWidth'),
-                  ('scrollMaxY', 'pageYOffset', 'availHeight')]
+    dimensions = [('scrollX', 'pageXOffset', 'availWidth'),
+                  ('scrollY', 'pageYOffset', 'availHeight')]
     for dimension in dimensions:
         old_scroll = getattr(hit, dimension[0])
         new_scroll_raw = request.POST.get(dimension[0])

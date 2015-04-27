@@ -23,8 +23,8 @@ class Hit(models.Model):
     datetime_end = models.DateTimeField(null = True)
     availWidth = models.IntegerField(null = True)
     availHeight = models.IntegerField(null = True)
-    scrollMaxX = models.IntegerField(null = True)
-    scrollMaxY = models.IntegerField(null = True)
+    scrollX = models.IntegerField(null = True)
+    scrollY = models.IntegerField(null = True)
     pageXOffset = models.IntegerField(null = True)
     pageYOffset = models.IntegerField(null = True)
 
