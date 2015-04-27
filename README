@@ -72,7 +72,7 @@ Other stuff. ::
 Tracking
 --------------------
 I do my own tracking so I don't need to use Piwik and so I don't have
-to match different logs after the fact.
+to match different logs after the fact. Mine is *so* much better.
 
 More about articles
 ------------------------
@@ -117,6 +117,15 @@ using rsync for all file transfers.
 * Cache and index the articles on nsa.
 * Cache and index the mails on nsa.
 * Generate static files on nsa.
+
+Maybe features
+---------------------
+If other people want to use Dada Portal, the following might be good.
+
+* Allow for a choice of front matter format; in particular, allow that of
+  `Jekyll <https://help.github.com/articles/using-jekyll-with-pages/>`_.
+* Pleasant shell utility that is easy to install for synchronizing an
+  article directory with the server.
 
 Not features
 ----------------
