@@ -48,10 +48,14 @@ def followup_js(request):
                   ('scrollMaxY', 'pageYOffset', 'availHeight')]
     for dimension in dimensions:
         old_scroll = getattr(hit, dimension[0])
-        new_scroll = request.POST.get(dimension[0])
+        new_scroll_raw = request.POST.get(dimension[0])
+        try:
+            new_scroll = int(new_scroll_raw)
+        except ValueError:
+            new_scroll = None
         if new_scroll == None:
             pass
-        elif old_scroll == None or int(new_scroll) > old_scroll:
+        elif old_scroll == None or new_scroll > old_scroll:
             for field in dimension:
                 setattr(hit, field, request.POST.get(field))
 

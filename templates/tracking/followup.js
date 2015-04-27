@@ -9,8 +9,8 @@
 
     f.append('availWidth', window.screen.availWidth)
     f.append('availHeight', window.screen.availHeight)
-    f.append('scrollMaxX', window.scrollMaxX)
-    f.append('scrollMaxY', window.scrollMaxY)
+    f.append('scrollX', window.scrollX)
+    f.append('scrollY', window.scrollY)
     f.append('pageXOffset', window.pageXOffset)
     f.append('pageYOffset', window.pageYOffset)
 
