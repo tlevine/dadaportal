@@ -1,3 +1,7 @@
+Debug depreciation warnings::
+
+    python -We manage.py runserver --traceback
+
 https://pypi.python.org/pypi/django-jsonfield/0.9.13
 
 Interpretation of javascript_enabled:
