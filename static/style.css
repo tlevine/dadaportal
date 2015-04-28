@@ -472,4 +472,5 @@ article ul, article ol, article dl {
   a[href]:after {
     content: " (" attr(href) ")";
   }
+  main > footer { display: none; }
 }
