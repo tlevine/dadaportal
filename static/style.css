@@ -465,12 +465,12 @@ article ul, article ol, article dl {
 }
 
 @media print {
-  nav, footer { display: none; }
+  body { font-family: serif; }
+  .more-like-this, nav, footer { display: none; }
   a, p, h1, h2, h3, h4, h5 { color: black !important; }
   strong { font-weight: bold; }
   .webonly { display: none; }
   a[href]:after {
     content: " (" attr(href) ")";
   }
-  main > footer { display: none; }
 }
