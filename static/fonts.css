@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'Blackout';
+  font-weight: 800;
+  src: url(/static/fonts/blackout/blackout_two_am-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Blackout';
+  font-weight: 600;
+  src: url(/static/fonts/blackout/blackout_midnight-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Blackout';
+  font-weight: 400;
+  src: url(/static/fonts/blackout/blackout_sunrise-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Fanwood';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/static/fonts/fanwood/fanwood-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood';
+  font-style: italic;
+  font-weight: 400;
+  src: url(/static/fonts/fanwood/fanwood-italic-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/static/fonts/fanwood/fanwood_text-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Fanwood';
+  font-style: italic;
+  font-weight: 500;
+  src: url(/static/fonts/fanwood/fanwood_text-italic-webfont.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-bold.woff) format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-regular.woff) format('woff');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Junction';
+    src: url(/static/fonts/junction/junction-light.woff) format('woff');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Linden Hill';
+    src: url(/static/fonts/linden-hill/LindenHill-webfont.woff) format('woff');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Linden Hill';
+    src: url(/static/fonts/linden-hill/LindenHill-Italic-webfont.woff) format('woff');
+    font-style: italic;
+}
+
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-black.woff) format('woff');
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-bold.woff) format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-regular.woff) format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-light.woff) format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans Dashed';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-dashed.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans Rounded';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-rounded.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans Inline';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-inline-regular.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Ostrich Sans Inline';
+	src: url(/static/fonts/ostrich-sans/ostrich-sans-inline-italic.woff) format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  font-style: normal;
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Sorts Mill Goudy';
+  font-style: italic;
+  src: url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.woff) format('woff');
+}
