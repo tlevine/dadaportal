@@ -191,7 +191,8 @@ EMPTY_SEARCH_DESCRIPTION = '(No description available)'
 # For tracking
 HIT_ID_SIZE = 62
 
-# For mail and searching
+# For mail and searching and stuff
+SCHEME = 'https'
 DOMAIN_NAME = 'thomaslevine.com'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'

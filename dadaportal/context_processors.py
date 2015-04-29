@@ -4,5 +4,5 @@ def dadaportal(request):
     return {
         'site_title': settings.SITE_TITLE,
         'domain_name': settings.DOMAIN_NAME,
-        'og_url': 'http://%s%s' % (settings.DOMAIN_NAME, request.path_info),
+        'og_url': '%s://%s%s' % (settings.SCHEME, settings.DOMAIN_NAME, request.path_info),
     }
