@@ -39,11 +39,11 @@ def _article(request, obj):
 
         'facebook_title': obj.facebook_title,
         'facebook_description': obj.facebook_description,
-        'facebook_image': obj.facebook_image,
+        'facebook_image': urljoin(request.path_info, obj.facebook_image),
 
         'twitter_title': obj.twitter_title,
         'twitter_description': obj.twitter_description,
-        'twitter_image': obj.twitter_image,
+        'twitter_image': urljoin(request.path_info, obj.twitter_image),
 
         'source': os.path.relpath(obj.filename, settings.ARTICLES_DIR),
         'model': obj,
