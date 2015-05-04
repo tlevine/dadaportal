@@ -14,7 +14,9 @@ class Hit(models.Model):
     ip_address = models.GenericIPAddressField(null = False, blank = False)
     accept_language = models.TextField(null = False)
     user_agent = models.TextField(null = False)
-    referrer = models.URLField(null = False)
+
+    # high max_length to support facebook urls
+    referrer = models.URLField(null = False, max_length = 10000)
 
     # Populated after the response (maybe during the XHR if that's easier)
     status_code = models.SmallIntegerField(null = True)
