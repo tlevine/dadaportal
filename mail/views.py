@@ -28,14 +28,21 @@ def message(request, message_id):
         msg = "This email isn't here. If you followed a link from an email that Tom just sent you, try waiting a few minutes."
         return HttpResponseNotFound(msg)
 
+    body = _redact(m.body)
+    description = ' '.join(body.split('\n\n')[0].replace('\n', ' ').split()[:50])
     params = {
+        # Metadata
         'title': m.subject,
+        'description': description,
+        'twitter_description': description,
+        'facebook_description': description,
+
         'subject': m.subject,
         'datetime': m.datetime,
         'from': _redact(m.ffrom),
         'to': _redact(m.to),
         'cc': _redact(m.cc),
-        'body': _redact(m.body),
+        'body': body,
 
         'parts': m.parts,
         'model': m,
