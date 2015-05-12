@@ -1,10 +1,16 @@
 @font-face {
-  font-family: 'Blackout';
-  src: url(/static/fonts/blackout/blackout_sunrise-webfont.woff) format('woff');
+  font-family: 'Sweden Sans';
+  font-weight: bold;
+  src: url(/static/fonts/sweden-sans/swedensansbold-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Sweden Sans';
+  font-weight: normal;
+  src: url(/static/fonts/sweden-sans/swedensans-webfont.woff) format('woff');
 }
 
 body {
-  font-family:Blackout;
+  font-family:'Sweden Sans', 'sans-serif';
   letter-spacing:-5px;
   background:#000;
   background-size:100%;

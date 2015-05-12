@@ -126,3 +126,14 @@
   font-style: italic;
   src: url(/static/fonts/sorts-mill-goudy/GoudyStM-Italic-webfont.woff) format('woff');
 }
+
+@font-face {
+  font-family: 'Sweden Sans';
+  font-weight: bold;
+  src: url(/static/fonts/sweden-sans/swedensansbold-webfont.woff) format('woff');
+}
+@font-face {
+  font-family: 'Sweden Sans';
+  font-weight: normal;
+  src: url(/static/fonts/sweden-sans/swedensans-webfont.woff) format('woff');
+}
