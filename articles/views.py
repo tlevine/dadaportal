@@ -51,5 +51,7 @@ def _article(request, obj):
     return render(request, template, params)
 
 def index(request):
-    articles = Article.objects.filter(redirect__isnull = True).order_by('-modified')
+    articles = Article.objects. \
+        filter(redirect__isnull = True, title__isnull = False). \
+        order_by('-modified')
     return render(request, 'articles/index.html', {'articles': articles})
