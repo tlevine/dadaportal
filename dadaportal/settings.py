@@ -93,7 +93,6 @@ INSTALLED_APPS = (
     'articles',
     'mail',
     'dadaportal',
-    'jobs',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -154,7 +153,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'dadaportal.context_processors.dadaportal',
- #  'jobs.context_processors.jobs',
     'tracking.context_processors.tracking',
     'django.core.context_processors.request',
 )

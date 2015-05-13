@@ -40,8 +40,6 @@ urlpatterns = patterns('',
 
     url(r'^track/', include('tracking.urls')),
 
-    url(r'^jobs/$', 'jobs.views.jobs', name = 'jobs'),
-
     # Backwards compatibility
     fix_tag('open-data'),
     fix_tag('socrata'),
