@@ -25,6 +25,7 @@ class Article(Cache):
 
     redirect = models.TextField(null = True)
     tagsjson = models.TextField(null = False) # JSON
+    secret = models.BooleanField(null = False, default = False)
 
     facebook_title = models.TextField(null = True)
     facebook_description = models.TextField(null = True)
