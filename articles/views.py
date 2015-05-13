@@ -51,6 +51,7 @@ def _article(request, obj):
     return render(request, template, params)
 
 class IndexView(ListView):
-    queryset = Article.objects. \
-        filter(redirect__isnull = True, title__isnull = False)
+    def get_queryset(self):
+        return Article.objects. \
+            filter(redirect__isnull = True, title__isnull = False)
     ordering = ('-modified',)
