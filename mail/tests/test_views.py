@@ -2,6 +2,12 @@ import pytest
 from django.test import Client, override_settings
 
 from ..views import _redact
+from ..models import Message
+
+#@pytest.mark.django_db
+#def test_index():
+#    'GET /mail/ should return a list of mails.'
+#    Message.objects.create(
 
 @pytest.mark.django_db
 def test_redirect():

@@ -4,6 +4,7 @@ from email import message_from_binary_file
 
 from unidecode import unidecode
 
+from django.views.generic.list import ListView
 from django.shortcuts import render
 from django.http import (
     HttpResponse, HttpResponseRedirect,
@@ -13,10 +14,8 @@ from django.http import (
 
 from .models import Message
 
-def index(request):
-    messages = [{'message_id': a.message_id, 'subject': a.subject} \
-        for a in Message.objects.all()]
-    return render(request, 'mail/index.html', {'messages': messages})
+class IndexView(ListView):
+    model = Message
 
 def message_legacy(request, message_id):
     return HttpResponseRedirect('/@/%s/' % message_id)
