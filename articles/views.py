@@ -4,8 +4,8 @@ from functools import reduce
 
 from django.conf import settings
 from django.shortcuts import render
-from django.http import Http404, HttpResponseServerError, HttpResponseRedirect
-from django.db.models import Q
+from django.http import Http404, HttpResponseRedirect
+from django.views.generic.list import ListView
 
 from caching import get
 
@@ -50,8 +50,7 @@ def _article(request, obj):
     }
     return render(request, template, params)
 
-def index(request):
-    articles = Article.objects. \
-        filter(redirect__isnull = True, title__isnull = False). \
-        order_by('-modified')
-    return render(request, 'articles/index.html', {'articles': articles})
+class index(ListView):
+    queryset = Article.objects. \
+        filter(redirect__isnull = True, title__isnull = False)
+    ordering = ('-modified',)
