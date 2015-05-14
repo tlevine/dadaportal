@@ -7,19 +7,23 @@ class Command(BaseCommand):
     args = '(none)'
     help = 'Refreshes the database cache of file-backed Dada'
 
-    def handle(self, *args, **options):
+    def add_arguments(self, parser):
+        parser.add_argument('--clean', action = 'store_true',
+            help = 'Process all documents anew, not just the ones that appear to have changed.')
+
+    def handle(self, *args, clean = False, **options):
         for Model in get_models():
             if issubclass(Model, Cache):
-                self.handle_one(Model)
+                self.handle_one(Model, clean)
         
-    def handle_one(self, Class):
+    def handle_one(self, Class, clean):
         # Populate the pks cache.
         filenames = set(row[0] for row in Class.objects.values_list('filename'))
 
         # Update and create.
         n = 0
         for filename in Class.discover():
-            if filename not in filenames:
+            if clean or (filename not in filenames):
                 self.stdout.write(filename)
                 obj = Class.add(filename)
                 if obj:
