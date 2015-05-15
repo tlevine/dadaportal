@@ -102,6 +102,7 @@ def reify(filename):
                 if key not in head:
                     data[key] = urljoin(endpoint, srcs[0])
 
+    data['secret'] = head.get('secret', False)
     for key in ['redirect', 'title']:
         if key in head:
             data[key] = head[key]
