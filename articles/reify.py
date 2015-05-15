@@ -106,7 +106,6 @@ def reify(filename):
         if key in head:
             data[key] = head[key]
 
-    print([data.get('secret')])
     if ('title' not in data or not data['title']) and '/' not in endpoint:
         data['title'] = endpoint.replace('-', ' ')
 
