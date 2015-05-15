@@ -46,7 +46,7 @@ class Cache(models.Model):
         })
         return Class.objects.create(**reified)
 
-    def sync(self):
+    def sync(self, force = False):
         '''
         Synchronize the cache in the database with the file.
         You must define the class method reify.
@@ -54,13 +54,13 @@ class Cache(models.Model):
 
         # If the dates are the same, don't update.
         file_modified = _modified(self.filename)
-        if self.modified == file_modified:
+        if not force and self.modified == file_modified:
             return False
         self.modified = file_modified
 
         # If the md5sums are the same, update only the date.
         file_md5sum = _md5sum(self.filename)
-        if self.md5sum == file_md5sum:
+        if not force and self.md5sum == file_md5sum:
             self.save()
             return False
         self.md5sum = file_md5sum

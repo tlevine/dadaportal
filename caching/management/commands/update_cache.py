@@ -8,22 +8,22 @@ class Command(BaseCommand):
     help = 'Refreshes the database cache of file-backed Dada'
 
     def add_arguments(self, parser):
-        parser.add_argument('--clean', action = 'store_true',
+        parser.add_argument('--force', action = 'store_true',
             help = 'Process all documents anew, not just the ones that appear to have changed.')
 
-    def handle(self, *args, clean = False, **options):
+    def handle(self, *args, force = False, **options):
         for Model in get_models():
             if issubclass(Model, Cache):
-                self.handle_one(Model, clean)
+                self.handle_one(Model, force)
         
-    def handle_one(self, Class, clean):
+    def handle_one(self, Class, force):
         # Populate the pks cache.
         filenames = set(row[0] for row in Class.objects.values_list('filename'))
 
         # Update and create.
         n = 0
         for filename in Class.discover():
-            if clean or (filename not in filenames):
+            if filename not in filenames:
                 self.stdout.write(filename)
                 obj = Class.add(filename)
                 if obj:
@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 # method deleted this object, presumably for good reason.
                 pass
             else:
-                if obj.sync():
+                if obj.sync(force = force):
                     self.stdout.write('Updated %s from %s' % (obj, obj.filename))
                     n += 1
                     continue

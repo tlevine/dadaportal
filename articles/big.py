@@ -2,7 +2,7 @@ from lxml.html.clean import clean_html
 from lxml.html import fromstring, tostring
 
 TAGS = {'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-        'pre', 'img', 'table',
+        'pre', 'img', 'table', 'blockquote',
         'ol', 'ul', 'dl', 'ul', }
 
 def guess_slides(body):

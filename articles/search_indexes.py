@@ -18,3 +18,6 @@ class ArticleIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_url(self, obj):
         return obj.get_absolute_url()
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(secret = False)
