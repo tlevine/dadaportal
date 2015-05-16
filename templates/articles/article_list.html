@@ -3,7 +3,7 @@
   <h1>Articles</h1>
   <dl>
     {% for article in object_list %}
-    <dt><a href="{% url 'articles/article' article.endpoint %}">{{article.title}}</a></dt>
+    <dt><a href="{% url 'articles/article' article.endpoint %}">{{article.title|default:'(Untitled)'}}</a></dt>
     <dd>{{ article.description|default:article.endpoint }}</dd>
     {% empty %}
     <center>No articles</center>
