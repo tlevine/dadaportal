@@ -178,7 +178,7 @@ article img, article video {
   max-height: 340px;
 }
 article iframe {
-  height: 100%;
+  width: 100%;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
