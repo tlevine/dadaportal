@@ -87,12 +87,7 @@ def reify(filename):
     except lxml.etree.XMLSyntaxError:
         logger.debug('%s is not XML (It might be text.)' % path)
     else:
-        for img in html.xpath('//img[not(../self::a)]'):
-            parent = img.getparent()
-            a = lxml.html.Element('a', href = img.xpath('@src')[0])
-            a.append(img)
-            print(lxml.html.tostring(a))
-            parent.replace(img, a)
+        html = link_img(html)
 
         for key, tag in [('title', 'h1'), ('description', 'p')]:
             if key in head:
@@ -128,3 +123,11 @@ def reify(filename):
                 data[key] = data[field]
 
     return data
+
+def link_img(html):
+    for img in html.xpath('//img[not(../self::a)]'):
+        a = lxml.html.Element('a', href = img.xpath('@src')[0])
+        parent = img.getparent()
+        parent.replace(img, a)
+        a.append(img)
+    return html

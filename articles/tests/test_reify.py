@@ -1,6 +1,8 @@
 import os
 
-from ..reify import reify, parse
+import lxml.html
+
+from ..reify import reify, parse, link_img
 
 def test_1_parse():
     head, body = parse(os.path.join('articles', 'tests', 'fixtures', '1.rst'))
@@ -11,8 +13,8 @@ def test_1_parse():
     assert '<h2>Heading 2, b</h2>' in body
 
 def test_img():
-    data = reify(os.path.join('articles', 'tests', 'fixtures', 'img', 'index.html'))
-    b = data['body'].replace('"', '')
-    assert '<a href=a.png><img src=a.png' in b
-    assert '<a href=c.png>' in b
-    assert '<a href=b.png>' not in b
+    html = lxml.html.parse(os.path.join('articles', 'tests', 'fixtures', 'img.html')).getroot()
+    b = lxml.html.tostring(link_img(html)).replace(b'"', b'')
+    assert b'<a href=a.png><img src=a.png' in b
+    assert b'<a href=c.png>' in b
+    assert b'<a href=b.png>' not in b
