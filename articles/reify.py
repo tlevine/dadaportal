@@ -91,6 +91,7 @@ def reify(filename):
             parent = img.getparent()
             a = lxml.html.Element('a', href = img.xpath('@src')[0])
             a.append(img)
+            print(lxml.html.tostring(a))
             parent.replace(img, a)
 
         for key, tag in [('title', 'h1'), ('description', 'p')]:
