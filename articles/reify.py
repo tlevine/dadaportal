@@ -87,8 +87,6 @@ def reify(filename):
     except lxml.etree.XMLSyntaxError:
         logger.debug('%s is not XML (It might be text.)' % path)
     else:
-        html = link_img(html)
-
         for key, tag in [('title', 'h1'), ('description', 'p')]:
             if key in head:
                 data[key] = head[key]
@@ -103,6 +101,8 @@ def reify(filename):
                 key = '%s_image' % service
                 if key not in head:
                     data[key] = urljoin(endpoint, srcs[0])
+
+        data['body'] = lxml.html.tostring(link_img(html))
 
     data['secret'] = head.get('secret', False)
     for key in ['redirect', 'title']:
