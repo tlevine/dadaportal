@@ -12,4 +12,7 @@ def test_1_parse():
 
 def test_img():
     head, body = parse(os.path.join('articles', 'tests', 'fixtures', 'img.html'))
-    assert '<a href=a.png><img src=a.png' in body.replace('"', '')
+    b = body.replace('"', '')
+    assert '<a href=a.png><img src=a.png' in b
+    assert '<a href=c.png>' in b
+    assert '<a href=b.png>' not in b
