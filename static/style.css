@@ -340,7 +340,7 @@ article ul, article ol, article dl {
 }
 
 @media print {
-  body { font-family: serif; }
+  body { font-size: 4em !important; font-family: serif; }
   .more-like-this, nav, footer { display: none; }
   a, p, h1, h2, h3, h4, h5 { color: black !important; }
   strong { font-weight: bold; }
