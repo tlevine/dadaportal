@@ -3,9 +3,10 @@ from lxml.html import fromstring, tostring
 
 SLIDE_TAGS = {'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
               'pre', 'img', 'table', 'blockquote',
+              'video', 'iframe',
               'ol', 'ul', 'dl', 'ul', }
 
-WRAPPER_TAGS = {'div', 'a'}
+WRAPPER_TAGS = {'div', 'a', 'p'}
 
 def guess_slides(body):
     '''
