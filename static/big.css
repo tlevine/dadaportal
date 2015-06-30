@@ -13,7 +13,7 @@ body {
   font-family:'Sweden Sans', 'sans-serif';
   letter-spacing:-5px;
   background:#000;
-  background-size:100%;
+  background-size: 100%;
   background-repeat: no-repeat;
   color:#fff;
   margin:0;
@@ -34,7 +34,7 @@ em, a {
 }
 
 a {
-  background: #34d0e7;
+  background: #fe57a1;
   color:#000;
   text-decoration:none;
 }
