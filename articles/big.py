@@ -18,7 +18,7 @@ def _subslides(element):
     result = b''
     if element.tag in SLIDE_TAGS:
         # Add a space so images aren't backgrounds.
-        result += b'<div> ' + tostring(element).strip() + b'</div>'
+        result += b'<div>' + tostring(element).strip() + b'</div>'
     elif element.tag in WRAPPER_TAGS:
         for subelement in element.getchildren():
             result += _subslides(subelement)
