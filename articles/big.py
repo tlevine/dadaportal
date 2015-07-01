@@ -22,4 +22,6 @@ def _subslides(element):
     elif element.tag in WRAPPER_TAGS:
         for subelement in element.getchildren():
             result += _subslides(subelement)
+    #   if element.tag == 'p':
+    #       result += ('<notes>' + element.text_content() + '</notes>').encode('utf-8')
     return result
