@@ -1,7 +1,7 @@
 from lxml.html.clean import clean_html
 from lxml.html import fromstring, tostring, Element
 
-SLIDE_TAGS = {'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+SLIDE_TAGS = {'h2', 'h3', 'h4', 'h5', 'h6',
               'pre', 'img', 'table', 'blockquote',
               'iframe',
               'ol', 'ul', 'dl', 'ul', }

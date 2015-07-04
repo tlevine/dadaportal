@@ -194,6 +194,7 @@ SCHEME = 'https'
 DOMAIN_NAME = 'thomaslevine.com'
 NAME = 'Thomas Levine'
 EMAIL_ADDRESS = '_@thomaslevine.com'
+AUTHOR_TITLE = 'dada artist'
 
 # For copying files during deployment
 REMOTE_BASE_DIR = '/srv/dadaportal'
