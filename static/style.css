@@ -332,7 +332,7 @@ article ul, article ol, article dl {
     width: 430px;
   }
   .search-form input[type=search] {
-    width: 354px;
+    width: 352px; /* 354px; */
   }
 }
 @media screen and (min-width: 900px) {
