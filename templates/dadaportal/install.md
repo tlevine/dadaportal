@@ -20,10 +20,15 @@ purposes.
 ### Install dependencies
 Assuming you're on Debian,
 
-    sudo apt-get install python3 python3-pip python3-lxml postgresql
+    sudo apt-get install python3 python3-pip postgresql
     sudo pip3 install{% for r in requirements %} {{r|safe}}{% endfor %}
 
-You can instead install lxml from pip; it'll just take a while to build.
+You can install the following by pip or by apt-get; they might take a while to build
+if you use pip.
+
+    sudo apt-get install python3-lxml python3-psycopg2
+    # or
+    sudo pip3 install lxml psycopg2
 
 ### Configure the database
 As the PostgreSQL user (probably &ldquo;postgres&rdquo;),
