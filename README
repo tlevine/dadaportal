@@ -12,7 +12,8 @@ Check it out.
     git clone nsa:dada.pink/dadaportal
 
 Install dependencies and set up the server. Unfortunately, this is documented
-only [`templates/install.md'](templates/install.md), which can only be rendered
+only [`templates/dadaportal/install.md'](templates/dadaportal/install.md),
+which can only be rendered
 after you have installed dependencies.
 
 Turn it on.
