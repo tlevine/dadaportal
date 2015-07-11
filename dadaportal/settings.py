@@ -74,8 +74,6 @@ else:
 ALLOWED_HOSTS = ['127.0.0.1:*', 'localhost:*', 'thomaslevine.com', 'portal.dada.pink']
 
 INSTALLED_APPS = (
-    # Admin, grappelli must come before admin
-    'grappelli',
     'django.contrib.admin',
 
     'django.contrib.auth',
@@ -208,12 +206,3 @@ DO_NOT_TRACK = [
 ]
 
 SITE_TITLE = 'Dada Portal'
-
-# Grappelli admin interface
-GRAPPELLI_ADMIN_TITLE = SITE_TITLE
-# GRAPPELLI_AUTOCOMPLETE_LIMIT
-# GRAPPELLI_AUTOCOMPLETE_SEARCH_FIELDS
-# GRAPPELLI_SWITCH_USER
-# GRAPPELLI_SWITCH_USER_ORIGINAL
-# GRAPPELLI_SWITCH_USER_TARGET
-GRAPPELLI_CLEAN_INPUT_TYPES = False
