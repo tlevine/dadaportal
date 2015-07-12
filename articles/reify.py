@@ -102,7 +102,7 @@ def reify(filename):
                 if key not in head:
                     data[key] = urljoin(endpoint, srcs[0])
 
-        data['body'] = lxml.html.tostring(link_img(html))
+        data['body'] = lxml.html.tostring(link_headers(link_img(html)))
 
     data['secret'] = head.get('secret', False)
     for key in ['redirect', 'title']:
@@ -130,4 +130,15 @@ def link_img(html):
         parent = img.getparent()
         parent.replace(img, a)
         a.append(img)
+    return html
+
+def link_headers(html):
+    x = '//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]'
+    for h in html.xpath(x):
+        if 'id' not in h.attrib:
+            h.attrib['id'] = h.text.lower().replace(' ', '-')
+        a = lxml.html.Element('a', href = '#' + h.attrib['id'])
+        parent = h.getparent()
+        parent.replace(h, a)
+        a.append(h)
     return html
