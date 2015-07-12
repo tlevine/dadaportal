@@ -19,10 +19,12 @@ class Command(BaseCommand):
     def handle_one(self, Class, force):
         # Populate the pks cache.
         filenames = set(row[0] for row in Class.objects.values_list('filename'))
+        discovered_filenames = set()
 
         # Update and create.
         n = 0
         for filename in Class.discover():
+            discovered_filenames.add(filename)
             if filename not in filenames:
                 self.stdout.write(filename)
                 obj = Class.add(filename)
@@ -44,3 +46,7 @@ class Command(BaseCommand):
                     continue
 
         self.stdout.write('Created or updated %d %s records' % (n, Class.__name__))
+        to_delete = filenames - discovered_filenames
+        for filename in to_delete:
+            Class.objects.filter(filename = filename).delete()
+        self.stdout.write('Deleted %d records' % len(to_delete))
