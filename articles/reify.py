@@ -135,6 +135,8 @@ def link_img(html):
 def link_headers(html):
     x = '//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6]'
     for h in html.xpath(x):
+        if not h.text:
+            continue
         if 'id' not in h.attrib:
             h.attrib['id'] = h.text.lower().replace(' ', '-')
         a = lxml.html.Element('a', href = '#' + h.attrib['id'])
