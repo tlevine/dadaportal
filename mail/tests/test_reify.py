@@ -15,7 +15,7 @@ def test_body():
 
 def test_bad_charset():
     'Body should be decoded properly, even if charset is not specified.'
-    with open(_fixture('esperanto.yml')) as fp:
+    with open(_fixture('esperanto.eml')) as fp:
         m = message_from_file(fp)
     comment = 'estas preta por akcepti aliĝojn kaj po'
     assert comment in _body(m)
