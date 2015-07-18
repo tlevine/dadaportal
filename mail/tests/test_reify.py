@@ -4,7 +4,7 @@ from email import message_from_file
 from ..models import _body
 
 def _fixture(fn):
-    return os.path.join(os.path.dirname(__file__), 'fixtures', fn)
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), 'fixtures', fn))
 
 def test_body():
     'Body should be parsed correctly.'
