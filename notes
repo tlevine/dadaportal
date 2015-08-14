@@ -192,3 +192,15 @@ Old parameters
 
 https://en.wikipedia.org/wiki/XMLHttpRequest
 https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest?redirectlocale=en-US&redirectslug=DOM%2FXMLHttpRequest
+
+
+Look for big readers.
+
+    select * from (
+      select session, date(min(datetime_start)) as "first",
+             date(max(datetime_start)) as "last",
+             count(*) as "count"
+      from tracking_hit group by session
+    ) as "sessions"
+    where last > first
+    order by count desc;
