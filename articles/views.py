@@ -53,5 +53,8 @@ def _article(request, obj):
     return render(request, template, params)
 
 class IndexView(ListView):
+    '''
+    Order pseudorandomly. Hide redirects and secret pages.
+    '''
     queryset = Article.objects.filter(redirect__isnull = True, secret = False)
-    ordering = ('-modified',)
+    ordering = ('md5sum',)
