@@ -11,8 +11,8 @@
 
 /* Base formatting */
 body {
-  font: normal 18px 'Sweden Sans', serif;
-  line-height: 125%;
+  font: normal 24px 'Sweden Sans', serif;
+  line-height: 150%;
   width: 100%;
   height: 100%;
   text-align: inherit;
@@ -35,9 +35,9 @@ a, h1, h2, h3, h4, h5, h6 {
 a:hover {
   text-decoration: underline;
 }
-h1, h2 { font-size: 1.5em; font-weight: bold; }
-h3 { font-size: 1em; font-weight: bold; }
-h4 { font-size: 1em; font-weight: bold; }
+h1, h2 { font-size: 2.7em; font-weight: bold; }
+h3 { font-size: 1.7em; font-weight: bold; }
+h4 { font-size: 1.7em; font-weight: bold; }
 p {
   margin-bottom: 0;
 }
@@ -88,7 +88,7 @@ nav li {
 nav ul, nav .search-form { text-align: center; }
 nav li { margin: 0; }
 nav {
-  height: 42px;
+  height: 63px;
 }
 
 /* Footer */
@@ -143,10 +143,10 @@ article section.column:nth-child(odd) {
 .haystack-search form input[type=search] {
   display: block;
   width: 99%;
-  height: 42px;
+  height: 63px;
 }
 .haystack-search form input[type=submit] {
-  height: 42px;
+  height: 63px;
   width: 126px;
 }
 .haystack-search form > ul {
@@ -305,7 +305,7 @@ article ul, article ol, article dl {
   }
   .search-form input {
     box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
-    height: 42px;
+    height: 63px;
   }
 
   main { width: 520px; }
