@@ -175,7 +175,6 @@ article img, article video {
   margin-left: auto;
   margin-right: auto;
   max-width: 80%;
-  max-height: 340px;
 }
 article iframe {
   width: 100%;
@@ -288,6 +287,7 @@ article ul, article ol, article dl {
   main { width: 98%; }
   .search-form, #index-main .search { width: 340px; }
   nav { height: 95px; }
+  article img, article video { max-height: 340px; }
 }
 @media screen and (min-width: 540px) {
   nav ul {
@@ -303,6 +303,7 @@ article ul, article ol, article dl {
     margin-right: 0.5em;
   }
   main { width: 90%; }
+  article img, article video { max-height: 540px; }
 }
 @media screen and (min-width: 630px) {
   #index-main {
@@ -310,6 +311,7 @@ article ul, article ol, article dl {
     background-image: url(/static/tom-pictures/2014-12-11.jpg);
   }
   #index-main .search { top: 130px; }
+  article img, article video { max-height: 630px; }
 }
 @media screen and (min-width: 720px) {
   nav .search-form {
@@ -326,6 +328,7 @@ article ul, article ol, article dl {
   .search-form input[type=search] {
     width: 122px; /* 354px; */
   }
+  article img, article video { max-height: 720px; }
 }
 
 @media screen and (min-width: 900px) {
