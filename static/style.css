@@ -274,10 +274,7 @@ section.email-body, pre, blockquote, .line-block /* rst class */ {
 }
 strong { color: white; font-weight: normal; }
 
-/* Matching sizes */
-.search-form, #index-main .search {
-  width: 340px;
-}
+
 p, h1, h2, h3, h4, h5, h6,
 article ul, article ol, article dl {
   margin-top: 0.5em;
@@ -288,38 +285,26 @@ article ul, article ol, article dl {
 #index-main .search { left: 17px; }
 
 @media screen {
-  main { width: 340px; }
+  main { width: 98%; }
+  .search-form, #index-main .search { width: 340px; }
+  nav { height: 95px; }
 }
 @media screen and (min-width: 540px) {
   nav ul {
     display: inline-block;
+  }
+  nav .search-form, nav .search-form input {
+    display: inline-block;
+    float: left;
   }
   nav li {
     margin-top: 0.75em;
     margin-left: 0.5em;
     margin-right: 0.5em;
   }
-  nav .search-form {
-    display: inline-block;
-    float: right;
-  }
-  .search-form input {
-    box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
-    height: 63px;
-  }
-
-  main { width: 520px; }
+  main { width: 90%; }
 }
 @media screen and (min-width: 630px) {
-  main { width: 610px; }
-  #index-main .search { left: 40%; }
-  .search-form, #index-main .search {
-    width: 300px;
-  }
-  .search-form input[type=search] {
-    width: 204px;
-  }
-
   #index-main {
     background-color: auto;
     background-image: url(/static/tom-pictures/2014-12-11.jpg);
@@ -327,16 +312,29 @@ article ul, article ol, article dl {
   #index-main .search { top: 130px; }
 }
 @media screen and (min-width: 720px) {
-  main { width: 700px; }
+  nav .search-form {
+    float: right;
+  }
+  nav { height: 63px; }
+  .search-form input {
+    box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
+    height: 63px;
+  }
   .search-form, #index-main .search {
-    width: 430px;
+    width: 200px;
   }
   .search-form input[type=search] {
-    width: 352px; /* 354px; */
+    width: 122px; /* 354px; */
   }
 }
+
 @media screen and (min-width: 900px) {
-  main { width: 880px; }
+  .search-form, #index-main .search {
+    width: 330px;
+  }
+  .search-form input[type=search] {
+    width: 252px; /* 354px; */
+  }
 }
 
 @media print {
