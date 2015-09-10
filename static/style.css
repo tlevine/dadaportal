@@ -224,11 +224,11 @@ h2.centered-heading {
 }
 
 /* Search form */
-.search-form input[type=search] {
+nav .search-form input[type=search] {
   padding-left: 8px; /* Doesn't affect width */
   width: 264px;
 }
-.search-form input[type=submit] {
+nav .search-form input[type=submit] {
   width: 72px;
 }
 
@@ -246,7 +246,7 @@ footer {
   padding-top: 0.5em;
   border-top: solid 1px #666;
 }
-.search-form input, .haystack-search input {
+nav .search-form input, .haystack-search input {
   border: solid 1px #666;
 }
 nav .search-form input[type=search] {
@@ -285,7 +285,7 @@ article ul, article ol, article dl {
 
 @media screen {
   main { width: 98%; }
-  .search-form, #index-main .search { width: 340px; }
+  nav .search-form, #index-main .search { width: 340px; }
   nav { height: 95px; }
   article img, article video { max-height: 340px; }
 }
@@ -318,24 +318,24 @@ article ul, article ol, article dl {
     float: right;
   }
   nav { height: 63px; }
-  .search-form input {
+  nav .search-form input {
     box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
     height: 63px;
   }
-  .search-form, #index-main .search {
+  nav .search-form, #index-main .search {
     width: 200px;
   }
-  .search-form input[type=search] {
+  nav .search-form input[type=search] {
     width: 122px; /* 354px; */
   }
   article img, article video { max-height: 720px; }
 }
 
 @media screen and (min-width: 900px) {
-  .search-form, #index-main .search {
+  nav .search-form, #index-main .search {
     width: 330px;
   }
-  .search-form input[type=search] {
+  nav .search-form input[type=search] {
     width: 252px; /* 354px; */
   }
 }
