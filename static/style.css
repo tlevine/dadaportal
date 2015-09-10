@@ -108,7 +108,7 @@ footer {
   font-size: 16px;
 }
 #index-main .search {
-  height: 120px;
+  height: 160px;
   position: absolute;
   top: 0;
   right: 0;
@@ -286,6 +286,13 @@ article ul, article ol, article dl {
 @media screen {
   main { width: 98%; }
   nav .search-form, #index-main .search { width: 340px; }
+  #index-main form input[type=search] {
+    margin-left: 18px;
+    margin-top: 6px;
+    width: 240px;
+  }
+  #index-main form input[type=submit] { width: 63px; }
+  #index-main form input { height: 63px; }
   nav { height: 95px; }
   article img, article video { max-height: 340px; }
 }
@@ -322,7 +329,7 @@ article ul, article ol, article dl {
     box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
     height: 63px;
   }
-  nav .search-form, #index-main .search {
+  nav .search-form {
     width: 200px;
   }
   nav .search-form input[type=search] {
@@ -332,7 +339,7 @@ article ul, article ol, article dl {
 }
 
 @media screen and (min-width: 900px) {
-  nav .search-form, #index-main .search {
+  nav .search-form {
     width: 330px;
   }
   nav .search-form input[type=search] {
