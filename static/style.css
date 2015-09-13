@@ -314,8 +314,9 @@ article ul, article ol, article dl {
 }
 @media screen and (min-width: 630px) {
   #index-main {
-    background-color: auto;
     background-image: url(/static/tom-pictures/2014-12-11.jpg);
+    background-repeat: no-repeat;
+    background-color: #888;
   }
   #index-main .search { top: 130px; }
   article img, article video { max-height: 630px; }
