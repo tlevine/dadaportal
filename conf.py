@@ -179,8 +179,8 @@ THEME_COLOR = '#5670d4'
 #
 
 POSTS = (
-    ("posts/*.rst", "posts", "post.tmpl"),
-    ("posts/*.txt", "posts", "post.tmpl"),
+    ("canonical-articles/*.rst", "!", "post.tmpl"),
+    ("canonical-articles/*.txt", "!", "post.tmpl"),
 )
 PAGES = (
     ("stories/*.rst", "stories", "story.tmpl"),
