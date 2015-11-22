@@ -1,0 +1,9 @@
+[Core]
+Name = iarchiver
+Module = iarchiver
+
+[Documentation]
+Author = Daniel Aleksandersen
+Version = 1.0
+Website = https://www.aeyoun.com/
+Description = Save new posts in the Internet Archives.
