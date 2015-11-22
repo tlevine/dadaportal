@@ -1,4 +1,3 @@
-.static-compiled
-.secrets
-*.log
-.whoosh-index
+.doit.db
+cache
+output
