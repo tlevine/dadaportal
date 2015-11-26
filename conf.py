@@ -180,6 +180,7 @@ THEME_COLOR = '#5670d4'
 
 POSTS = (
     ("canonical-articles/articles/*.rst", "!", "post.tmpl"),
+    ("canonical-articles/articles/*.md", "!", "post.tmpl"),
     ("canonical-articles/articles/*.txt", "!", "post.tmpl"),
 )
 PAGES = (
