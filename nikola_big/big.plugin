@@ -1,0 +1,9 @@
+[Core]
+Name = big
+Module = task_big
+
+[Documentation]
+Author = Thomas Levine
+Version = 0.1
+Website = https://thomaslevine.com
+Description = Render slides
