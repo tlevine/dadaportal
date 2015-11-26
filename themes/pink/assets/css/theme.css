@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'Sweden Sans';
   font-weight: bold;
-  src: url(/static/fonts/sweden-sans/swedensansbold-webfont.woff) format('woff');
+  src: url(/assets/fonts/sweden-sans/swedensansbold-webfont.woff) format('woff');
 }
 @font-face {
   font-family: 'Sweden Sans';
   font-weight: normal;
-  src: url(/static/fonts/sweden-sans/swedensans-webfont.woff) format('woff');
+  src: url(/assets/fonts/sweden-sans/swedensans-webfont.woff) format('woff');
 }
 
 /* Base formatting */
@@ -314,7 +314,7 @@ article ul, article ol, article dl {
 }
 @media screen and (min-width: 630px) {
   #index-main {
-    background-image: url(/static/tom-pictures/2014-12-11.jpg);
+    background-image: url(/assets/images/2014-12-11.jpg);
     background-repeat: no-repeat;
     background-color: #888;
   }
