@@ -179,13 +179,13 @@ THEME_COLOR = '#5670d4'
 #
 
 POSTS = (
-    ("canonical-articles/articles/index.rst", "!", "post.tmpl"),
-    ("canonical-articles/articles/index.md", "!", "post.tmpl"),
-    ("canonical-articles/articles/index.txt", "!", "post.tmpl"),
+    ("canonical-articles/posts/index.rst", "!", "post.tmpl"),
+    ("canonical-articles/posts/index.md", "!", "post.tmpl"),
+    ("canonical-articles/posts/index.txt", "!", "post.tmpl"),
 )
 PAGES = (
-    ("stories/*.rst", "stories", "story.tmpl"),
-    ("stories/*.txt", "stories", "story.tmpl"),
+    ("canonical-articles/pages/*.rst", "stories", "story.tmpl"),
+    ("canonical-articles/pages/*.txt", "stories", "story.tmpl"),
 )
 
 
