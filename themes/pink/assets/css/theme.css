@@ -110,6 +110,8 @@ header > h1 {
 /* Main content styles */
 main {
   margin-bottom: 21px;
+}
+header, main {
   margin-left: auto;
   margin-right: auto;
 }
