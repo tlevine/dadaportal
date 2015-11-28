@@ -55,6 +55,13 @@ blockquote > p {
 /* Header */
 header > h1 {
   margin-bottom: 5px;
+  display: none;
+}
+body > .sr-only-focusable {
+  display: none;
+}
+#tipue_search_input {
+  float: right;
 }
 
 #menu ul,
