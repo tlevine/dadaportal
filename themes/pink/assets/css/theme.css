@@ -60,7 +60,7 @@ header > h1 {
 body > .sr-only-focusable {
   display: none;
 }
-#tipue_search_input {
+#search-box {
   float: right;
 }
 

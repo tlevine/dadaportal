@@ -1161,11 +1161,13 @@ GLOBAL_CONTEXT = {}
 GLOBAL_CONTEXT_FILLER = []
 
 SEARCH_FORM = """
-<span class="navbar-form pull-left">
-<input type="text" id="tipue_search_input">
-</span>"""
+<div id="search-box">
+  <input type="text" id="tipue_search_input">
+  <input type="button" id="tipue_search_button">
+</div>"""
 
 BODY_END = """
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="/assets/js/tipuesearch_set.js"></script>
 <script src="/assets/js/tipuesearch.js"></script>
 <script>
@@ -1178,6 +1180,7 @@ $(document).ready(function() {
 });
 </script>
 """
+
 
 EXTRA_HEAD_DATA = """
 <link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
