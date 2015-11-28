@@ -183,6 +183,7 @@ THEME_COLOR = '#5670d4'
 POSTS = (
     ("canonical-articles/posts/index.rst", "!", "post.tmpl"),
     ("canonical-articles/posts/index.md", "!", "post.tmpl"),
+    ("canonical-articles/posts/index.mdwn", "!", "post.tmpl"),
     ("canonical-articles/posts/index.txt", "!", "post.tmpl"),
 )
 PAGES = (
@@ -256,7 +257,7 @@ TIMEZONE = "UTC"
 # 'html' assumes the file is HTML and just copies it
 COMPILERS = {
     "rest": ('.rst', '.txt'),
-    "markdown": ('.md', '.mdown', '.markdown'),
+    "markdown": ('.md', '.mdwn', '.mdown', '.markdown'),
     "textile": ('.textile',),
     "txt2tags": ('.t2t',),
     "bbcode": ('.bb',),
