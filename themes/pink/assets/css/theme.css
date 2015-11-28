@@ -52,6 +52,61 @@ blockquote > p {
   margin: 0;
 }
 
+/* Header */
+header > h1 {
+  margin-bottom: 5px;
+}
+
+#menu ul,
+#menu ul li,
+.postpromonav .tags,
+.postpromonav .tags li,
+.pager,
+.pager li,
+#toptranslations ul,
+#toptranslations ul li {
+	list-style: none;
+	padding-left: 0;
+	padding-right: 0;
+}
+#toptranslations h2 {
+  font-size: 1em;
+}
+
+#toptranslations ul {
+	display: inline;
+}
+
+#menu ul li,
+#toptranslations ul li {
+	display: inline-block;
+	margin-right: 1.5em;
+}
+
+#toptranslations h2 {
+	display: inline;
+	font-size: 1em;
+	margin-right: 1.5em;
+}
+
+#menu ul li:dir(rtl),
+#toptranslations ul li:dir(rtl),
+#toptranslations h2:dir(rtl) {
+	margin-left: 1.5em;
+	margin-right: 0;
+}
+
+#toptranslations {
+	text-align: right;
+	float: right;
+}
+
+#toptranslations:dir(rtl) {
+	text-align: left;
+	float: left;
+}
+
+
 /* Main content styles */
 main {
   margin-bottom: 21px;
@@ -75,97 +130,6 @@ table {
 td { border: none; }
 table tr:first-child th, table tr:first-child td { border-bottom: solid 1px; }
 
-/* Nav bar */
-nav ul, nav .search-form {
-  display: block;
-  height: 21px;
-  margin-left: auto;
-  margin-right: auto;
-}
-nav li {
-  display: inline-block;
-}
-nav ul, nav .search-form { text-align: center; }
-nav li { margin: 0; }
-nav {
-  height: 63px;
-}
-
-/* Footer */
-footer {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  text-align: center;
-}
-
-/* Root page */
-#index-main .search ul {
-  margin-left: 0;
-  text-align: center;
-}
-#index-main .search li {
-  display: inline;
-  font-size: 16px;
-}
-#index-main .search {
-  height: 160px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-#index-main .search h1 {
-  text-align: center;
-  height: 36px;
-  margin-top: 16px;
-  margin-bottom: 4px;
-}
-
-/* Two-column layout */
-article section.column {
-  width: 49%;
-  margin: 0;
-  padding: 0;
-}
-article section.column:nth-child(even) {
-  float: left;
-}
-article section.column:nth-child(odd) {
-  float: right;
-}
-
-/* Haystack search page */
-.haystack-search form {
-  width: 340px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
-.haystack-search form input[type=search] {
-  display: block;
-  width: 99%;
-  height: 63px;
-}
-.haystack-search form input[type=submit] {
-  height: 63px;
-  width: 126px;
-}
-.haystack-search form > ul {
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-.haystack-search form > ul li {
-  display: inline-block;
-}
-.haystack-search .highlighted {
-  border: dashed 1px #fe57a1;
-  background-color: #333;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
 /* Article styles */
 article {
   text-align: justify;
@@ -188,50 +152,6 @@ article video.wide {
   width: 100%;
 }
 
-/* Mail styles */
-section.message dt { float: left; width: 170px; }
-section.message dd { margin-left: 170px; }
-section.email-body {
-  white-space: pre-wrap;
-  padding: 0.5em;
-  margin-top: 0.5em;
-}
-section.thread > ul ul {
-  margin-left: 1em;
-  margin-top: 0;
-}
-section.thread > ul {
-  margin-left: 0;
-}
-section.thread li .date {
-  margin-top: 0.25em;
-  white-space: nowrap;
-}
-
-article h1, .centered-heading, section.message dl {
-  border-bottom: solid 1px #666;
-}
-article h1, .centered-heading {
-  text-align: center;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-h2.centered-heading {
-  border-top: solid 1px #666;
-  margin-top: 0.75em;
-}
-
-/* Search form */
-nav .search-form input[type=search] {
-  padding-left: 8px; /* Doesn't affect width */
-  width: 264px;
-}
-nav .search-form input[type=submit] {
-  width: 72px;
-}
-
 /* Matching colors */
 a, h1, h2, h3, h4, h5, h6 {
   color: #fe57a1;
@@ -241,22 +161,9 @@ body {
   background-color: #111;
 }
 nav { border-bottom: solid 1px #666; }
-#index-main nav { border-bottom: none; }
 footer {
   padding-top: 0.5em;
   border-top: solid 1px #666;
-}
-nav .search-form input, .haystack-search input {
-  border: solid 1px #666;
-}
-nav .search-form input[type=search] {
-  color: #111;
-/* Show it brightly all the time.
-  background-color: #888;
-}
-nav .search-form input[type=search]:focus {
-*/
-  background-color: white;
 }
 article iframe, article img, article video {
   background-color: #BBB;
@@ -264,88 +171,26 @@ article iframe, article img, article video {
 .transparent {
   background-color: inherit;
 }
-section.email-body, pre, blockquote, .line-block /* rst class */ {
-  color: #BBB;
-  background-color: #333;
-}
-#index-main .search {
-  background-color: white;
-}
 strong { color: white; font-weight: normal; }
-
 
 p, h1, h2, h3, h4, h5, h6,
 article ul, article ol, article dl {
   margin-top: 0.5em;
 }
 
-/* Respond */
-#index-main { background-color: white; }
-#index-main .search { left: 17px; }
-
 @media screen {
-  main { width: 98%; }
-  nav .search-form, #index-main .search { width: 340px; }
-  #index-main form input[type=search] {
-    margin-left: 18px;
-    margin-top: 6px;
-    width: 240px;
-  }
-  #index-main form input[type=submit] { width: 63px; }
-  #index-main form input { height: 63px; }
-  nav { height: 95px; }
+  header, main { width: 98%; }
   article img, article video { max-height: 340px; }
 }
 @media screen and (min-width: 540px) {
-  nav ul {
-    display: inline-block;
-  }
-  nav .search-form, nav .search-form input {
-    display: inline-block;
-    float: left;
-  }
-  nav li {
-    margin-top: 0.75em;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-  }
-  main { width: 90%; }
+  header, main { width: 90%; }
   article img, article video { max-height: 540px; }
 }
 @media screen and (min-width: 630px) {
-  #index-main {
-    background-image: url(/assets/images/2014-12-11.jpg);
-    background-repeat: no-repeat;
-    background-color: #888;
-  }
-  #index-main .search { top: 130px; }
   article img, article video { max-height: 630px; }
 }
 @media screen and (min-width: 720px) {
-  nav .search-form {
-    float: right;
-  }
-  nav { height: 63px; }
-  nav .search-form input {
-    box-sizing: border-box; /* http://stackoverflow.com/a/7543302/407226 */
-    height: 63px;
-  }
-  nav .search-form {
-    width: 200px;
-  }
-  nav .search-form input[type=search] {
-    width: 122px; /* 354px; */
-  }
   article img, article video { max-height: 720px; }
-}
-
-@media screen and (min-width: 900px) {
-  nav .search-form {
-    width: 330px;
-  }
-  nav .search-form input[type=search] {
-    width: 252px; /* 354px; */
-  }
 }
 
 @media print {
