@@ -128,20 +128,20 @@ TRANSLATIONS_PATTERN = "{path}.{lang}.{ext}"
 
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "Archive"),
-        ("/categories/index.html", "Tags"),
+        ("/a/", "Archive"),
+        ("/categories/", "Tags"),
         ("/rss.xml", "RSS feed"),
     ),
 
     "fr": (
-        ("/fr/archive.html", "Archives"),
-        ("/fr/categories/index.html", "Étiquettes"),
+        ("/fr/a/", "Archives"),
+        ("/fr/categories/", "Étiquettes"),
         ("/fr/rss.xml", "Flux RSS"),
     ),
 
     "sv": (
-        ("/sv/archive.html", "Arkiv"),
-        ("/sv/categories/index.html", "Taggar"),
+        ("/sv/a/", "Arkiv"),
+        ("/sv/categories/", "Taggar"),
         ("/sv/rss.xml", "RSS-flöde"),
     ),
 }
@@ -474,29 +474,13 @@ HIDDEN_AUTHORS = ['Guest']
 
 # Final location for the main blog page and sibling paginated pages is
 # output / TRANSLATION[lang] / INDEX_PATH / index-*.html
-# INDEX_PATH = ""
+INDEX_PATH = "!"
 
-# Create per-month archives instead of per-year
-# CREATE_MONTHLY_ARCHIVE = False
 # Create one large archive instead of per-year
 # CREATE_SINGLE_ARCHIVE = False
-# Create year, month, and day archives each with a (long) list of posts
-# (overrides both CREATE_MONTHLY_ARCHIVE and CREATE_SINGLE_ARCHIVE)
-# CREATE_FULL_ARCHIVES = False
-# If monthly archives or full archives are created, adds also one archive per day
-# CREATE_DAILY_ARCHIVE = False
-# Final locations for the archives are:
-# output / TRANSLATION[lang] / ARCHIVE_PATH / ARCHIVE_FILENAME
-# output / TRANSLATION[lang] / ARCHIVE_PATH / YEAR / index.html
-# output / TRANSLATION[lang] / ARCHIVE_PATH / YEAR / MONTH / index.html
-# output / TRANSLATION[lang] / ARCHIVE_PATH / YEAR / MONTH / DAY / index.html
-# ARCHIVE_PATH = ""
-# ARCHIVE_FILENAME = "archive.html"
-
-# If ARCHIVES_ARE_INDEXES is set to True, each archive page which contains a list
-# of posts will contain the posts themselves. If set to False, it will be just a
-# list of links.
-# ARCHIVES_ARE_INDEXES = False
+ARCHIVE_PATH = "a"
+ARCHIVE_FILENAME = "index.html"
+ARCHIVES_ARE_INDEXES = False
 
 # URLs to other posts/pages can take 3 forms:
 # rel_path: a relative URL to the current page/post (default)
