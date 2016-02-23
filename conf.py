@@ -479,7 +479,6 @@ INDEX_PATH = "!"
 # Create one large archive instead of per-year
 # CREATE_SINGLE_ARCHIVE = False
 ARCHIVE_PATH = "a"
-ARCHIVE_FILENAME = "index.html"
 ARCHIVES_ARE_INDEXES = False
 
 # URLs to other posts/pages can take 3 forms:
@@ -651,35 +650,10 @@ IMAGE_FOLDERS = {'images': 'images'}
 # If the following is True, INDEXES_PAGES is also displayed on the main (the
 # newest) index page (index.html):
 # INDEXES_PAGES_MAIN = False
-#
-# If the following is True, index-1.html has the oldest posts, index-2.html the
-# second-oldest posts, etc., and index.html has the newest posts. This ensures
-# that all posts on index-x.html will forever stay on that page, now matter how
-# many new posts are added.
-# If False, index-1.html has the second-newest posts, index-2.html the third-newest,
-# and index-n.html the oldest posts. When this is active, old posts can be moved
-# to other index pages when new posts are added.
-# INDEXES_STATIC = True
-#
-# (translatable) If PRETTY_URLS is set to True, this setting will be used to create
-# prettier URLs for index pages, such as page/2/index.html instead of index-2.html.
-# Valid values for this settings are:
-#   * False,
-#   * a list or tuple, specifying the path to be generated,
-#   * a dictionary mapping languages to lists or tuples.
-# Every list or tuple must consist of strings which are used to combine the path;
-# for example:
-#     ['page', '{number}', '{index_file}']
-# The replacements
-#     {number}     --> (logical) page number;
-#     {old_number} --> the page number inserted into index-n.html before (zero for
-#                      the main page);
-#     {index_file} --> value of option INDEX_FILE
-# are made.
-# Note that in case INDEXES_PAGES_MAIN is set to True, a redirection will be created
-# for the full URL with the page number of the main page to the normal (shorter) main
-# page URL.
-# INDEXES_PRETTY_PAGE_URL = False
+
+
+INDEXES_PRETTY_PAGE_URL = ['page', '{number}']
+PRETTY_URLS = True
 
 # Color scheme to be used for code blocks. If your theme provides
 # "assets/css/code.css" this is ignored.
@@ -837,7 +811,7 @@ COMMENT_SYSTEM_ID = ""
 # (Uses the INDEX_FILE setting, so if that is, say, default.html,
 # it will instead /foo/default.html => /foo)
 # (Note: This was briefly STRIP_INDEX_HTML in v 5.4.3 and 5.4.4)
-STRIP_INDEXES = False
+STRIP_INDEXES = True
 
 # Should the sitemap list directories which only include other directories
 # and no files.
@@ -852,13 +826,6 @@ STRIP_INDEXES = False
 # if SITE_URL points to server root. The list is used to exclude resources from
 # /robots.txt and /sitemap.xml, and to inform search engines about /sitemapindex.xml.
 # ROBOTS_EXCLUSIONS = ["/archive.html", "/category/*.html"]
-
-# Instead of putting files in <slug>.html, put them in <slug>/index.html.
-# No web server configuration is required. Also enables STRIP_INDEXES.
-# This can be disabled on a per-page/post basis by adding
-#    .. pretty_url: False
-# to the metadata.
-PRETTY_URLS = False
 
 # If True, publish future dated posts right away instead of scheduling them.
 # Defaults to False.
