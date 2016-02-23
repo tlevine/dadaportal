@@ -187,8 +187,8 @@ POSTS = (
     ("canonical-articles/posts/index.txt", "!", "post.tmpl"),
 )
 PAGES = (
-    ("canonical-articles/pages/*.rst", "stories", "story.tmpl"),
-    ("canonical-articles/pages/*.txt", "stories", "story.tmpl"),
+#   ("canonical-articles/pages/*.rst", "stories", "story.tmpl"),
+#   ("canonical-articles/pages/*.txt", "stories", "story.tmpl"),
 )
 
 
@@ -481,38 +481,11 @@ INDEX_PATH = "!"
 ARCHIVE_PATH = "a"
 ARCHIVES_ARE_INDEXES = False
 
-# URLs to other posts/pages can take 3 forms:
-# rel_path: a relative URL to the current page/post (default)
-# full_path: a URL with the full path from the root
-# absolute: a complete URL (that includes the SITE_URL)
-# URL_TYPE = 'rel_path'
-
-# If USE_BASE_TAG is True, then all HTML files will include
-# something like <base href=http://foo.var.com/baz/bat> to help
-# the browser resolve relative links.
-# In some rare cases, this will be a problem, and you can
-# disable it by setting USE_BASE_TAG to False.
-# USE_BASE_TAG = True
-
 # Final location for the blog main RSS feed is:
 # output / TRANSLATION[lang] / RSS_PATH / rss.xml
-# RSS_PATH = ""
-
-# Slug the Tag URL. Easier for users to type, special characters are
-# often removed or replaced as well.
-# SLUG_TAG_PATH = True
-
-# Slug the Author URL. Easier for users to type, special characters are
-# often removed or replaced as well.
-# SLUG_AUTHOR_PATH = True
+# RSS_PATH = "rss.xml"
 
 # A list of redirection tuples, [("foo/from.html", "/bar/to.html")].
-#
-# A HTML file will be created in output/foo/from.html that redirects
-# to the "/bar/to.html" URL. notice that the "from" side MUST be a
-# relative URL.
-#
-# If you don't need any of these, just set to []
 REDIRECTIONS = []
 
 # Presets of commands to execute to deploy. Can be anything, for
@@ -531,22 +504,8 @@ REDIRECTIONS = []
 #     ]
 # }
 
-# For user.github.io OR organization.github.io pages, the DEPLOY branch
-# MUST be 'master', and 'gh-pages' for other repositories.
-# GITHUB_SOURCE_BRANCH = 'master'
-# GITHUB_DEPLOY_BRANCH = 'gh-pages'
-
-# The name of the remote where you wish to push to, using github_deploy.
-# GITHUB_REMOTE_NAME = 'origin'
-
-# Where the output site should be located
-# If you don't use an absolute path, it will be considered as relative
-# to the location of conf.py
-# OUTPUT_FOLDER = 'output'
-
-# where the "cache" of partial generated content should be located
-# default: 'cache'
-# CACHE_FOLDER = 'cache'
+OUTPUT_FOLDER = 'output'
+CACHE_FOLDER = 'cache'
 
 # Filters to apply to the output.
 # A directory where the keys are either: a file extensions, or
@@ -748,7 +707,7 @@ LICENSE = ""
 
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
-CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license}'
+# CONTENT_FOOTER = 'Contents &copy; {date}         <a href="mailto:{email}">{author}</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license}'
 
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
 # for translatability, as dicts are not formattable.  Nikola will
@@ -773,23 +732,11 @@ CONTENT_FOOTER_FORMATS = {
     )
 }
 
-# To use comments, you can choose between different third party comment
-# systems.  The following comment systems are supported by Nikola:
-#   disqus, facebook, googleplus, intensedebate, isso, livefyre, muut
-# You can leave this option blank to disable comments.
 COMMENT_SYSTEM = ""
-# And you also need to add your COMMENT_SYSTEM_ID which
-# depends on what comment system you use. The default is
-# "nikolademo" which is a test account for Disqus. More information
-# is in the manual.
 COMMENT_SYSTEM_ID = ""
 
 # Enable annotations using annotateit.org?
-# If set to False, you can still enable them for individual posts and pages
-# setting the "annotations" metadata.
-# If set to True, you can disable them for individual posts and pages using
-# the "noannotations" metadata.
-# ANNOTATIONS = False
+ANNOTATIONS = False
 
 # Create index.html for page (story) folders?
 # WARNING: if a page would conflict with the index file (usually
@@ -801,16 +748,7 @@ COMMENT_SYSTEM_ID = ""
 # Enable comments on picture gallery pages?
 # COMMENTS_IN_GALLERIES = False
 
-# What file should be used for directory indexes?
-# Defaults to index.html
-# Common other alternatives: default.html for IIS, index.php
-# INDEX_FILE = "index.html"
-
-# If a link ends in /index.html,  drop the index.html part.
-# http://mysite/foo/bar/index.html => http://mysite/foo/bar/
-# (Uses the INDEX_FILE setting, so if that is, say, default.html,
-# it will instead /foo/default.html => /foo)
-# (Note: This was briefly STRIP_INDEX_HTML in v 5.4.3 and 5.4.4)
+INDEX_FILE = "index.html"
 STRIP_INDEXES = True
 
 # Should the sitemap list directories which only include other directories
