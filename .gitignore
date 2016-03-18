@@ -1,3 +1,4 @@
 .doit.db
 cache
 output
+.virtualenv
