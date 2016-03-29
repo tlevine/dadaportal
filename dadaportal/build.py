@@ -5,13 +5,14 @@ from . import read, render
 
 logger = logging.getLogger(__name__)
 
-def build(x):
+def build(x, recursive=False):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
 
-    for y in os.listdir(x):
-        if os.path.isdir(y):
-            yield from build(os.path.join(x, y))
+    if recursive:
+        for y in os.listdir(x):
+            if os.path.isdir(y):
+                yield from build(os.path.join(x, y))
 
     if _multiple_index_files(x):
         logger.warn('''Multiple index files are in the directory "%s".
@@ -19,9 +20,10 @@ I am processing neither.''' % x)
     else:
         for y in os.listdir(x):
             if os.path.isfile(y):
-                z = read.file(os.path.join(x, y))
+                fn = os.path.join(x, y)
+                z = read.file(fn)
                 if z:
-                    yield z
+                    yield fn, z
                     break
         else:
             tpl = 'No valid index files found the directory "%s".'
