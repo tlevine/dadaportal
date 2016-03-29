@@ -1,17 +1,24 @@
 import logging
+import enum
 from collections import Counter
 
 from . import read, render
 
 logger = logging.getLogger(__name__)
 
+                z = read.file(fn)
+
 def build(src, dest, recursive:bool=False):
-    for srcfile, data in _read(src, recursive):
+    for srcfile, can_parse in _read(src, recursive):
         destfile = os.path.join(dest, os.path.relpath(srcfile, src))
-        if data:
-            raise NotImplementedError('Render to %s' % destfile)
-        else:
-            shutil.copy(srcfile, destfile)
+        if os.path.isfile(destfile) and \
+            os.stat(destfile).st_mtime > os.stat(srcfile).st_mtime:
+            if can_parse:
+                data = file.read(srcfile)
+                if data:
+                    raise NotImplementedError('Render to %s' % destfile)
+            else:
+                shutil.copy(srcfile, destfile)
 
 def _read(x, recursive):
     if not os.path.isdir(x):
@@ -30,12 +37,11 @@ I am processing neither.''' % x)
         for y in os.listdir(x):
             if os.path.isfile(y):
                 fn = os.path.join(x, y)
-                z = read.file(fn)
                 if z:
-                    yield fn, z
+                    yield fn, True
                     break
                 else:
-                    yield fn, None
+                    yield fn, False
         else:
             tpl = 'No valid index files found the directory "%s".'
             logger.warn(tpl % x)
