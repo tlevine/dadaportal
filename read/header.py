@@ -18,19 +18,6 @@ def split(body_fp):
         body_fp.seek(0)
     return head_fp, body_fp
 
-
-
-
-
-    title = models.TextField(null = True)
-    description = models.TextField(null = True)
-    body = models.TextField(null = False)
-
-    redirect = models.TextField(null = True)
-    tagsjson = models.TextField(null = False) # JSON
-    secret = models.BooleanField(null = False, default = False)
-    tags
-
 def from_html(body):
     try:
         html = lxml.html.fromstring(body)
@@ -42,14 +29,4 @@ def from_html(body):
             tags = html.xpath('//' + tag)
             if len(tags) > 0:
                 data[key] = tags[0].text_content()
-        data['body'] = lxml.html.tostring(link_headers(link_img(html)))
-
-    data['secret'] = head.get('secret', False)
-    for key in ['redirect', 'title']:
-        if key in head:
-            data[key] = head[key]
-
-    if ('title' not in data or not data['title']) and '/' not in endpoint:
-        data['title'] = endpoint.replace('-', ' ')
-
-    return data
+        return data
