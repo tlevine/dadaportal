@@ -112,16 +112,6 @@ def reify(filename):
     if ('title' not in data or not data['title']) and '/' not in endpoint:
         data['title'] = endpoint.replace('-', ' ')
 
-    for field in ['title', 'description']:
-        for service in ['facebook', 'twitter']:
-            key = '%s_%s' % (service, field)
-            if key in head:
-                data[key] = head[key]
-            elif field in head:
-                data[key] = head[field]
-            elif field in data:
-                data[key] = data[field]
-
     return data
 
 def link_img(html):
