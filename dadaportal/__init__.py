@@ -6,8 +6,6 @@ from . import read, render
 
 logger = logging.getLogger(__name__)
 
-                z = read.file(fn)
-
 def build(src, dest, recursive:bool=False):
     for srcfile, can_parse in _read(src, recursive):
         destfile = os.path.join(dest, os.path.relpath(srcfile, src))
