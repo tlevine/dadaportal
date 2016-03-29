@@ -1,7 +1,12 @@
+import yaml
 import os
 import re
+import logging
+
+from . import header
 
 INDEX = re.compile(r'^index\.([a-z0-9]+)$', flags=re.IGNORECASE)
+logger = logging.getLogger(__name__)
 
 def file(x):
     if not os.path.isfile(x):
@@ -14,12 +19,16 @@ def file(x):
 
     m.group(1)
 
+    with open(filename) as fp:
+        head_fp, body_fp = header.split(fp)
 
-    title = models.TextField(null = True)
-    description = models.TextField(null = True)
-    body = models.TextField(null = False)
+    try:
+        data = yaml.load(head_fp)
+    except yaml.scanner.ScannerError:
+        logger.warning('Invalid YAML dataer at %s' % filename)
+        data = {}
+    if type(data) != dict:
+        data = {}
 
-    redirect = models.TextField(null = True)
-    tagsjson = models.TextField(null = False) # JSON
-    secret = models.BooleanField(null = False, default = False)
-    tags
+    formatter = [re.match(EXTENSION, filename).group(1)]
+    data['body'] = formatter(body_fp) 

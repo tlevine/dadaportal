@@ -6,39 +6,7 @@ from logging import getLogger
 
 import lxml.html, lxml.etree
 
-from django.conf import settings
-
 logger = getLogger(__name__)
-
-def parse(filename):
-    formatter = FORMATS[re.match(EXTENSION, filename).group(1)]
-    with open(filename) as body_fp:
-        head_fp = io.StringIO()
-        for line in body_fp:
-            if re.match(r'^-+\s+$', line):
-                # Dashed line
-                head_fp.seek(0)
-                break
-            elif re.match(r'^\s*$', line):
-                # Empty line before a dashed line
-                head_fp.truncate(0)
-                body_fp.seek(0)
-                break
-            else:
-                head_fp.write(line)
-        else:
-            # If there was no dashed line,
-            head_fp.truncate(0)
-            body_fp.seek(0)
-        try:
-            head = yaml.load(head_fp)
-        except yaml.scanner.ScannerError:
-            logger.warning('Invalid YAML header at %s' % filename)
-            head = {}
-        body = formatter(body_fp)
-        if type(head) != dict:
-            head = {}
-    return head, body
 
 def rst(fp):
     return docutils.examples.html_body(fp.read(), doctitle = False)
@@ -53,7 +21,7 @@ def md_plus(fp):
 def read(fp):
     return fp.read()
 
-FORMATS = {
+formats = {
     'mdwn': md,
     'md': md,
     'mdwn+': md_plus,
@@ -62,7 +30,6 @@ FORMATS = {
     'txt': read,
     'html': read,
 }
-EXTENSION = re.compile(r'^.*\.([a-z+]+)$')
 
 def reify(filename):
     endpoint = os.path.relpath(os.path.dirname(filename), settings.ARTICLES_DIR)
