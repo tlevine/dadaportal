@@ -1,3 +1,5 @@
+import lxml.html
+
 def link_img(html):
     for img in html.xpath('//img[not(../self::a)]'):
         a = lxml.html.Element('a', href = img.xpath('@src')[0])

@@ -4,8 +4,6 @@ import datetime
 import yaml, markdown, docutils.examples
 from logging import getLogger
 
-import lxml.html, lxml.etree
-
 logger = getLogger(__name__)
 
 def rst(fp):

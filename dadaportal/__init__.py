@@ -12,7 +12,7 @@ def build(src, dest, recursive:bool=False):
         if os.path.isfile(destfile) and \
             os.stat(destfile).st_mtime > os.stat(srcfile).st_mtime:
             if can_parse:
-                data = file.read(srcfile)
+                data = render.file(srcfile)
                 if data:
                     raise NotImplementedError('Render to %s' % destfile)
             else:
