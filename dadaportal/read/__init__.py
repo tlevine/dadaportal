@@ -17,17 +17,6 @@ FIELDS = {
 }
 
 def file(x):
-    cachefile_basename = '.%s.cache' % os.path.basename(x)
-    cachefile = os.path.join(os.path.dirname(x), cachefile_basename)
-
-    if os.path.isfile(cachefile) and \
-        os.stat(cachefile).st_mtime > os.stat(x).st_mtime:
-        with open(cachefile) as fp:
-            y = json.load(fp)
-    else:
-        y = file_nocache(x)
-
-def file_nocache(x):
     if not os.path.isfile(x):
         raise TypeError('Not a file: %s' % x)
 
