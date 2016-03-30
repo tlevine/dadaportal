@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
-{% block base %}
-  <h1>Articles</h1>
+{% extends '_base.html' %}
+{% block main %}
+  <h1>{{ title }}</h1>
   <dl>
     {% for article in object_list %}
     <dt><a href="{% url 'articles/article' article.endpoint %}">{{article.title|default:'(Untitled)'}}</a></dt>
