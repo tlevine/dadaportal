@@ -13,7 +13,7 @@ def dadaportal():
     import horetu
     horetu.horetu(build)
 
-def build(src, recursive:bool=False):
+def build(src, recursive:bool=False, force:bool=False):
     with open('.dadaportal.conf') as fp:
         conf = json.load(fp)
 
@@ -23,12 +23,12 @@ def build(src, recursive:bool=False):
             raise ValueError('If the destination is inside the root, it must be hidden (dotfile).')
         if os.path.abspath(src).startswith(root):
             _build(src, root, spec['destination'], recursive,
-                   render.renderers[spec['render']])
+                   render.renderers[spec['render']], force)
             break
     else:
         logger.warning('No appropriate configuration was found.')
 
-def _build(src, root, dest, recursive, renderer):
+def _build(src, root, dest, recursive, renderer, force):
     for srcfile, can_parse in _read(src, recursive):
         url = os.path.relpath(srcfile, root)
         dirurl = os.path.dirname(url)
@@ -39,7 +39,9 @@ def _build(src, root, dest, recursive, renderer):
             destfile = os.path.join(dest, url)
 
         modified = os.stat(srcfile).st_mtime
-        if not os.path.isfile(destfile) or os.stat(destfile).st_mtime < modified:
+        if force or not os.path.isfile(destfile) or \
+            os.stat(destfile).st_mtime < modified:
+
             os.makedirs(os.path.dirname(destfile), exist_ok=True)
             if can_parse:
                 data = read.file(srcfile)
