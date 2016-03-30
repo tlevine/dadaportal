@@ -1,13 +1,11 @@
-{% load static from staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
-  {% include 'meta.html' %}
-  <link href="{% static 'big.css' %}" rel="stylesheet" type="text/css" />
-  <script src="{% static 'articles/big.js' %}"></script>
+  {% include '_meta.html' %}
+  <link href="/static/big.css" rel="stylesheet" type="text/css" />
+  <script src="/static/big.js"></script>
 </head>
 <body>
-  {% block base %}{{ body|safe }}{% endblock %}
-  {% include 'tracking/track.html' %}
+  {% block main %}{{ body|safe }}{% endblock %}
 </body>
 </html>

@@ -1,15 +1,15 @@
-{% extends 'base.html' %}
-{% block base %}
+{% extends '_base.html' %}
+{% block main %}
 <article>
-  <section>
-    {{body|safe}}
-  </section>
-  {% include 'search/more_like_this.html' %}
+  {{body|safe}}
 </article>
 <footer>
-    Last modified <time datetime="{{ modified|date:'c' }}">{{ modified }}</time>
+    Last modified <time datetime="{{ modified_c }}">{{ modified }}</time>
+    {#
     &bull; <a href="{% url 'articles/source' source %}">View source</a>
     {% if other_source %}&bull; <a href="{{ other_source }}">Other source</a>{% endif %}
+    #}
     &bull; <a href="?slides">Slides</a>
+    &bull; <a href="../s/{{ slug }}/">Slides</a>
 </footer>
 {% endblock %}
