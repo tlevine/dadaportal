@@ -13,7 +13,7 @@ def dadaportal():
     horetu.horetu(build)
 
 def build(src, recursive:bool=False):
-    with open('dadaportal.conf') as fp:
+    with open('.dadaportal.conf') as fp:
         conf = json.load(fp)
 
     for spec in conf:
