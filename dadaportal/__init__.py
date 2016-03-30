@@ -18,8 +18,8 @@ def build(src, recursive:bool=False):
 
     for spec in conf:
         root = os.path.abspath(spec['root'])
-        if not os.path.basename(spec['destination']).startswith('.'):
-            raise ValueError('Destination must be a hidden file (dotfile).')
+        if not os.path.relpath(spec['destination'], spec['root']).startswith('.'):
+            raise ValueError('If the destination is inside the root, it must be hidden (dotfile).')
         if os.path.abspath(src).startswith(root):
             _build(src, root, spec['destination'], recursive,
                    render.renderers[spec['render']])
