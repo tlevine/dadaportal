@@ -17,8 +17,11 @@ def build(src, recursive:bool=False):
         conf = json.load(fp)
 
     for spec in conf:
-        if os.path.abspath(src).startswith(os.path.abspath(spec['root'])):
-            _build(src, spec['root'], spec['destination'], recursive,
+        root = os.path.abspath(spec['root'])
+        if not os.path.basename(spec['destination']).startswith('.'):
+            raise ValueError('Destination must be a hidden file (dotfile).')
+        if os.path.abspath(src).startswith(root):
+            _build(src, root, spec['destination'], recursive,
                    render.renderers[spec['render']])
             break
     else:
