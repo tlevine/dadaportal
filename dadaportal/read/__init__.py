@@ -6,7 +6,8 @@ import logging
 
 from . import header, formats
 
-INDEX = re.compile(r'^index\.([a-z0-9]+)$', flags=re.IGNORECASE)
+extensions = '|'.join(formats.formats)
+INDEX = re.compile(r'^index\.(%s)$' % extensions, flags=re.IGNORECASE)
 logger = logging.getLogger(__name__)
 
 FIELDS = {

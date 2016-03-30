@@ -45,8 +45,8 @@ def _read(x, recursive):
 I am processing neither.''' % x)
     else:
         for y in os.listdir(x):
-            if os.path.isfile(y):
-                fn = os.path.join(x, y)
+            fn = os.path.join(x, y)
+            if os.path.isfile(fn):
                 if read.can_read(fn):
                     yield fn, True
                     break
