@@ -16,9 +16,14 @@ def build(src, recursive:bool=False):
     with open('dadaportal.conf') as fp:
         conf = json.load(fp)
 
-    root = conf['root']
-    dest = conf['destination']
+    for spec in conf:
+        if os.path.abspath(src).startswith(os.path.abspath(spec['root'])):
+            _build(src, spec['root'], spec['destination'], recursive)
+            break
+    else:
+        logger.warning('No appropriate configuration was found.')
 
+def _build(src, root, dest, recursive):
     for srcfile, can_parse in _read(src, recursive):
         destfile = os.path.join(dest, os.path.relpath(srcfile, root))
         if not os.path.isfile(destfile) or \
@@ -33,6 +38,8 @@ def build(src, recursive:bool=False):
 def _read(x, recursive):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
+    if x.startswith('.'):
+        raise StopIteration
 
     if recursive:
         for y in os.listdir(x):
