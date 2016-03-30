@@ -3,6 +3,7 @@ import logging
 import enum
 import json
 from collections import Counter
+import shutil
 
 from . import read, render
 
@@ -37,14 +38,14 @@ def _build(src, root, dest, recursive, renderer):
         else:
             destfile = os.path.join(dest, url)
 
-        if not os.path.isfile(destfile) or \
-            os.stat(destfile).st_mtime < os.stat(srcfile).st_mtime:
+        modified = os.stat(srcfile).st_mtime
+        if not os.path.isfile(destfile) or os.stat(destfile).st_mtime < modified:
+            os.makedirs(os.path.dirname(destfile), exist_ok=True)
             if can_parse:
                 data = read.file(srcfile)
                 y = renderer(data.get('title', os.path.basename(dirurl)),
                              data.get('description', ''),
                              data['body'])
-                os.makedirs(os.path.dirname(destfile), exist_ok=True)
                 with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
@@ -61,8 +62,8 @@ def _read(x, recursive):
             if os.path.isdir(y):
                 yield from _read(os.path.abspath(os.path.join(x, y)),
                                  recursive)
-
-    if _multiple_index_files(x):
+    n = _n_index_files(x)
+    if n > 1:
         logger.warn('''Multiple index files are in the directory "%s".
 I am processing neither.''' % x)
     else:
@@ -71,14 +72,10 @@ I am processing neither.''' % x)
             if os.path.isfile(fn):
                 if read.can_read(fn):
                     yield fn, True
-                    break
                 else:
                     yield fn, False
-        else:
-            tpl = 'No valid index files found the directory "%s".'
-            logger.warn(tpl % x)
     
 
-def _multiple_index_files(x):
+def _n_index_files(x):
     c = Counter(fn.split('.')[0] for fn in os.listdir(x))
-    return c['index'] > 1
+    return c['index']
