@@ -9,3 +9,11 @@ def html(title, description, body):
     y = html_utils.link_img(html_utils.link_headers(x))
     z = lxml.html.tostring(y)
     raise NotImplementedError('Apply template.')
+
+def slides(*args):
+    raise NotImplementedError
+
+renderers = {
+    'html': html,
+    'slides': slides,
+}
