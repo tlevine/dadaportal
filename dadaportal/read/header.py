@@ -1,3 +1,6 @@
+import re
+import io
+
 def split(body_fp):
     head_fp = io.StringIO()
     for line in body_fp:

@@ -21,10 +21,10 @@ def build(src, recursive:bool=False):
 
     for srcfile, can_parse in _read(src, recursive):
         destfile = os.path.join(dest, os.path.relpath(srcfile, root))
-        if os.path.isfile(destfile) and \
-            os.stat(destfile).st_mtime > os.stat(srcfile).st_mtime:
+        if not os.path.isfile(destfile) or \
+            os.stat(destfile).st_mtime < os.stat(srcfile).st_mtime:
             if can_parse:
-                data = render.file(srcfile)
+                data = read.file(srcfile)
                 if data:
                     raise NotImplementedError('Render to %s' % destfile)
             else:

@@ -20,23 +20,23 @@ FIELDS = {
 def can_read(x):
     return re.match(INDEX, os.path.basename(x))
 
-def file(x):
-    if not os.path.isfile(x):
-        raise TypeError('Not a file: %s' % x)
+def file(filename):
+    if not os.path.isfile(filename):
+        raise TypeError('Not a file: %s' % filename)
+    extension = can_read(filename).group(1)
 
     with open(filename) as fp:
         head_fp, body_fp = header.split(fp)
-
-    try:
-        data.update(yaml.load(head_fp) or {})
-    except yaml.scanner.ScannerError:
-        logger.warning('Invalid YAML data at %s' % filename)
-    data['body'] = formats.formats[extension](body_fp)
+        try:
+            data = yaml.load(head_fp) or {}
+        except yaml.scanner.ScannerError:
+            logger.warning('Invalid YAML data at %s' % filename)
+        data['body'] = formats.formats[extension](body_fp)
     
     if not set(data).issubset(FIELDS):
         raise ValueError('Bad fields: %s' % list(sorted(data)))
     for k, v in FIELDS.items():
-        if not isinstance(data[k], v):
+        if k in data and not isinstance(data[k], v):
             raise ValueError('%s field has bad type: %s' % (k, v))
 
     return data
