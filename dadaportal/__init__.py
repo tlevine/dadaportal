@@ -3,7 +3,6 @@ import logging
 import enum
 import json
 from collections import Counter
-import shelve
 
 from . import read, render
 
@@ -25,7 +24,6 @@ def build(src, recursive:bool=False):
         logger.warning('No appropriate configuration was found.')
 
 def _build(src, root, dest, recursive):
-    index = shelve.open(os.path.join(root, '.index'))
     for srcfile, can_parse in _read(src, recursive):
         url = os.path.relpath(srcfile, root)
         destfile = os.path.join(dest, url)
@@ -36,11 +34,8 @@ def _build(src, root, dest, recursive):
                 y = f(data['title'], data['description'], data['body'])
                 with open(destfile, 'w') as fp:
                     fp.write(y)
-                if not data['secret']:
-                    index[url] = data['title']
             else:
                 shutil.copy(srcfile, destfile)
-    index.close()
 
 def _read(x, recursive):
     if not os.path.isdir(x):
