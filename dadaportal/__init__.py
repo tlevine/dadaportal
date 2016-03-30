@@ -45,7 +45,7 @@ def _build(src, root, dest, recursive, renderer):
                              data.get('description', ''),
                              data['body'])
                 os.makedirs(os.path.dirname(destfile), exist_ok=True)
-                with open(destfile, 'wb') as fp:
+                with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
                 shutil.copy(srcfile, destfile)

@@ -15,7 +15,7 @@ def html(title, description, body):
 
     x = lxml.html.fromstring(body.encode('utf-8'))
     y = html_utils.link_img(html_utils.link_headers(x))
-    body = lxml.html.tostring(y)
+    body = lxml.html.tostring(y).decode('utf-8')
 
     now = datetime.datetime.now()
 
@@ -27,7 +27,7 @@ def slides(title, description, body):
     tpl = ENV.get_template('big.html')
 
     x = lxml.html.fromstring(body.encode('utf-8'))
-    body = big_utils.subslides(x)
+    body = big_utils.subslides(x).decode('utf-8')
 
     return tpl.render(title=title, description=description, body=body)
 
