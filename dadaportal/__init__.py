@@ -6,6 +6,10 @@ from . import read, render
 
 logger = logging.getLogger(__name__)
 
+def dadaportal():
+    import horetu
+    horetu.horetu(build)
+
 def build(src, dest, recursive:bool=False):
     for srcfile, can_parse in _read(src, recursive):
         destfile = os.path.join(dest, os.path.relpath(srcfile, src))
