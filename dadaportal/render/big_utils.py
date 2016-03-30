@@ -8,13 +8,7 @@ SLIDE_TAGS = {'h2', 'h3', 'h4', 'h5', 'h6',
 
 WRAPPER_TAGS = {'div', 'a', 'p'}
 
-def guess_slides(body):
-    '''
-    Wrap slides around top-level elements.
-    '''
-    return _subslides(fromstring(body))
-
-def _subslides(element):
+def subslides(element):
     result = b''
 
     if element.tag in SLIDE_TAGS:
@@ -28,7 +22,7 @@ def _subslides(element):
 
     elif element.tag in WRAPPER_TAGS:
         for subelement in element.getchildren():
-            result += _subslides(subelement)
+            result += subslides(subelement)
 
     #   if element.tag == 'p':
     #       result += ('<notes>' + element.text_content() + '</notes>').encode('utf-8')

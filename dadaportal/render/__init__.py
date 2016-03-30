@@ -11,8 +11,8 @@ def html(title, description, body):
     return z
     raise NotImplementedError('Apply template.')
 
-def slides(*args):
-    raise NotImplementedError
+def slides(title, description, body):
+    x = big_utils.subslides(lxml.html.fromstring(body.encode('utf-8')))
 
 renderers = {
     'html': html,
