@@ -18,20 +18,29 @@ def build(src, recursive:bool=False):
 
     for spec in conf:
         if os.path.abspath(src).startswith(os.path.abspath(spec['root'])):
-            _build(src, spec['root'], spec['destination'], recursive)
+            _build(src, spec['root'], spec['destination'], recursive,
+                   render.renderers[spec['render']])
             break
     else:
         logger.warning('No appropriate configuration was found.')
 
-def _build(src, root, dest, recursive):
+def _build(src, root, dest, recursive, renderer):
     for srcfile, can_parse in _read(src, recursive):
         url = os.path.relpath(srcfile, root)
-        destfile = os.path.join(dest, url)
+        dirurl = os.path.dirname(url)
+
+        if can_parse:
+            destfile = os.path.join(dest, dirurl, 'index.html')
+        else:
+            destfile = os.path.join(dest, url)
+
         if not os.path.isfile(destfile) or \
             os.stat(destfile).st_mtime < os.stat(srcfile).st_mtime:
             if can_parse:
                 data = read.file(srcfile)
-                y = f(data['title'], data['description'], data['body'])
+                y = renderer(data.get('title', os.path.basename(dirurl)),
+                             data.get('description', ''),
+                             data['body'])
                 with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
