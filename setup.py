@@ -7,8 +7,14 @@ setup(name='dadaportal',
       url='http://dada.pink/dadaportal/',
       packages=['dadaportal'],
       install_requires = [
-          'PyYAML>=3.11',
           'horetu>=0.1.0',
+
+          'PyYAML>=3.11',
+          'lxml>=3.4.2',
+          'Jinja2>=2.8',
+
+          'docutils>=0.12',
+          'Markdown>=2.6.1'
       ],
       tests_require = [
           'pytest>=2.6.4',
