@@ -12,7 +12,9 @@ def html(title, description, body):
     raise NotImplementedError('Apply template.')
 
 def slides(title, description, body):
-    x = big_utils.subslides(lxml.html.fromstring(body.encode('utf-8')))
+    x = lxml.html.fromstring(body.encode('utf-8'))
+    y = big_utils.subslides(x)
+    return y
 
 renderers = {
     'html': html,
