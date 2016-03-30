@@ -1,5 +1,7 @@
+import os
 import logging
 import enum
+import json
 from collections import Counter
 
 from . import read, render
@@ -10,9 +12,15 @@ def dadaportal():
     import horetu
     horetu.horetu(build)
 
-def build(src, dest, recursive:bool=False):
+def build(src, recursive:bool=False):
+    with open('dadaportal.conf') as fp:
+        conf = json.load(fp)
+
+    root = conf['root']
+    dest = conf['destination']
+
     for srcfile, can_parse in _read(src, recursive):
-        destfile = os.path.join(dest, os.path.relpath(srcfile, src))
+        destfile = os.path.join(dest, os.path.relpath(srcfile, root))
         if os.path.isfile(destfile) and \
             os.stat(destfile).st_mtime > os.stat(srcfile).st_mtime:
             if can_parse:
@@ -39,7 +47,7 @@ I am processing neither.''' % x)
         for y in os.listdir(x):
             if os.path.isfile(y):
                 fn = os.path.join(x, y)
-                if z:
+                if read.can_read(fn):
                     yield fn, True
                     break
                 else:

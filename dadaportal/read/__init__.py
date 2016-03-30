@@ -16,16 +16,12 @@ FIELDS = {
     'secret': bool,
 }
 
+def can_read(x):
+    return re.match(INDEX, os.path.basename(x))
+
 def file(x):
     if not os.path.isfile(x):
         raise TypeError('Not a file: %s' % x)
-
-    bn = os.path.basename(x)
-    m = re.match(INDEX, bn)
-    if not m:
-        return None
-
-    m.group(1)
 
     with open(filename) as fp:
         head_fp, body_fp = header.split(fp)
