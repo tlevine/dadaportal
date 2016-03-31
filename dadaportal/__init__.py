@@ -45,9 +45,11 @@ def _build(src, root, dest, recursive, renderer, force):
             os.makedirs(os.path.dirname(destfile), exist_ok=True)
             if can_parse:
                 data = read.file(srcfile)
-                y = renderer(data.get('title', os.path.basename(dirurl)),
+                slug = os.path.basename(dirurl)
+                slides_url = os.path.join('..', slug)
+                y = renderer(data.get('title', slug),
                              data.get('description', ''),
-                             data['body'])
+                             data['body'], slides_url=slides_url)
                 with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
