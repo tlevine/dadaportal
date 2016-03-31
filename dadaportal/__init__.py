@@ -20,10 +20,9 @@ def build(src, recursive:bool=False, force:bool=False):
     for spec in conf:
         thisroot = os.path.abspath(spec['root'])
         mainroot = os.path.abspath('.')
-        if not os.path.relpath(spec['destination'], spec['root']).startswith('.'):
-            raise ValueError('If the destination is inside the root, it must be hidden (dotfile).')
+        dest = os.path.join('.output', os.path.relpath(thisroot, '.'))
         if os.path.abspath(src).startswith(thisroot):
-            _build(src, thisroot, spec['destination'], recursive,
+            _build(src, thisroot, dest, recursive,
                    render.renderers[spec['render']], force,
                    spec.get('include-footer', False))
             break
