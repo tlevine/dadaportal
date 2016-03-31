@@ -28,9 +28,11 @@ def file(filename):
     with open(filename) as fp:
         head_fp, body_fp = header.split(fp)
         try:
-            data = yaml.load(head_fp) or {}
+            data = yaml.load(head_fp)
         except yaml.scanner.ScannerError:
             logger.warning('Invalid YAML data at %s' % filename)
+        if not isinstance(data, dict):
+            data = {}
         data['body'] = formats.formats[extension](body_fp)
     
     if not set(data).issubset(FIELDS):
