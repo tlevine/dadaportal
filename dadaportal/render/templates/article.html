@@ -3,6 +3,7 @@
 <article>
   {{body|safe}}
 </article>
+{% if slug != '' %}
 <footer>
     Last modified <time datetime="{{ modified_c }}">{{ modified }}</time>
     {#
@@ -11,4 +12,5 @@
     #}
     &bull; <a href="/s/{{ slug }}/">Slides</a>
 </footer>
+{% endif %}
 {% endblock %}

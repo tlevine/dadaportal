@@ -18,11 +18,12 @@ def build(src, recursive:bool=False, force:bool=False):
         conf = json.load(fp)
 
     for spec in conf:
-        root = os.path.abspath(spec['root'])
+        thisroot = os.path.abspath(spec['root'])
+        mainroot = os.path.abspath('.')
         if not os.path.relpath(spec['destination'], spec['root']).startswith('.'):
             raise ValueError('If the destination is inside the root, it must be hidden (dotfile).')
-        if os.path.abspath(src).startswith(root):
-            _build(src, root, spec['destination'], recursive,
+        if os.path.abspath(src).startswith(thisroot):
+            _build(src, mainroot, spec['destination'], recursive,
                    render.renderers[spec['render']], force)
             break
     else:
@@ -48,7 +49,8 @@ def _build(src, root, dest, recursive, renderer, force):
                 slug = os.path.basename(dirurl)
                 y = renderer(data.get('title', slug),
                              data.get('description', ''),
-                             data['body'], slug)
+                             data['body'],
+                             slug if url.startswith('!/') else None)
                 with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
@@ -57,7 +59,7 @@ def _build(src, root, dest, recursive, renderer, force):
 def _read(x, recursive):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
-    if os.path.basename(x).startswith('.'):
+    if os.path.basename(os.path.abspath(x)).startswith('.'):
         raise StopIteration
 
     if recursive:
