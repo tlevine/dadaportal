@@ -56,14 +56,15 @@ def _build(src, root, dest, recursive, renderer, force):
 def _read(x, recursive):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
-    if x.startswith('.'):
+    if os.path.basename(x).startswith('.'):
         raise StopIteration
 
     if recursive:
         for y in os.listdir(x):
-            if os.path.isdir(y):
-                yield from _read(os.path.abspath(os.path.join(x, y)),
-                                 recursive)
+            z = os.path.abspath(os.path.join(x, y))
+            if os.path.isdir(z):
+                yield from _read(z, recursive)
+
     n = _n_index_files(x)
     if n > 1:
         logger.warn('''Multiple index files are in the directory "%s".
