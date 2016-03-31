@@ -24,12 +24,13 @@ def build(src, recursive:bool=False, force:bool=False):
             raise ValueError('If the destination is inside the root, it must be hidden (dotfile).')
         if os.path.abspath(src).startswith(thisroot):
             _build(src, thisroot, spec['destination'], recursive,
-                   render.renderers[spec['render']], force)
+                   render.renderers[spec['render']], force,
+                   spec.get('include-footer', False))
             break
     else:
         logger.warning('No appropriate configuration was found.')
 
-def _build(src, root, dest, recursive, renderer, force):
+def _build(src, root, dest, recursive, renderer, force, include_footer):
     for srcfile, can_parse in _read(src, recursive):
         url = os.path.relpath(srcfile, root)
         dirurl = os.path.dirname(url)
@@ -49,8 +50,7 @@ def _build(src, root, dest, recursive, renderer, force):
                 slug = os.path.basename(dirurl)
                 y = renderer(data.get('title', slug),
                              data.get('description', ''),
-                             data['body'],
-                             slug if url.startswith('!/') else None)
+                             data['body'], slug, include_footer)
                 with open(destfile, 'w') as fp:
                     fp.write(y)
             else:
