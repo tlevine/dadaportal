@@ -14,7 +14,7 @@ from jinja2 import FileSystemLoader, Environment
 TEMPLATE_DIR = os.path.abspath(os.path.join(__file__, '..', 'templates'))
 ENV = Environment(loader = FileSystemLoader(TEMPLATE_DIR))
 
-extensions = '|'.join(formats.formats)
+extensions = '|'.join(formats.formats).replace('+', '\\+')
 INDEX = re.compile(r'^index\.(%s)$' % extensions, flags=re.IGNORECASE)
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ def file(filename):
                     explicit_data)
     
     if not set(data).issubset(FIELDS):
-        logger.warn('Bad fields in %s' % filename)
+        logger.info('Ignoring some fields in %s' % filename)
     for k, v in FIELDS.items():
         if k in data and not isinstance(data[k], v):
             raise ValueError('%s field has bad type: %s' % (k, v))

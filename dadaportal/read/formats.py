@@ -22,8 +22,8 @@ def read(fp):
 formats = {
     'mdwn': md,
     'md': md,
-    'mdwn\\+': md_plus,
-    'md\\+': md_plus,
+    'mdwn+': md_plus,
+    'md+': md_plus,
     'rst': rst,
     'txt': read,
     'html': read,
