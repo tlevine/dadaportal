@@ -27,7 +27,7 @@ def html(title, description, body, include_footer):
 def slides(title, description, body):
     tpl = ENV.get_template('slides.html')
 
-    x = lxml.html.fromstring(body.encode('utf-8'))
+    x = fromutf8(body.encode('utf-8'))
     body = big_utils.subslides(x).decode('utf-8')
 
     return tpl.render(title=title, description=description, body=body)
