@@ -2,7 +2,6 @@ import os
 import datetime
 
 import lxml.html
-import jinja2
 
 from jinja2 import FileSystemLoader, Environment
 from . import html_utils, big_utils

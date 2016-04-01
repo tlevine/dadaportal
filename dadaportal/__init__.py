@@ -34,19 +34,28 @@ def _build(src, root, dest, recursive, renderer, force, include_footer):
         url = os.path.relpath(srcfile, root)
         dirurl = os.path.dirname(url)
 
-        if can_parse:
-            destfile = os.path.join(dest, dirurl, 'index.html')
+        if os.path.isdir(srcfile):
+            destfile = os.path.join(dest, url, 'index.html')
+            modified = None
         else:
-            destfile = os.path.join(dest, url)
+            if can_parse:
+                destfile = os.path.join(dest, dirurl, 'index.html')
+            else:
+                destfile = os.path.join(dest, url)
+            modified = os.stat(srcfile).st_mtime
 
-        modified = os.stat(srcfile).st_mtime
-        if force or not os.path.isfile(destfile) or \
+        if force or not modified or \
+            not os.path.isfile(destfile) or \
             os.stat(destfile).st_mtime < modified:
 
             os.makedirs(os.path.dirname(destfile), exist_ok=True)
             if can_parse:
-                data = read.file(srcfile)
-                slug = os.path.basename(dirurl)
+                if os.path.isdir(srcfile):
+                    data = read.directory(srcfile)
+                    slug = os.path.basename(url)
+                else:
+                    data = read.file(srcfile)
+                    slug = os.path.basename(dirurl)
                 y = renderer(data.get('title', slug),
                              data.get('description', ''),
                              data['body'], slug, include_footer)
@@ -68,7 +77,9 @@ def _read(x, recursive):
                 yield from _read(z, recursive)
 
     n = _n_index_files(x)
-    if n > 1:
+    if n == 0:
+        yield x, True
+    elif n > 1:
         logger.warn('''Multiple index files are in the directory "%s".
 I am processing neither.''' % x)
     else:

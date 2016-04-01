@@ -6,6 +6,11 @@ import logging
 
 from . import header, formats
 
+from jinja2 import FileSystemLoader, Environment
+
+TEMPLATE_DIR = os.path.abspath(os.path.join(__file__, '..', 'templates'))
+ENV = Environment(loader = FileSystemLoader(TEMPLATE_DIR))
+
 extensions = '|'.join(formats.formats)
 INDEX = re.compile(r'^index\.(%s)$' % extensions, flags=re.IGNORECASE)
 logger = logging.getLogger(__name__)
@@ -42,3 +47,11 @@ def file(filename):
             raise ValueError('%s field has bad type: %s' % (k, v))
 
     return data
+
+def directory(x):
+    tpl = ENV.get_template('directory.html')
+    return {
+        'title': os.path.basename(x),
+        'description': '',
+        'body': tpl.render(items = sorted(os.listdir(x))),
+    }
