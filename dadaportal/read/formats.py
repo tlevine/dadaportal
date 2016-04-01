@@ -13,7 +13,10 @@ def md(fp):
     return markdown.markdown(fp.read())
 
 def md_plus(fp):
-    parser = markdown.Markdown(extensions = ['markdown.extensions.tables'])
+    parser = markdown.Markdown(extensions = [
+        'markdown.extensions.tables',
+        'markdown.extensions.attr_list',
+    ])
     return parser.convert(fp.read())
 
 def read(fp):
