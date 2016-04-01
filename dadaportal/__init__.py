@@ -14,20 +14,20 @@ def dadaportal():
     horetu.horetu({'build': build, 'index': index})
 
 def index(src):
-    tpl = read.ENV.get_template('directory.html')
+    tpl = render.ENV.get_template('directory.md')
     body = tpl.render(items = _index(src))
-    with open(os.path.join(src, 'index.html'), 'w') as fp:
+    with open(os.path.join(src, 'index.md'), 'w') as fp:
         fp.write(body)
 
 def _index(src):
-    for x in os.listdir(src):
+    for x in sorted(os.listdir(src)):
         y = os.path.join(src, x)
         if os.path.isdir(y):
             for srcfile, can_parse in _read(y, False):
                 if can_parse and os.path.isfile(srcfile):
                     data = read.file(srcfile)
                     if 'title' in data and not data.get('secret', False):
-                        yield x, data['title']
+                        yield data['title'], x
 
 def build(src, recursive:bool=False, force:bool=False):
     with open('.dadaportal.conf') as fp:
