@@ -35,7 +35,7 @@ def build(src, recursive:bool=False, force:bool=False):
     bang = os.path.join(root, '!') + '/'
     dest = os.path.join(wd, 'output')
     for srcfile, can_parse in _read(src, recursive):
-        include_footer = srcfile.startswith(bang)
+        include_footer = os.path.abspath(srcfile).startswith(bang)
         url = os.path.relpath(srcfile, root)
         dirurl = os.path.dirname(url)
 
