@@ -11,7 +11,13 @@ logger = logging.getLogger(__name__)
 
 def dadaportal():
     import horetu
-    horetu.horetu(build)
+    horetu.horetu([build, index])
+
+def index(src):
+    for srcfile, can_parse in _read(src, False):
+        if can_parse:
+            data = read.file(srcfile)
+            print(data)
 
 def build(src, recursive:bool=False, force:bool=False):
     with open('.dadaportal.conf') as fp:
