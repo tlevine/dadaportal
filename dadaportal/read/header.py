@@ -1,6 +1,8 @@
 import re
 import io
 
+from ..util import fromutf8
+
 def split(body_fp):
     head_fp = io.StringIO()
     for line in body_fp:
@@ -23,7 +25,7 @@ def split(body_fp):
 
 def from_html(body):
     try:
-        html = lxml.html.fromstring(body)
+        html = fromutf8(body)
     except lxml.etree.XMLSyntaxError:
         logger.debug('%s is not XML (It might be text.)' % path)
     else:

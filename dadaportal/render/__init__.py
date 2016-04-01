@@ -5,6 +5,7 @@ import lxml.html
 
 from jinja2 import FileSystemLoader, Environment
 from . import html_utils, big_utils
+from ..util import fromutf8
 
 TEMPLATE_DIR = os.path.abspath(os.path.join(__file__, '..', 'templates'))
 ENV = Environment(loader = FileSystemLoader(TEMPLATE_DIR))
@@ -12,7 +13,7 @@ ENV = Environment(loader = FileSystemLoader(TEMPLATE_DIR))
 def html(title, description, body, include_footer):
     tpl = ENV.get_template('article.html')
 
-    x = lxml.html.fromstring(body.encode('latin1'))
+    x = fromutf8(body)
     y = html_utils.link_img(html_utils.link_headers(x))
     body = lxml.html.tostring(y, encoding='utf-8').decode('utf-8')
 
