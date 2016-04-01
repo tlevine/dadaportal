@@ -41,7 +41,7 @@ def file(filename):
         data['body'] = formats.formats[extension](body_fp)
     
     if not set(data).issubset(FIELDS):
-        logger.warn('Bad fields: %s' % list(sorted(data)))
+        logger.warn('Bad fields in %s' % filename)
     for k, v in FIELDS.items():
         if k in data and not isinstance(data[k], v):
             raise ValueError('%s field has bad type: %s' % (k, v))

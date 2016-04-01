@@ -66,12 +66,16 @@ def _build(src, root, dest, recursive, renderer, force, include_footer):
 
             os.makedirs(os.path.dirname(destfile), exist_ok=True)
             if can_parse:
-                if os.path.isdir(srcfile):
-                    data = read.directory(srcfile)
-                    slug = os.path.basename(url)
-                else:
-                    data = read.file(srcfile)
-                    slug = os.path.basename(dirurl)
+                try:
+                    if os.path.isdir(srcfile):
+                        data = read.directory(srcfile)
+                        slug = os.path.basename(url)
+                    else:
+                        data = read.file(srcfile)
+                        slug = os.path.basename(dirurl)
+                except Exception as e:
+                    logger.traceback('Error processing %s' % fn)
+                    continue
                 y = renderer(data.get('title', slug),
                              data.get('description', ''),
                              data['body'], slug, include_footer)
