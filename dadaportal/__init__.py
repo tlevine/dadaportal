@@ -87,7 +87,10 @@ def build(src, recursive:bool=False, force:bool=False):
 def _read(x, recursive):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
-    if os.path.basename(os.path.abspath(x)).startswith('.'):
+    bn = os.path.basename(os.path.abspath(x))
+    if bn == 'slides':
+        raise ValueError('Directory may not be named "slides".')
+    if bn.startswith('.'):
         raise StopIteration
 
     if recursive:
