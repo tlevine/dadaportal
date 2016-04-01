@@ -26,5 +26,5 @@ def from_html(html):
     for key, tag in [('title', 'h1'), ('description', 'p')]:
         tags = html.xpath('//' + tag)
         if len(tags) > 0:
-            data[key] = tags[0].text_content()
+            data[key] = tags[0].xpath('string()')[0]
     return data

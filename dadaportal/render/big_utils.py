@@ -24,6 +24,4 @@ def subslides(element):
         for subelement in element.getchildren():
             result += subslides(subelement)
 
-    #   if element.tag == 'p':
-    #       result += ('<notes>' + element.text_content() + '</notes>').encode('utf-8')
     return result

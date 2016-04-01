@@ -40,12 +40,11 @@ def file(filename):
             explicit_data = yaml.load(head_fp)
         except yaml.scanner.ScannerError:
             logger.warning('Invalid YAML data at %s' % filename)
-        if isinstance(explicit_data, dict):
-            explicit_data.update(explicit_data)
+            explicit_data = {}
         explicit_data['body'] = formats.formats[extension](body_fp)
 
     data = ChainMap(header.from_html(fromutf8(explicit_data['body'])),
-                    expicit_data)
+                    explicit_data)
     
     if not set(data).issubset(FIELDS):
         logger.warn('Bad fields in %s' % filename)
