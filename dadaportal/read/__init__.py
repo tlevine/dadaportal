@@ -31,7 +31,7 @@ def can_read(x):
 def file(filename):
     if not os.path.isfile(filename):
         raise TypeError('Not a file: %s' % filename)
-    extension = can_read(filename).group(1)
+    extension = can_read(os.path.basename(filename)).group(1)
 
     with open(filename) as fp:
         head_fp, body_fp = header.split(fp)
@@ -41,6 +41,9 @@ def file(filename):
         except yaml.scanner.ScannerError:
             logger.warning('Invalid YAML data at %s' % filename)
             explicit_data = {}
+        else:
+            if not isinstance(explicit_data, dict):
+                explicit_data = {}
         explicit_data['body'] = formats.formats[extension](body_fp)
 
     data = ChainMap(header.from_html(fromutf8(explicit_data['body'])),
