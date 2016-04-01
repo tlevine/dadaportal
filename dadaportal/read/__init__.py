@@ -3,8 +3,11 @@ import json
 import os
 import re
 import logging
+import io
 
+from collections import ChainMap
 from . import header, formats
+from ..util import fromutf8
 
 from jinja2 import FileSystemLoader, Environment
 
@@ -32,13 +35,17 @@ def file(filename):
 
     with open(filename) as fp:
         head_fp, body_fp = header.split(fp)
+
         try:
-            data = yaml.load(head_fp)
+            explicit_data = yaml.load(head_fp)
         except yaml.scanner.ScannerError:
             logger.warning('Invalid YAML data at %s' % filename)
-        if not isinstance(data, dict):
-            data = {}
-        data['body'] = formats.formats[extension](body_fp)
+        if isinstance(explicit_data, dict):
+            explicit_data.update(explicit_data)
+        explicit_data['body'] = formats.formats[extension](body_fp)
+
+    data = ChainMap(header.from_html(fromutf8(explicit_data['body'])),
+                    expicit_data)
     
     if not set(data).issubset(FIELDS):
         logger.warn('Bad fields in %s' % filename)

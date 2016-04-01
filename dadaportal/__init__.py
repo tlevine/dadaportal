@@ -63,7 +63,7 @@ def build(src, recursive:bool=False, force:bool=False):
                         data = read.file(srcfile)
                         slug = os.path.basename(dirurl)
                 except Exception as e:
-                    logger.traceback('Error processing %s' % fn)
+                    logger.exception('Error processing %s' % srcfile)
                     continue
                 y = render.html(data.get('title', slug),
                                 data.get('description', ''),
