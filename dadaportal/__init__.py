@@ -44,7 +44,7 @@ def _build(src, root, dest, recursive, renderer, force, include_footer):
                 destfile = os.path.join(dest, url)
             modified = os.stat(srcfile).st_mtime
 
-        if force or not modified or \
+        if force or modified == None or \
             not os.path.isfile(destfile) or \
             os.stat(destfile).st_mtime < modified:
 
@@ -79,7 +79,8 @@ def _read(x, recursive):
     n = _n_index_files(x)
     if n == 0:
         yield x, True
-    elif n > 1:
+
+    if n > 1:
         logger.warn('''Multiple index files are in the directory "%s".
 I am processing neither.''' % x)
     else:
