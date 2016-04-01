@@ -30,23 +30,12 @@ def _index(src):
                         yield data['title'], x
 
 def build(src, recursive:bool=False, force:bool=False):
-    with open('.dadaportal.conf') as fp:
-        conf = json.load(fp)
-
-    for spec in conf:
-        thisroot = os.path.abspath(spec['root'])
-        mainroot = os.path.abspath('.')
-        dest = os.path.join('.output', os.path.relpath(thisroot, '.'))
-        if os.path.abspath(src).startswith(thisroot):
-            _build(src, thisroot, dest, recursive,
-                   render.renderers[spec['render']], force,
-                   spec.get('include-footer', False))
-            break
-    else:
-        logger.warning('No appropriate configuration was found.')
-
-def _build(src, root, dest, recursive, renderer, force, include_footer):
+    wd = os.path.abspath(os.path.join(__file__, '..', '..'))
+    root = os.path.join(wd, 'canonical-articles')
+    bang = os.path.join(root, '!') + '/'
+    dest = os.path.join(wd, 'output')
     for srcfile, can_parse in _read(src, recursive):
+        include_footer = srcfile.startswith(bang)
         url = os.path.relpath(srcfile, root)
         dirurl = os.path.dirname(url)
 
@@ -76,11 +65,22 @@ def _build(src, root, dest, recursive, renderer, force, include_footer):
                 except Exception as e:
                     logger.traceback('Error processing %s' % fn)
                     continue
-                y = renderer(data.get('title', slug),
-                             data.get('description', ''),
-                             data['body'], slug, include_footer)
+                y = render.html(data.get('title', slug),
+                                data.get('description', ''),
+                                data['body'], include_footer)
                 with open(destfile, 'w') as fp:
                     fp.write(y)
+
+                if include_footer:
+                    y = render.slides(data.get('title', slug),
+                                      data.get('description', ''),
+                                      data['body'])
+
+                slides = os.path.join(os.path.dirname(destfile), 'slides')
+                os.makedirs(slides, exist_ok=True)
+                with open(os.path.join(slides, 'index.html'), 'w') as fp:
+                    fp.write(y)
+
             else:
                 shutil.copy(srcfile, destfile)
 
