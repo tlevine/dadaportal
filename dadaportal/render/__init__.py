@@ -12,9 +12,9 @@ ENV = Environment(loader = FileSystemLoader(TEMPLATE_DIR))
 def html(title, description, body, slug, include_footer):
     tpl = ENV.get_template('article.html')
 
-    x = lxml.html.fromstring(body.encode('utf-8'))
+    x = lxml.html.fromstring(body.encode('latin1'))
     y = html_utils.link_img(html_utils.link_headers(x))
-    body = lxml.html.tostring(y).decode('utf-8')
+    body = lxml.html.tostring(y, encoding='utf-8').decode('utf-8')
 
     now = datetime.datetime.now()
 
