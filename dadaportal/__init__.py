@@ -26,7 +26,7 @@ def _index(src):
             for srcfile, can_parse in _read(y, False):
                 if can_parse and os.path.isfile(srcfile):
                     data = read.file(srcfile)
-                    if 'title' in data and not data.get('secret', False):
+                    if 'title' in data and data.get('publish', False):
                         yield data['title'], x
 
 def build(src, recursive:bool=False, force:bool=False):

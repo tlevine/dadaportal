@@ -19,7 +19,7 @@ FIELDS = {
     'title': str,
     'description': str,
     'body': str,
-    'secret': bool,
+    'publish': bool,
 }
 
 def can_read(x):
