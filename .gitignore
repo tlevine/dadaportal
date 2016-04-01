@@ -1,4 +1,1 @@
-.static-compiled
-.secrets
-*.log
-.whoosh-index
+output
