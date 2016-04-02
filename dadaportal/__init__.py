@@ -3,13 +3,17 @@ import logging
 import enum
 import json
 from collections import Counter
+import shutil
+
+from . import read, render
 
 try:
     from PIL import Image
 except ImportError:
-    import shutil
-
-from . import read, render
+    def _can_resize(x):
+        return False
+else:
+    _can_resize = render.can_resize
 
 logger = logging.getLogger(__name__)
 
@@ -85,14 +89,12 @@ def build(src, recursive:bool=False, force:bool=False):
                 with open(os.path.join(slides, 'index.html'), 'w') as fp:
                     fp.write(y)
 
+            elif _can_resize(srcfile):
+                i = Image.open(srcfile)
+                i = render.image(i)
+                i.save(destfile)
             else:
-                try:
-                    i = Image.open(srcfile)
-                except NameError:
-                    shutil.copy(srcfile, destfile)
-                else:
-                    i = render.image(i)
-                    i.save(destfile)
+                shutil.copy(srcfile, destfile)
 
 def _read(x, recursive):
     if not os.path.isdir(x):

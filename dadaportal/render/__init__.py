@@ -1,5 +1,6 @@
 import os
 import datetime
+import re
 
 import lxml.html
 
@@ -39,6 +40,9 @@ def image(i):
     else:
         ratio = min(500/height, 1)
     return i.resize(height*ratio, width*ratio)
+
+def can_resize(fn):
+    return re.match(r'.*(?:png|jpg|jpeg)$', fn)
 
 renderers = {
     'html': html,
