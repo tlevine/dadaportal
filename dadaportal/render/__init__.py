@@ -32,6 +32,14 @@ def slides(title, description, body):
 
     return tpl.render(title=title, description=description, body=body)
 
+def image(i):
+    height, width = i.size 
+    if width*9/16 >= height:
+        ratio = min(900/width, 1)
+    else:
+        ratio = min(500/height, 1)
+    return i.resize(height*ratio, width*ratio)
+
 renderers = {
     'html': html,
     'slides': slides,

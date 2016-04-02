@@ -3,7 +3,11 @@ import logging
 import enum
 import json
 from collections import Counter
-import shutil
+
+try:
+    from PIL import Image
+except ImportError:
+    import shutil
 
 from . import read, render
 
@@ -82,7 +86,13 @@ def build(src, recursive:bool=False, force:bool=False):
                     fp.write(y)
 
             else:
-                shutil.copy(srcfile, destfile)
+                try:
+                    i = Image.open(srcfile)
+                except NameError:
+                    shutil.copy(srcfile, destfile)
+                else:
+                    i = render.image(i)
+                    i.save(destfile)
 
 def _read(x, recursive):
     if not os.path.isdir(x):
