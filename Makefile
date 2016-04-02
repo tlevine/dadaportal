@@ -4,4 +4,4 @@ output:
 	dadaportal build canonical-articles --recursive
 
 deploy: output
-	rsync -asHSz output/ dadaportal:
+	rsync --delete -asHSz output/ dadaportal:
