@@ -39,7 +39,7 @@ def image(i):
         ratio = min(900/width, 1)
     else:
         ratio = min(500/height, 1)
-    return i.resize(height*ratio, width*ratio)
+    return i.resize((int(height*ratio), int(width*ratio)))
 
 def can_resize(fn):
     return re.match(r'.*(?:png|jpg|jpeg)$', fn)
