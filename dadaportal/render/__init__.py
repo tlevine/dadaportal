@@ -35,10 +35,11 @@ def slides(title, description, body):
 
 def image(i):
     height, width = i.size 
-    if width*9/16 >= height:
-        ratio = min(900/width, 1)
-    else:
-        ratio = min(500/height, 1)
+#   if width*9/16 >= height:
+#       ratio = min(900/width, 1)
+#   else:
+#       ratio = min(500/height, 1)
+    ratio = min(900/width, 1)
     return i.resize((int(height*ratio), int(width*ratio)))
 
 def can_resize(fn):
