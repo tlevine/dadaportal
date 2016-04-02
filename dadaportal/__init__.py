@@ -84,9 +84,8 @@ def build(src, recursive:bool=False, force:bool=False):
                                       data.get('description', ''),
                                       data['body'])
 
-                slides = os.path.join(os.path.dirname(destfile), 'slides')
-                os.makedirs(slides, exist_ok=True)
-                with open(os.path.join(slides, 'index.html'), 'w') as fp:
+                fn = os.path.join(os.path.dirname(destfile), 'slides.html')
+                with open(os.path.join(fn), 'w') as fp:
                     fp.write(y)
 
             elif _can_resize(srcfile):
@@ -100,8 +99,8 @@ def _read(x, recursive):
     if not os.path.isdir(x):
         raise TypeError('Not a directory: %s' % x)
     bn = os.path.basename(os.path.abspath(x))
-    if bn == 'slides':
-        raise ValueError('Directory may not be named "slides".')
+    if bn == 'slides.html':
+        raise ValueError('Directory may not be named "slides.html".')
     if bn.startswith('.'):
         raise StopIteration
 
